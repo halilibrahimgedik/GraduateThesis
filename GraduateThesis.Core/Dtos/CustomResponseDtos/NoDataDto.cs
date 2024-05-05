@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GraduateThesis.Core.Dtos
+namespace GraduateThesis.Core.Dtos.CustomResponseDtos
 {
     public class NoDataDto
     {

@@ -1,4 +1,4 @@
-﻿using GraduateThesis.Core.Dtos;
+﻿using GraduateThesis.Core.Dtos.CustomResponseDtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

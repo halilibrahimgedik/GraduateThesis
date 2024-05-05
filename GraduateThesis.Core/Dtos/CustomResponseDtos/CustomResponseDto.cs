@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace GraduateThesis.Core.Dtos
+namespace GraduateThesis.Core.Dtos.CustomResponseDtos
 {
     public class CustomResponseDto<T>
     {

@@ -1,4 +1,4 @@
-﻿using GraduateThesis.Core.Dtos;
+﻿using GraduateThesis.Core.Dtos.CustomResponseDtos;
 using GraduateThesis.Core.Models;
 using System;
 using System.Collections.Generic;

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using GraduateThesis.Core.Dtos;
+using GraduateThesis.Core.Dtos.CustomResponseDtos;
 using GraduateThesis.Core.Models;
 using GraduateThesis.Core.Repositories;
 using GraduateThesis.Core.Services;
