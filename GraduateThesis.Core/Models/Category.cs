@@ -10,6 +10,6 @@ namespace GraduateThesis.Core.Models
     {
         public string CategoryName { get; set; }
 
-        public ICollection<ClubCategory>? ClubCategories { get; set; }
+        public ICollection<ClubCategory>? ClubCategories { get; set; } = new List<ClubCategory>();
     }
 }

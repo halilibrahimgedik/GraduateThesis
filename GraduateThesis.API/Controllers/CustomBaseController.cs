@@ -8,7 +8,7 @@ namespace GraduateThesis.API.Controllers
     [ApiController]
     public class CustomBaseController : ControllerBase
     {
-        
+        [NonAction]
         public IActionResult CreateAction<T>(CustomResponseDto<T> response)
         {
             if (response.StatusCode == 204)

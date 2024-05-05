@@ -20,10 +20,6 @@ namespace GraduateThesis.Repository.Repositories
             _dbSet = _dbContext.Set<T>();
         }
 
-        public GenericRepository()
-        {
-            
-        }
 
         public async Task AddAsync(T entity)
         {

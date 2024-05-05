@@ -11,7 +11,7 @@ namespace GraduateThesis.Core.Dtos.CategoryDtos
     public class CategoryDto : BaseDto
     {
         public string CategoryName { get; set; }
-
-        public ICollection<ClubDto>? Clubs { get; set; }
     }
+
+
 }

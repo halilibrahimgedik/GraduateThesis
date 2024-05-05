@@ -1,12 +1,13 @@
-﻿using System;
+﻿using GraduateThesis.Core.Dtos.CategoryDtos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GraduateThesis.Core.Models
+namespace GraduateThesis.Core.Dtos.ClubDtos
 {
-    public class Club : BaseEntity
+    public class ClubWithCategoryDto :BaseDto
     {
         public string ClubName { get; set; }
 
@@ -16,6 +17,6 @@ namespace GraduateThesis.Core.Models
 
         public bool IsClubActive { get; set; } = true;
 
-        public ICollection<ClubCategory> ClubCategories { get; set; } = new List<ClubCategory>();
+        public List<CategoryDto> Categories { get; set; }
     }
 }

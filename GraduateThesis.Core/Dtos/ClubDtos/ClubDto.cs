@@ -17,7 +17,5 @@ namespace GraduateThesis.Core.Dtos.ClubDtos
         public string ClubPhoto { get; set; }
 
         public bool IsClubActive { get; set; } = true;
-
-        public ICollection<CategoryDto> Categories { get; set; }
     }
 }

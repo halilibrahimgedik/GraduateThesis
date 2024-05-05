@@ -1,7 +1,9 @@
 using GraduateThesis.Core.Repositories;
 using GraduateThesis.Core.Services;
+using GraduateThesis.Core.UnitOfWork;
 using GraduateThesis.Repository;
 using GraduateThesis.Repository.Repositories;
+using GraduateThesis.Repository.UnitOfWork;
 using GraduateThesis.Service.Mapping;
 using GraduateThesis.Service.Services;
 using Microsoft.EntityFrameworkCore;
@@ -32,6 +34,7 @@ builder.Services.AddAutoMapper(typeof(MapProfile));
 // ! IOC
 builder.Services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
 builder.Services.AddScoped(typeof(IGenericService<,>),typeof(GenericService<,>));
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddScoped<IClubRepository, ClubRepository>();
 builder.Services.AddScoped<IClubService,ClubService>();
