@@ -18,8 +18,8 @@ namespace GraduateThesis.Service.Services
     public class GenericService<T, Dto> : IGenericService<T, Dto> where T : BaseEntity where Dto : class
     {
         private readonly IGenericRepository<T> _genericRepository;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
+        protected readonly IUnitOfWork _unitOfWork;
+        protected readonly IMapper _mapper;
         public GenericService(IGenericRepository<T> genericRepository, IMapper mapper, IUnitOfWork unitOfWork)
         {
             _genericRepository = genericRepository;

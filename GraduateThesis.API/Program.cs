@@ -29,8 +29,18 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // ! AutoMapper
 builder.Services.AddAutoMapper(typeof(MapProfile));
 
+// ! IOC
 builder.Services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
 builder.Services.AddScoped(typeof(IGenericService<,>),typeof(GenericService<,>));
+
+builder.Services.AddScoped<IClubRepository, ClubRepository>();
+builder.Services.AddScoped<IClubService,ClubService>();
+
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+
+builder.Services.AddScoped<IUniversityRepository, UniversityRepository>();
+builder.Services.AddScoped<IUniversityService, UniversityService>();
 
 
 var app = builder.Build();
