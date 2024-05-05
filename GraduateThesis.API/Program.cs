@@ -1,7 +1,9 @@
 using GraduateThesis.Core.Repositories;
+using GraduateThesis.Core.Services;
 using GraduateThesis.Repository;
 using GraduateThesis.Repository.Repositories;
 using GraduateThesis.Service.Mapping;
+using GraduateThesis.Service.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -28,6 +30,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddAutoMapper(typeof(MapProfile));
 
 builder.Services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
+builder.Services.AddScoped(typeof(IGenericService<,>),typeof(GenericService<,>));
 
 
 var app = builder.Build();

@@ -18,8 +18,4 @@
     <ProjectReference Include="..\GraduateThesis.Service\GraduateThesis.Service.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>
