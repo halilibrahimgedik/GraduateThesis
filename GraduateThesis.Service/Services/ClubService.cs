@@ -91,13 +91,15 @@ namespace GraduateThesis.Service.Services
         {
             var entity = await _clubRepository.GetClubByIdWithCategories(dto.Id);
 
-            if(dto.CategoryIds.Count > 0)
+            _mapper.Map(dto, entity);
+
+            if (dto.CategoryIds.Count > 0)
             {
                 foreach (var categoryId in dto.CategoryIds)
                 {
                     if (!entity.ClubCategories.Any(cc => cc.CategoryId == categoryId))
                     {
-                        entity.ClubCategories.Add(new ClubCategory { CategoryId = categoryId });
+                        entity.ClubCategories.Add(new ClubCategory { CategoryId = categoryId, ClubId = entity.Id });
                     }
                 }
 

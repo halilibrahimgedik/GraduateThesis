@@ -22,6 +22,8 @@ namespace GraduateThesis.Service.Mapping
             CreateMap<Club, ClubWitCategoryIdsDto>()
             .ForMember(dest => dest.Categories, opt => opt.MapFrom(src => src.ClubCategories.Select(cc => cc.CategoryId).ToList()));
 
+            CreateMap<UpdateClubDto, Club>();
+
             CreateMap<Club, ClubsWithCategoriesDto>()
                 .ForMember(dest => dest.Categories, opt => opt.MapFrom(src => src.ClubCategories.Select(cc => new CategoryDto() { 
                     Id = cc.CategoryId, 
