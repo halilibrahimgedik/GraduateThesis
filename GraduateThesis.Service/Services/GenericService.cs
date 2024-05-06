@@ -82,7 +82,7 @@ namespace GraduateThesis.Service.Services
             return CustomResponseDto<NoDataDto>.Success((int)HttpStatusCode.NoContent);
         }
 
-        public async Task<CustomResponseDto<NoDataDto>> RemoveRange(IEnumerable<int> ids)
+        public async Task<CustomResponseDto<NoDataDto>> RemoveRangeAsync(IEnumerable<int> ids)
         {
             var entities = await _genericRepository.Where(entity=> ids.Contains(entity.Id)).ToListAsync();
             _genericRepository.RemoveRange(entities);

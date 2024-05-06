@@ -9,8 +9,14 @@ using System.Threading.Tasks;
 
 namespace GraduateThesis.Core.Services
 {
-    public interface IClubService : IGenericService<Club,ClubDto>
+    public interface IClubService : IGenericService<Club, ClubDto>
     {
-        Task<CustomResponseDto<ClubWithCategoryDto>> AddAsync(CreateClubDto dto);
+        Task<CustomResponseDto<IEnumerable<ClubsWithCategoriesDto>>> GetClubsWithCategoriesAsync();
+
+        Task<CustomResponseDto<ClubWitCategoryIdsDto>> AddAsync(CreateClubDto dto);
+
+        Task<CustomResponseDto<List<ClubWitCategoryIdsDto>>> AddRangeAsync(IEnumerable<CreateClubDto> dtos);
+
+        Task<CustomResponseDto<NoDataDto>> UpdateAsync(UpdateClubDto dto);
     }
 }

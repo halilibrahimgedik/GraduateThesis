@@ -15,15 +15,18 @@ namespace GraduateThesis.Service.Mapping
         public MapProfile()
         {
             // Club Mapping
-            CreateMap<Club, ClubDto>(); 
-            CreateMap<CreateClubDto, Club>(); 
-            CreateMap<Club, ClubWithCategoryDto>()
-                .ForMember(dest => dest.Categories, opt => opt.MapFrom(src => src.ClubCategories.Select(cc => cc.Category)));
+            CreateMap<Club, ClubDto>();
+            CreateMap<CreateClubDto, Club>();
+            CreateMap<Club, ClubWitCategoryIdsDto>()
+            .ForMember(dest => dest.Categories, opt => opt.MapFrom(src => src.ClubCategories.Select(cc => cc.CategoryId).ToList()));
 
+            CreateMap<Club, ClubsWithCategoriesDto>()
+                .ForMember(dest => dest.Categories, opt => opt.MapFrom(src => src.ClubCategories.Select(cc => new CategoryDto() { Id = cc.CategoryId, CategoryName = cc.Category.CategoryName, CreatedDate = cc.Category.CreatedDate })));
 
             // Category Mapping
-            CreateMap<ClubCategory, CategoryDto>();
+            //CreateMap<ClubCategory, CategoryDto>();
             CreateMap<Category, CategoryDto>().ReverseMap();
+            
         }
     }
 }

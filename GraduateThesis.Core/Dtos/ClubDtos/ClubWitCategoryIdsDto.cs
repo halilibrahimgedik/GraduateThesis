@@ -1,5 +1,4 @@
-﻿using GraduateThesis.Core.Dtos.CategoryDtos;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GraduateThesis.Core.Dtos.ClubDtos
 {
-    public class ClubWithCategoryDto :BaseDto
+    public class ClubWitCategoryIdsDto : BaseDto
     {
         public string ClubName { get; set; }
 
@@ -17,6 +16,7 @@ namespace GraduateThesis.Core.Dtos.ClubDtos
 
         public bool IsClubActive { get; set; } = true;
 
-        public List<CategoryDto> Categories { get; set; }
+        public List<int> Categories { get; set; }
+
     }
 }

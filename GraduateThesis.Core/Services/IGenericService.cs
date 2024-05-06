@@ -17,7 +17,7 @@ namespace GraduateThesis.Core.Services
         Task<CustomResponseDto<IEnumerable<Dto>>> AddRangeAsync(IEnumerable<Dto> dtos);
         Task<CustomResponseDto<NoDataDto>> UpdateAsync(Dto dto);
         Task<CustomResponseDto<NoDataDto>> RemoveAsync(int id);
-        Task<CustomResponseDto<NoDataDto>> RemoveRange(IEnumerable<int> ids);
+        Task<CustomResponseDto<NoDataDto>> RemoveRangeAsync(IEnumerable<int> ids);
 
         Task<CustomResponseDto<IEnumerable<Dto>>> Where(Expression<Func<T, bool>> expression);
         Task<CustomResponseDto<bool>> AnyAsync(Expression<Func<T, bool>> expression);
