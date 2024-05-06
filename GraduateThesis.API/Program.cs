@@ -1,3 +1,5 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using GraduateThesis.Core.Repositories;
 using GraduateThesis.Core.Services;
 using GraduateThesis.Core.UnitOfWork;
@@ -6,6 +8,7 @@ using GraduateThesis.Repository.Repositories;
 using GraduateThesis.Repository.UnitOfWork;
 using GraduateThesis.Service.Mapping;
 using GraduateThesis.Service.Services;
+using GraduateThesis.Service.Validators.CategoryDtosValidations;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -30,6 +33,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // ! AutoMapper
 builder.Services.AddAutoMapper(typeof(MapProfile));
+
+// ! FluentValidation
+builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters().AddValidatorsFromAssemblyContaining<CreateCategoryDtoValidator>();
 
 // ! IOC
 builder.Services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));

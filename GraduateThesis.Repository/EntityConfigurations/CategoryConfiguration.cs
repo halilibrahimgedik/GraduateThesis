@@ -11,7 +11,7 @@ namespace GraduateThesis.Repository.EntityConfigurations
             builder.HasKey(c=> c.Id);
             builder.Property(c=>c.Id).UseIdentityColumn();
 
-            builder.Property(c=>c.CategoryName).IsRequired();
+            builder.Property(c=>c.CategoryName).HasMaxLength(50).IsRequired();
         }
     }
 }

@@ -4,6 +4,7 @@ using GraduateThesis.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GraduateThesis.Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240506202135_reconfiguringClubColumns")]
+    partial class reconfiguringClubColumns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,8 +34,7 @@ namespace GraduateThesis.Repository.Migrations
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -50,37 +51,37 @@ namespace GraduateThesis.Repository.Migrations
                         {
                             Id = 1,
                             CategoryName = "Teknoloji",
-                            CreatedDate = new DateTime(2024, 5, 6, 23, 27, 50, 221, DateTimeKind.Local).AddTicks(4771)
+                            CreatedDate = new DateTime(2024, 5, 6, 23, 21, 35, 471, DateTimeKind.Local).AddTicks(7881)
                         },
                         new
                         {
                             Id = 2,
                             CategoryName = "Spor",
-                            CreatedDate = new DateTime(2024, 5, 6, 23, 27, 50, 221, DateTimeKind.Local).AddTicks(4780)
+                            CreatedDate = new DateTime(2024, 5, 6, 23, 21, 35, 471, DateTimeKind.Local).AddTicks(7891)
                         },
                         new
                         {
                             Id = 3,
                             CategoryName = "Kitap",
-                            CreatedDate = new DateTime(2024, 5, 6, 23, 27, 50, 221, DateTimeKind.Local).AddTicks(4782)
+                            CreatedDate = new DateTime(2024, 5, 6, 23, 21, 35, 471, DateTimeKind.Local).AddTicks(7892)
                         },
                         new
                         {
                             Id = 4,
                             CategoryName = "Sanat",
-                            CreatedDate = new DateTime(2024, 5, 6, 23, 27, 50, 221, DateTimeKind.Local).AddTicks(4783)
+                            CreatedDate = new DateTime(2024, 5, 6, 23, 21, 35, 471, DateTimeKind.Local).AddTicks(7893)
                         },
                         new
                         {
                             Id = 5,
                             CategoryName = "Dans",
-                            CreatedDate = new DateTime(2024, 5, 6, 23, 27, 50, 221, DateTimeKind.Local).AddTicks(4784)
+                            CreatedDate = new DateTime(2024, 5, 6, 23, 21, 35, 471, DateTimeKind.Local).AddTicks(7893)
                         },
                         new
                         {
                             Id = 6,
                             CategoryName = "Girişimcilik",
-                            CreatedDate = new DateTime(2024, 5, 6, 23, 27, 50, 221, DateTimeKind.Local).AddTicks(4785)
+                            CreatedDate = new DateTime(2024, 5, 6, 23, 21, 35, 471, DateTimeKind.Local).AddTicks(7894)
                         });
                 });
 
@@ -99,8 +100,7 @@ namespace GraduateThesis.Repository.Migrations
 
                     b.Property<string>("ClubPhoto")
                         .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClubSummary")
                         .IsRequired()
@@ -129,7 +129,7 @@ namespace GraduateThesis.Repository.Migrations
                             ClubName = "DU Siber",
                             ClubPhoto = "default.jpg",
                             ClubSummary = "DU Siber Kulübü, öğrencilere teknoloji, yazılım ve siber güvenlik alanlarında deneyim kazanma imkanı sunar. Atölyeler, yarışmalar ve seminerlerle öğrenme ortamı sağlar. Katılın, teknolojiye adım atın ve kendinizi geliştirin!",
-                            CreatedDate = new DateTime(2024, 5, 6, 23, 27, 50, 221, DateTimeKind.Local).AddTicks(5028),
+                            CreatedDate = new DateTime(2024, 5, 6, 23, 21, 35, 471, DateTimeKind.Local).AddTicks(8145),
                             IsClubActive = true
                         },
                         new
@@ -138,7 +138,7 @@ namespace GraduateThesis.Repository.Migrations
                             ClubName = "Kitap Dostu",
                             ClubPhoto = "default.jpg",
                             ClubSummary = "Kitap Dostu Kulübü, kitap tutkunlarını bir araya getirerek edebiyatın büyülü dünyasında yolculuğa çıkarır. Okuma tutkusunu paylaşan herkesi bekliyoruz!",
-                            CreatedDate = new DateTime(2024, 5, 6, 23, 27, 50, 221, DateTimeKind.Local).AddTicks(5030),
+                            CreatedDate = new DateTime(2024, 5, 6, 23, 21, 35, 471, DateTimeKind.Local).AddTicks(8147),
                             IsClubActive = true
                         },
                         new
@@ -147,7 +147,7 @@ namespace GraduateThesis.Repository.Migrations
                             ClubName = "DU Archer Club",
                             ClubPhoto = "default.jpg",
                             ClubSummary = "DU Archer Club, okçuluk tutkunlarının buluşma noktasıdır. Okçuluk sporuna ilgi duyan herkesi bekliyoruz! ",
-                            CreatedDate = new DateTime(2024, 5, 6, 23, 27, 50, 221, DateTimeKind.Local).AddTicks(5031),
+                            CreatedDate = new DateTime(2024, 5, 6, 23, 21, 35, 471, DateTimeKind.Local).AddTicks(8148),
                             IsClubActive = true
                         },
                         new
@@ -156,7 +156,7 @@ namespace GraduateThesis.Repository.Migrations
                             ClubName = "DU Scout Club",
                             ClubPhoto = "default.jpg",
                             ClubSummary = "Kulübümüz, doğayla iç içe olmayı, macera dolu anlar yaşamayı seven herkesi bir araya getiriyor. Keşfetmeye hazır mısın?  ",
-                            CreatedDate = new DateTime(2024, 5, 6, 23, 27, 50, 221, DateTimeKind.Local).AddTicks(5032),
+                            CreatedDate = new DateTime(2024, 5, 6, 23, 21, 35, 471, DateTimeKind.Local).AddTicks(8149),
                             IsClubActive = true
                         },
                         new
@@ -165,7 +165,7 @@ namespace GraduateThesis.Repository.Migrations
                             ClubName = "Elit Dans Kulübü",
                             ClubPhoto = "default.jpg",
                             ClubSummary = "Elit Dans Kulübü, ritim tutmayı seven herkes için mükemmel bir buluşma noktasıdır. Eğlenceli dans dersleri ve unutulmaz performanslarla dolu bir deneyim için seni de bekliyoruz! ",
-                            CreatedDate = new DateTime(2024, 5, 6, 23, 27, 50, 221, DateTimeKind.Local).AddTicks(5033),
+                            CreatedDate = new DateTime(2024, 5, 6, 23, 21, 35, 471, DateTimeKind.Local).AddTicks(8150),
                             IsClubActive = true
                         },
                         new
@@ -174,7 +174,7 @@ namespace GraduateThesis.Repository.Migrations
                             ClubName = "The Young Entrepreneurs Club",
                             ClubPhoto = "default.jpg",
                             ClubSummary = "Genç Girişimciler Kulübü, yenilikçi fikirleriyle öne çıkan gençleri bir araya getirir. İş dünyasına adım atmak isteyenlere mentorluk yapar ve eğitimler düzenler. İş hayatına dair her şeyi keşfetmek için seni de aramıza bekliyoruz! ",
-                            CreatedDate = new DateTime(2024, 5, 6, 23, 27, 50, 221, DateTimeKind.Local).AddTicks(5034),
+                            CreatedDate = new DateTime(2024, 5, 6, 23, 21, 35, 471, DateTimeKind.Local).AddTicks(8151),
                             IsClubActive = true
                         });
                 });
