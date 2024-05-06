@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GraduateThesis.Core.Dtos.CategoryDtos;
 using GraduateThesis.Core.Dtos.ClubDtos;
+using GraduateThesis.Core.Dtos.UniversityDtos;
 using GraduateThesis.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,6 @@ namespace GraduateThesis.Service.Mapping
         {
             // ! Club Mapping
             CreateMap<Club, ClubDto>();
-
             CreateMap<CreateClubDto, Club>();
 
             CreateMap<Club, ClubWitCategoryIdsDto>()
@@ -30,13 +30,10 @@ namespace GraduateThesis.Service.Mapping
                 })));
 
 
-
             // ! Category Mapping
 
             CreateMap<Category, CategoryDto>().ReverseMap();
-
             CreateMap<CreateCategoryDto, Category>();
-
             CreateMap<UpdateCategoryDto, Category>();
 
             CreateMap<Category, CategoryWithClubsDto>()
@@ -50,6 +47,12 @@ namespace GraduateThesis.Service.Mapping
                     IsClubActive = cc.Club.IsClubActive
                 })));
 
+
+            // ! University Mapping
+
+            CreateMap<CreateUniversityDto, University>();
+            CreateMap<University, UniversityDto>();
+            CreateMap<UpdateUniversityDto, University>();
         }
     }
 }

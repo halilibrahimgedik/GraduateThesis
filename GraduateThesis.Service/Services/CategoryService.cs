@@ -42,7 +42,7 @@ namespace GraduateThesis.Service.Services
 
             var categoryDto = _mapper.Map<CategoryDto>(newEntity);
 
-            return CustomResponseDto<CategoryDto>.Success((int)HttpStatusCode.OK, categoryDto);
+            return CustomResponseDto<CategoryDto>.Success((int)HttpStatusCode.Created, categoryDto);
         }
 
         // Overload
@@ -64,7 +64,7 @@ namespace GraduateThesis.Service.Services
 
             var datas = _mapper.Map<IEnumerable<CategoryDto>>(newEntities);
 
-            return CustomResponseDto<IEnumerable<CategoryDto>>.Success((int)HttpStatusCode.OK, datas);
+            return CustomResponseDto<IEnumerable<CategoryDto>>.Success((int)HttpStatusCode.Created, datas);
         }
     }
 }
