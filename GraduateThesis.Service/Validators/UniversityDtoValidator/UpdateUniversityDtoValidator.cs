@@ -14,25 +14,21 @@ namespace GraduateThesis.Service.Validators.UniversityDtoValidator
         {
             RuleFor(x => x.Id)
                .NotEmpty().WithMessage("{PropertyName} can not be empty")
-               .NotNull().WithMessage("{PropertyName} can not be null");
+               .GreaterThan(0).WithMessage("{PropertyName} must be greater than '0'");
 
             RuleFor(x => x.UniversityName)
                .NotEmpty().WithMessage("{PropertyName} can not be empty")
-               .NotNull().WithMessage("{PropertyName} can not be null")
-               .MaximumLength(100).WithMessage("{PropertyName} en fazla 100 karakter olabilir")
-               .MinimumLength(16).WithMessage("{PropertyName} en az 16 karakter olabilir");
+               .MaximumLength(100).WithMessage("{PropertyName} field could be maximum 100 characters")
+               .MinimumLength(16).WithMessage("{PropertyName} field must be at least 16 characters");
 
             RuleFor(x => x.Website)
-                .NotEmpty().WithMessage("{PropertyName} can not be empty")
-                .NotNull().WithMessage("{PropertyName} can not be null");
+                .NotEmpty().WithMessage("{PropertyName} can not be empty");
 
             RuleFor(x => x.Mail)
-                .NotEmpty().WithMessage("{PropertyName} can not be empty")
-                .NotNull().WithMessage("{PropertyName} can not be null");
+                .NotEmpty().WithMessage("{PropertyName} can not be empty");
 
             RuleFor(x => x.Address)
-                .NotEmpty().WithMessage("{PropertyName} can not be empty")
-                .NotNull().WithMessage("{PropertyName} can not be null");
+                .NotEmpty().WithMessage("{PropertyName} can not be empty");
         }
     }
 }

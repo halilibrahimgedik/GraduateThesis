@@ -14,8 +14,8 @@ namespace GraduateThesis.Service.Validators.UniversityDtoValidator
         {
             RuleFor(x=>x.UniversityName)
                 .NotEmpty().WithMessage("{PropertyName} can not be empty")
-                .MaximumLength(100).WithMessage("{PropertyName} en fazla 100 karakter olabilir")
-                .MinimumLength(16).WithMessage("{PropertyName} en az 16 karakter olabilir");
+                .MaximumLength(100).WithMessage("{PropertyName} field could be maximum 100 characters")
+                .MinimumLength(16).WithMessage("{PropertyName} field must be at least 16 characters");
 
             RuleFor(x => x.Website)
                 .NotEmpty().WithMessage("{PropertyName} can not be empty");

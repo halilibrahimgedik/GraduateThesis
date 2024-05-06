@@ -1,5 +1,6 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using GraduateThesis.API.Filters;
 using GraduateThesis.Core.Repositories;
 using GraduateThesis.Core.Services;
 using GraduateThesis.Core.UnitOfWork;
@@ -9,14 +10,22 @@ using GraduateThesis.Repository.UnitOfWork;
 using GraduateThesis.Service.Mapping;
 using GraduateThesis.Service.Services;
 using GraduateThesis.Service.Validators.CategoryDtosValidations;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
-builder.Services.AddControllers();
+// ! ValidateModelsFilterAttribute Tum Controller'lara merkezi olarak ekleyelim
+builder.Services.AddControllers(options => options.Filters.Add(new ValidateModelsFilterAttribute()));
+
+// ! Default Donen ModelState Hata Filter'ini kapatalim
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

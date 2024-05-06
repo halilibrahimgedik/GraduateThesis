@@ -13,22 +13,23 @@ namespace GraduateThesis.Service.Validators.ClubDtosValidations
         public UpdateClubDtoValidator()
         {
             RuleFor(c => c.Id)
-                .NotEmpty().WithMessage("{PropertyName} can not be empty");
+                .NotEmpty().WithMessage("{PropertyName} can not be empty")
+                .GreaterThan(0).WithMessage("{PropertyName} must be greater than '0'");
 
             RuleFor(c => c.ClubName)
                 .NotEmpty().WithMessage("{PropertyName} can not be empty")
-                .MaximumLength(50).WithMessage("{PropertyName} en fazla 50 karakter olabilir")
-                .MinimumLength(3).WithMessage("{PropertyName} en az 3 karakter olabilir");
+                .MaximumLength(50).WithMessage("{PropertyName} field could be maximum 50 characters")
+                .MinimumLength(3).WithMessage("{PropertyName} field must be at least 3 characters");
 
 
             RuleFor(c => c.ClubSummary)
                 .NotEmpty().WithMessage("{PropertyName} can not be empty")
-                .MaximumLength(450).WithMessage("{PropertyName} en fazla 450 karakter olabilir")
-                .MinimumLength(10).WithMessage("{PropertyName} en az 10 karakter olabilir");
+                .MaximumLength(450).WithMessage("{PropertyName} field could be maximum 450 characters")
+                .MinimumLength(10).WithMessage("{PropertyName} field must be at least 10 characters");
 
             RuleFor(c => c.ClubPhoto)
                 .NotEmpty().WithMessage("{PropertyName} can not be empty")
-                .MaximumLength(300).WithMessage("{PropertyName} en fazla 300 karakter olabilir");
+                .MaximumLength(300).WithMessage("{PropertyName} field could be maximum 300 characters");
 
             RuleFor(c => c.IsClubActive)
                 .NotEmpty().WithMessage("{PropertyName} can not be empty");
