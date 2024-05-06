@@ -12,7 +12,17 @@ namespace GraduateThesis.Core.Services
 {
     public interface ICategoryService : IGenericService<Category,CategoryDto>
     {
+
+        Task<CustomResponseDto<CategoryWithClubsDto>> GetCategoryByIdWithClubsAsync(int id);
+
         // Overload
         Task<CustomResponseDto<CategoryDto>> AddAsync(CreateCategoryDto dto);
+
+        // Overload
+        Task<CustomResponseDto<IEnumerable<CategoryDto>>> AddRangeAsync(IEnumerable<CreateCategoryDto> dtos);
+
+
+        // Overload
+        Task<CustomResponseDto<NoDataDto>> UpdateAsync(UpdateCategoryDto dto);
     }
 }

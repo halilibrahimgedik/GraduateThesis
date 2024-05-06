@@ -24,6 +24,15 @@ namespace GraduateThesis.Service.Services
         }
 
 
+        public async Task<CustomResponseDto<CategoryWithClubsDto>> GetCategoryByIdWithClubsAsync(int id)
+        {
+            var category = await _categoryRepository.GetCategoryByIdWithClubsAsync(id);
+
+            var categoryWithClubsDto = _mapper.Map<CategoryWithClubsDto>(category);
+
+            return CustomResponseDto<CategoryWithClubsDto>.Success((int)HttpStatusCode.OK, categoryWithClubsDto);
+        }
+
         // Overload
         public async Task<CustomResponseDto<CategoryDto>> AddAsync(CreateCategoryDto dto)
         {
@@ -36,5 +45,26 @@ namespace GraduateThesis.Service.Services
             return CustomResponseDto<CategoryDto>.Success((int)HttpStatusCode.OK, categoryDto);
         }
 
+        // Overload
+        public async Task<CustomResponseDto<NoDataDto>> UpdateAsync(UpdateCategoryDto dto)
+        {
+            var entity = _mapper.Map<Category>(dto);
+            _categoryRepository.Update(entity);
+            await _unitOfWork.CommitAsync();
+
+            return CustomResponseDto<NoDataDto>.Success((int)HttpStatusCode.NoContent);
+        }
+
+        // Overload
+        public async Task<CustomResponseDto<IEnumerable<CategoryDto>>> AddRangeAsync(IEnumerable<CreateCategoryDto> dtos)
+        {
+            var newEntities = _mapper.Map<IEnumerable<Category>>(dtos);
+            await _categoryRepository.AddRangeAsync(newEntities);
+            await _unitOfWork.CommitAsync();
+
+            var datas = _mapper.Map<IEnumerable<CategoryDto>>(newEntities);
+
+            return CustomResponseDto<IEnumerable<CategoryDto>>.Success((int)HttpStatusCode.OK, datas);
+        }
     }
 }

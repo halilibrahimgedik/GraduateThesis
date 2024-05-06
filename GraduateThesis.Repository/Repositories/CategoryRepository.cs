@@ -14,5 +14,12 @@ namespace GraduateThesis.Repository.Repositories
         public CategoryRepository(AppDbContext dbContext) : base(dbContext)
         {
         }
+
+        public async Task<Category> GetCategoryByIdWithClubsAsync(int id)
+        {
+            return await _dbContext.Categories.Include(category => category.ClubCategories)
+                                .ThenInclude(cc => cc.Club)
+                                .FirstOrDefaultAsync(category=>category.Id == id);
+        }
     }
 }
