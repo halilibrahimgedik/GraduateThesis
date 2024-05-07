@@ -1,6 +1,7 @@
-﻿using GraduateThesis.Core.Dtos.ClubDtos;
+﻿using GraduateThesis.API.Filters;
+using GraduateThesis.Core.Dtos.ClubDtos;
+using GraduateThesis.Core.Models;
 using GraduateThesis.Core.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GraduateThesis.API.Controllers
@@ -31,6 +32,7 @@ namespace GraduateThesis.API.Controllers
             return CreateAction(datas);
         }
 
+        [ServiceFilter(typeof(NotFoundFilter<Club,ClubDto>))]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -61,6 +63,7 @@ namespace GraduateThesis.API.Controllers
             return CreateAction(response);
         }
 
+        [ServiceFilter(typeof(NotFoundFilter<Club, ClubDto>))]
         [HttpDelete]
         public async Task<IActionResult> Remove(int id)
         {

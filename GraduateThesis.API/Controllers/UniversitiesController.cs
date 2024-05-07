@@ -1,6 +1,7 @@
-﻿using GraduateThesis.Core.Dtos.UniversityDtos;
+﻿using GraduateThesis.API.Filters;
+using GraduateThesis.Core.Dtos.UniversityDtos;
+using GraduateThesis.Core.Models;
 using GraduateThesis.Core.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GraduateThesis.API.Controllers
@@ -21,6 +22,7 @@ namespace GraduateThesis.API.Controllers
             return CreateAction(await _universityService.GetAllAsync());
         }
 
+        [ServiceFilter(typeof(NotFoundFilter<University, UniversityDto>))]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -39,6 +41,7 @@ namespace GraduateThesis.API.Controllers
             return CreateAction(await _universityService.UpdateAsync(dto));
         }
 
+        [ServiceFilter(typeof(NotFoundFilter<University, UniversityDto>))]
         [HttpDelete]
         public async Task<IActionResult> Remove(int id)
         {

@@ -4,6 +4,7 @@ using GraduateThesis.Core.Models;
 using GraduateThesis.Core.Repositories;
 using GraduateThesis.Core.Services;
 using GraduateThesis.Core.UnitOfWork;
+using GraduateThesis.Service.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -67,7 +68,18 @@ namespace GraduateThesis.Service.Services
 
         public async Task<CustomResponseDto<Dto>> GetByIdAsync(int id)
         {
+            if (id == 0)
+            {
+                throw new ClientSideException("id value can not be 0 or null ...");
+            }
+
             var entity = await _genericRepository.GetByIdAsync(id);
+
+            if (entity == null)
+            {
+                throw new NotFoundException($"{typeof(T).Name} ({id}) not found ...");
+            }
+
             var dto = _mapper.Map<Dto>(entity);
 
             return CustomResponseDto<Dto>.Success((int)HttpStatusCode.OK, dto);
@@ -75,7 +87,18 @@ namespace GraduateThesis.Service.Services
 
         public async Task<CustomResponseDto<NoDataDto>> RemoveAsync(int id)
         {
+            if(id == 0)
+            {
+                throw new ClientSideException($"{typeof(T)} id can not be 0 ...");
+            }
+
             var entity = await _genericRepository.GetByIdAsync(id);
+
+            if(entity == null)
+            {
+                throw new NotFoundException($"{typeof(T).Name} ({id}) not found ...");
+            }
+
             _genericRepository.Remove(entity);
             await _unitOfWork.CommitAsync();
 

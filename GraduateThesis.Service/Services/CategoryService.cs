@@ -1,17 +1,11 @@
 ﻿using AutoMapper;
 using GraduateThesis.Core.Dtos.CategoryDtos;
-using GraduateThesis.Core.Dtos.ClubDtos;
 using GraduateThesis.Core.Dtos.CustomResponseDtos;
 using GraduateThesis.Core.Models;
 using GraduateThesis.Core.Repositories;
 using GraduateThesis.Core.Services;
 using GraduateThesis.Core.UnitOfWork;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GraduateThesis.Service.Services
 {

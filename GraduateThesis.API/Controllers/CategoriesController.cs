@@ -1,6 +1,7 @@
-﻿using GraduateThesis.Core.Dtos.CategoryDtos;
+﻿using GraduateThesis.API.Filters;
+using GraduateThesis.Core.Dtos.CategoryDtos;
+using GraduateThesis.Core.Models;
 using GraduateThesis.Core.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GraduateThesis.API.Controllers
@@ -19,12 +20,14 @@ namespace GraduateThesis.API.Controllers
             return CreateAction(await _categoryService.GetAllAsync());
         }
 
+        [ServiceFilter(typeof(NotFoundFilter<Category, CategoryDto>))]
         [HttpGet("[action]/{id}")]
         public async Task<IActionResult> GetCategoryByIdWithClubs(int id)
         {
             return CreateAction(await _categoryService.GetCategoryByIdWithClubsAsync(id));
         }
 
+        [ServiceFilter(typeof(NotFoundFilter<Category,CategoryDto >))]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -49,6 +52,7 @@ namespace GraduateThesis.API.Controllers
             return CreateAction(await _categoryService.UpdateAsync(dto));
         }
 
+        [ServiceFilter(typeof(NotFoundFilter<Category, CategoryDto>))]
         [HttpDelete]
         public async Task<IActionResult> Remove(int id)
         {

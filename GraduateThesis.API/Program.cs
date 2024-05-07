@@ -1,6 +1,7 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using GraduateThesis.API.Filters;
+using GraduateThesis.API.Middlewares;
 using GraduateThesis.Core.Repositories;
 using GraduateThesis.Core.Services;
 using GraduateThesis.Core.UnitOfWork;
@@ -46,6 +47,10 @@ builder.Services.AddAutoMapper(typeof(MapProfile));
 // ! FluentValidation
 builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters().AddValidatorsFromAssemblyContaining<CreateCategoryDtoValidator>();
 
+// ! NotFoundFilter
+builder.Services.AddScoped(typeof(NotFoundFilter<,>));
+
+
 // ! IOC
 builder.Services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
 builder.Services.AddScoped(typeof(IGenericService<,>),typeof(GenericService<,>));
@@ -61,6 +66,8 @@ builder.Services.AddScoped<IUniversityRepository, UniversityRepository>();
 builder.Services.AddScoped<IUniversityService, UniversityService>();
 
 
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -71,6 +78,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// CustomException Middleware
+app.UseCustomException(); 
 
 app.UseAuthorization();
 
