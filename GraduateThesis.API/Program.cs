@@ -5,14 +5,8 @@ using FluentValidation.AspNetCore;
 using GraduateThesis.API.Filters;
 using GraduateThesis.API.Middlewares;
 using GraduateThesis.API.Modules;
-using GraduateThesis.Core.Repositories;
-using GraduateThesis.Core.Services;
-using GraduateThesis.Core.UnitOfWork;
 using GraduateThesis.Repository;
-using GraduateThesis.Repository.Repositories;
-using GraduateThesis.Repository.UnitOfWork;
 using GraduateThesis.Service.Mapping;
-using GraduateThesis.Service.Services;
 using GraduateThesis.Service.Validators.CategoryDtosValidations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -38,7 +32,14 @@ builder.Services.AddSwaggerGen();
 // ! AppDbContext yapýlandýrmasý
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"), option =>
+    // ! LOCAL SERVER
+    //options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"), option =>
+    //{
+    //    option.MigrationsAssembly(Assembly.GetAssembly(typeof(AppDbContext)).GetName().Name);
+    //});
+
+    // ! REMOTE SERVER
+    options.UseSqlServer(builder.Configuration.GetConnectionString("RemoteSqlServer"), option =>
     {
         option.MigrationsAssembly(Assembly.GetAssembly(typeof(AppDbContext)).GetName().Name);
     });

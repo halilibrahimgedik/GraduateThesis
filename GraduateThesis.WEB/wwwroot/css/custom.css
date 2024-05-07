@@ -1,0 +1,36 @@
+﻿.jumbotron {
+    position: relative; /* Overlay için konumlandırma yapmak için gerekli */
+    background-image: url('/img/kutuphane.jpg'); /* Arka plan resmi */
+    color: white; /* Metin rengini beyaz yapın */
+    padding: 60px; /* Metinlerin arka plana olan uzaklığını ayarlayın */
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.overlay-content {
+    position: relative;
+    z-index: 1;
+}
+
+.roundedImg {
+    border-radius: 20px 0px 0px 20px;
+    overflow: hidden; /* Resmin taşmasını engeller */
+    height: 100%;
+    object-fit: cover;
+}
+
+.remove-underline{
+    text-decoration-line:none
+}
+.p-text {
+    color: #0d6efd;
+    font-size: 18px;
+    margin:0px;
+}

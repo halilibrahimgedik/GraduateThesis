@@ -1,0 +1,13 @@
+﻿@model List<ClubVm>
+
+@section Css {
+    <link rel="stylesheet" href="~/css/custom.css" asp-append-version="true" />
+}
+
+<div class="col-md-9 mb-4 mt-5">
+    <!-- Kulüp Kartları -->
+    @foreach (var club in Model)
+    {
+        <partial name="PartialViews/_ClubCardPartial" model=club />
+    }
+</div>

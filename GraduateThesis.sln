@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34616.47
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraduateThesis.API", "GraduateThesis.API\GraduateThesis.API.csproj", "{BD51CD92-4DA2-4814-8BF0-6F8BE43740BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraduateThesis.API", "GraduateThesis.API\GraduateThesis.API.csproj", "{BD51CD92-4DA2-4814-8BF0-6F8BE43740BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraduateThesis.Core", "GraduateThesis.Core\GraduateThesis.Core.csproj", "{41CF464A-D601-407F-BF75-535226E0DCC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraduateThesis.Core", "GraduateThesis.Core\GraduateThesis.Core.csproj", "{41CF464A-D601-407F-BF75-535226E0DCC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraduateThesis.Repository", "GraduateThesis.Repository\GraduateThesis.Repository.csproj", "{456961DD-E072-484A-8C99-8DCBBBDE062B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraduateThesis.Repository", "GraduateThesis.Repository\GraduateThesis.Repository.csproj", "{456961DD-E072-484A-8C99-8DCBBBDE062B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraduateThesis.Service", "GraduateThesis.Service\GraduateThesis.Service.csproj", "{7D4545AC-6EB4-45B5-9B3B-AFFA5842E576}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraduateThesis.Service", "GraduateThesis.Service\GraduateThesis.Service.csproj", "{7D4545AC-6EB4-45B5-9B3B-AFFA5842E576}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraduateThesis.WEB", "GraduateThesis.WEB\GraduateThesis.WEB.csproj", "{908E994A-60AC-462B-BF43-E5A9BCB7ECE2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Asp.Net Web Mvc - Api Consuming", "Asp.Net Web Mvc - Api Consuming", "{0E122A55-E9FB-404F-9505-40420E7FEB69}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +37,16 @@ Global
 		{7D4545AC-6EB4-45B5-9B3B-AFFA5842E576}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D4545AC-6EB4-45B5-9B3B-AFFA5842E576}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D4545AC-6EB4-45B5-9B3B-AFFA5842E576}.Release|Any CPU.Build.0 = Release|Any CPU
+		{908E994A-60AC-462B-BF43-E5A9BCB7ECE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{908E994A-60AC-462B-BF43-E5A9BCB7ECE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{908E994A-60AC-462B-BF43-E5A9BCB7ECE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{908E994A-60AC-462B-BF43-E5A9BCB7ECE2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{908E994A-60AC-462B-BF43-E5A9BCB7ECE2} = {0E122A55-E9FB-404F-9505-40420E7FEB69}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2DE79C44-A069-4255-AC11-D02F75ED3391}
