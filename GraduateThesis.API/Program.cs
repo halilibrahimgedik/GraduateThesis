@@ -1,7 +1,10 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using GraduateThesis.API.Filters;
 using GraduateThesis.API.Middlewares;
+using GraduateThesis.API.Modules;
 using GraduateThesis.Core.Repositories;
 using GraduateThesis.Core.Services;
 using GraduateThesis.Core.UnitOfWork;
@@ -50,20 +53,12 @@ builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsi
 // ! NotFoundFilter
 builder.Services.AddScoped(typeof(NotFoundFilter<,>));
 
-
-// ! IOC
-builder.Services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
-builder.Services.AddScoped(typeof(IGenericService<,>),typeof(GenericService<,>));
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-builder.Services.AddScoped<IClubRepository, ClubRepository>();
-builder.Services.AddScoped<IClubService,ClubService>();
-
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<ICategoryService, CategoryService>();
-
-builder.Services.AddScoped<IUniversityRepository, UniversityRepository>();
-builder.Services.AddScoped<IUniversityService, UniversityService>();
+// ! AutoFac
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
+{
+    containerBuilder.RegisterModule(new ServiceModule());
+});
 
 
 
