@@ -12,10 +12,10 @@ builder.Services.AddHttpClient<ClubApiService>(opt =>
     opt.BaseAddress = new Uri(builder.Configuration["EndPoint"]);
 });
 
-//builder.Services.AddHttpClient<CategoryApiService>(opt =>
-//{
-//    opt.BaseAddress = new Uri(builder.Configuration["BaseUrl"]);
-//});
+builder.Services.AddHttpClient<CategoryApiService>(opt =>
+{
+    opt.BaseAddress = new Uri(builder.Configuration["EndPoint"]);
+});
 
 
 

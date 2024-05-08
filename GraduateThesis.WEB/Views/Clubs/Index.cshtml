@@ -4,10 +4,19 @@
     <link rel="stylesheet" href="~/css/custom.css" asp-append-version="true" />
 }
 
-<div class="col-md-9 mb-4 mt-5">
-    <!-- Kulüp Kartları -->
-    @foreach (var club in Model)
-    {
-        <partial name="PartialViews/_ClubCardPartial" model=club />
-    }
+<div class="row">
+    <div class="col-md-3 mb-4 mt-5">
+        <!-- Kategoriler-->
+
+        <vc:categories></vc:categories>
+
+    </div>
+
+    <div class="col-md-9 mb-4 mt-5">
+        <!-- Kulüp Kartları -->
+        @foreach (var club in Model)
+        {
+            <partial name="PartialViews/_ClubCardPartial" model=club />
+        }
+    </div>
 </div>
