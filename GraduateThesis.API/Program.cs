@@ -32,17 +32,17 @@ builder.Services.AddSwaggerGen();
 // ! AppDbContext yapýlandýrmasý
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    // ! LOCAL SERVER
-    //options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"), option =>
-    //{
-    //    option.MigrationsAssembly(Assembly.GetAssembly(typeof(AppDbContext)).GetName().Name);
-    //});
-
-    // ! REMOTE SERVER
-    options.UseSqlServer(builder.Configuration.GetConnectionString("RemoteSqlServer"), option =>
+    //!LOCAL SERVER
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"), option =>
     {
         option.MigrationsAssembly(Assembly.GetAssembly(typeof(AppDbContext)).GetName().Name);
     });
+
+    //!REMOTE SERVER
+    //options.UseSqlServer(builder.Configuration.GetConnectionString("RemoteSqlServer"), option =>
+    //{
+    //    option.MigrationsAssembly(Assembly.GetAssembly(typeof(AppDbContext)).GetName().Name);
+    //});
 });
 
 // ! AutoMapper

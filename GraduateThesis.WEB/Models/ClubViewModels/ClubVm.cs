@@ -1,4 +1,4 @@
-﻿namespace GraduateThesis.WEB.Models.ViewModels
+﻿namespace GraduateThesis.WEB.Models.ClubViewModels
 {
     public class ClubVm : BaseVm
     {

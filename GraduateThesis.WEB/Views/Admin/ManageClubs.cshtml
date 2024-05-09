@@ -7,9 +7,17 @@
 
 <div class="row">
     <div class="col-md-12">
-        <h1 class="text-center mt-2">Admin Products</h1>
+        <h1 class="text-center mt-2">Admin Clubs</h1>
         <hr />
         <a asp-action="CreateClub" asp-controller="Admin" class="btn btn-success mb-3"> Add Clubs </a>
+
+        @if(ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-danger">
+                <p>@ViewBag.ErrorMessage</p>
+            </div>
+        }
+
         <table class="table table-hover table-bordered">
             <thead>
                 <tr class="text-center">
@@ -48,8 +56,8 @@
                                 @* <a href="/admin/products/@p.Id" class="btn btn-danger btn-sm">Delete</a> *@
 
                                 @* 2. yöntem *@
-                                <form method="post" action="/Admin/DeleteProduct" style="display:inline;">
-                                    <input type="hidden" name="deleteId" value="@club.Id" />
+                                <form method="post" action="/Admin/RemoveClub" style="display:inline;">
+                                    <input type="hidden" name="id" value="@club.Id" />
                                     <button class="btn btn-danger btn-sm" type="submit">Delete</button>
                                 </form>
                             </td>

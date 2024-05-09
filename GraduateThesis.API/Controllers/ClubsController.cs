@@ -64,7 +64,7 @@ namespace GraduateThesis.API.Controllers
         }
 
         [ServiceFilter(typeof(NotFoundFilter<Club, ClubDto>))]
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Remove(int id)
         {
             var response= await _clubService.RemoveAsync(id);

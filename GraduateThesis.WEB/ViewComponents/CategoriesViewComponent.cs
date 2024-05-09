@@ -13,7 +13,7 @@ namespace GraduateThesis.WEB.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var categories = await _categoryApiService.GetAllAsync("categories");
+            var categories = await _categoryApiService.GetAllAsync();
 
             return View(categories);
         }

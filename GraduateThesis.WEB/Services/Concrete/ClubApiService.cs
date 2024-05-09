@@ -1,5 +1,5 @@
 ﻿using GraduateThesis.WEB.Models;
-using GraduateThesis.WEB.Models.ViewModels;
+using GraduateThesis.WEB.Models.ClubViewModels;
 
 namespace GraduateThesis.WEB.Services.Concrete
 {
@@ -25,24 +25,43 @@ namespace GraduateThesis.WEB.Services.Concrete
             return response.Data;
         }
 
-        public async Task<ClubVm> SaveAsync(ClubVm newProduct)
+        //public async Task<ClubVm> SaveAsync(ClubVm newProduct)
+        //{
+        //    var response = await _httpClient.PostAsJsonAsync("clubs", newProduct);
+
+        //    if (!response.IsSuccessStatusCode) return null;
+
+        //    var responseBody = await response.Content.ReadFromJsonAsync<CustomResponseVm<ClubVm>>();
+
+        //    return responseBody.Data;
+        //}
+
+
+        public async Task<CustomResponseVm<ClubVm>> SaveAsync(CreateClubVm newProduct)
         {
             var response = await _httpClient.PostAsJsonAsync("clubs", newProduct);
 
-            if (!response.IsSuccessStatusCode) return null;
+            //if (!response.IsSuccessStatusCode) return null;
 
             var responseBody = await response.Content.ReadFromJsonAsync<CustomResponseVm<ClubVm>>();
 
-            return responseBody.Data;
-
-
+            return responseBody;
         }
-        public async Task<bool> UpdateAsync(ClubVm newProduct)
+
+        //public async Task<bool> UpdateAsync(ClubVm newProduct)
+        //{
+        //    var response = await _httpClient.PutAsJsonAsync("clubs", newProduct);
+
+        //    return response.IsSuccessStatusCode;
+        //}
+
+        public async Task<bool> UpdateAsync(UpdateClubVM newProduct)
         {
             var response = await _httpClient.PutAsJsonAsync("clubs", newProduct);
 
             return response.IsSuccessStatusCode;
         }
+
         public async Task<bool> RemoveAsync(int id)
         {
             var response = await _httpClient.DeleteAsync($"clubs/{id}");

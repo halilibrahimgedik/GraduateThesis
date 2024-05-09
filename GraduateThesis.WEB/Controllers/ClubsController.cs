@@ -1,4 +1,4 @@
-﻿using GraduateThesis.WEB.Models.ViewModels;
+﻿using GraduateThesis.WEB.Models.ClubViewModels;
 using GraduateThesis.WEB.Services.Concrete;
 using Microsoft.AspNetCore.Mvc;
 
