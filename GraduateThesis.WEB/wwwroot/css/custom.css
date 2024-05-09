@@ -1,4 +1,12 @@
-﻿.jumbotron {
+﻿tr td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table > thead {
+    vertical-align: middle !important;
+}
+.jumbotron {
     position: relative; /* Overlay için konumlandırma yapmak için gerekli */
     background-image: url('/img/kutuphane.jpg'); /* Arka plan resmi */
     color: white; /* Metin rengini beyaz yapın */

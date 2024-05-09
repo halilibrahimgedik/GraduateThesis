@@ -1,0 +1,70 @@
+﻿@model List<ClubVm>
+
+@section Css{
+    <link href="~/css/custom.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="text-center mt-2">Admin Products</h1>
+        <hr />
+        <a asp-action="CreateClub" asp-controller="Admin" class="btn btn-success mb-3"> Add Clubs </a>
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr class="text-center">
+                    <th style="width:30px;">Id</th>
+                    <th style="width:150px;">Image</th>
+                    <th>Name</th>
+                    <th style="width:32vw;">Summary</th>
+                    <th>Is Active ?</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @if (Model.Count() > 0)
+                {
+
+                    @foreach (var club in Model)
+                    {
+                        <tr class="text-center">
+                            <td>@club.Id</td>
+                            <td><img src="@club.ClubPhoto" width="90px" style="object-fit:scale-down;height:100px" /></td>
+                            <td class="text-left">@club.ClubName</td>
+                            <td><p>@club.ClubSummary</p></td>
+                            <td>
+                                @if (@club.IsClubActive)
+                                {
+                                    <i class="fa-solid fa-circle-check fa-lg text-success"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa-solid fa-circle-xmark fa-lg text-danger"></i>
+                                }
+                            </td>
+                            <td>
+                                <a asp-action="EditProduct" asp-controller="admin" asp-route-id="@club.Id" class="btn btn-warning btn-sm mr-3">Edit</a>
+                                @* <a href="/admin/products/@p.Id" class="btn btn-danger btn-sm">Delete</a> *@
+
+                                @* 2. yöntem *@
+                                <form method="post" action="/Admin/DeleteProduct" style="display:inline;">
+                                    <input type="hidden" name="deleteId" value="@club.Id" />
+                                    <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                                </form>
+                            </td>
+
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <div class="alert alert-warning">
+                        <h3>No Clubs</h3>
+                    </div>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
