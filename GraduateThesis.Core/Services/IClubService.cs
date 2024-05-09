@@ -1,6 +1,7 @@
 ﻿using GraduateThesis.Core.Dtos.ClubDtos;
 using GraduateThesis.Core.Dtos.CustomResponseDtos;
 using GraduateThesis.Core.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace GraduateThesis.Core.Services
     {
         Task<CustomResponseDto<IEnumerable<ClubsWithCategoriesDto>>> GetClubsWithCategoriesAsync();
 
-        Task<CustomResponseDto<ClubWitCategoryIdsDto>> AddAsync(CreateClubDto dto);
+        Task<CustomResponseDto<ClubWitCategoryIdsDto>> AddAsync(CreateClubWithImageDto dto);
 
         Task<CustomResponseDto<List<ClubWitCategoryIdsDto>>> AddRangeAsync(IEnumerable<CreateClubDto> dtos);
 

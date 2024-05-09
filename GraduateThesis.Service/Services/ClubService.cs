@@ -7,6 +7,7 @@ using GraduateThesis.Core.Repositories;
 using GraduateThesis.Core.Services;
 using GraduateThesis.Core.UnitOfWork;
 using GraduateThesis.Repository.Repositories;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,18 +22,22 @@ namespace GraduateThesis.Service.Services
     {
         private readonly IClubRepository _clubRepository;
         private readonly ICategoryRepository _categoryRepository;
-        public ClubService(IGenericRepository<Club> genericRepository, IMapper mapper, IUnitOfWork unitOfWork, IClubRepository clubRepository, ICategoryRepository categoryRepository) : base(genericRepository, mapper, unitOfWork)
+        private readonly IFormFileHelper _formFileHelper;
+        public ClubService(IGenericRepository<Club> genericRepository, IMapper mapper, IUnitOfWork unitOfWork, IClubRepository clubRepository, ICategoryRepository categoryRepository, IFormFileHelper formFileHelper) : base(genericRepository, mapper, unitOfWork)
         {
             _clubRepository = clubRepository;
             _categoryRepository = categoryRepository;
+            _formFileHelper = formFileHelper;
         }
 
         // Overload
-        public async Task<CustomResponseDto<ClubWitCategoryIdsDto>> AddAsync(CreateClubDto dto)
+        public async Task<CustomResponseDto<ClubWitCategoryIdsDto>> AddAsync(CreateClubWithImageDto dto)
         {
-            var newEntity = _mapper.Map<Club>(dto);
+            var newEntity = _mapper.Map<Club>(dto.Club);
 
-            foreach (var categoryId in dto.Categories)
+            newEntity.ClubPhoto = _formFileHelper.Add(dto.Image);
+
+            foreach (var categoryId in dto.Club.Categories)
             {
                 var category = await _categoryRepository.GetByIdAsync(categoryId);
                 if (category != null)

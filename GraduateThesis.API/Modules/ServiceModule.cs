@@ -8,6 +8,7 @@ using GraduateThesis.Repository.UnitOfWork;
 using GraduateThesis.Service.Mapping;
 using GraduateThesis.Service.Services;
 using System.Reflection;
+using GraduateThesis.API.Utilities.Helpers;
 
 namespace GraduateThesis.API.Modules
 {
@@ -32,6 +33,9 @@ namespace GraduateThesis.API.Modules
             builder.RegisterAssemblyTypes(apiAssembly, repoAssembly, serviceAssembly).Where(x => x.Name.EndsWith("Service"))
                   .AsImplementedInterfaces()
                   .InstancePerLifetimeScope();
+
+            // ! FormFileHelper
+            builder.RegisterType<FormFileHelper>().As<IFormFileHelper>().InstancePerLifetimeScope();
         }
     }
 }

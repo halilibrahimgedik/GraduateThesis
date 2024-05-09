@@ -42,7 +42,7 @@ namespace GraduateThesis.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(CreateClubDto dto)
+        public async Task<IActionResult> Add([FromForm] CreateClubWithImageDto dto)
         {
             var club = await _clubService.AddAsync(dto);
 

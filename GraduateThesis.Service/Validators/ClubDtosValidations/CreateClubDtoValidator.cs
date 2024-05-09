@@ -23,9 +23,9 @@ namespace GraduateThesis.Service.Validators.ClubDtosValidations
                 .MaximumLength(450).WithMessage("{PropertyName} field could be maximum 450 characters")
                 .MinimumLength(10).WithMessage("{PropertyName} field must be at least 10 characters");
 
-            RuleFor(c => c.ClubPhoto)
-                .NotEmpty().WithMessage("{PropertyName} can not be empty")
-                .MaximumLength(300).WithMessage("{PropertyName} field could be maximum 300 characters");
+            //RuleFor(c => c.ClubPhoto)
+            //    .NotEmpty().WithMessage("{PropertyName} can not be empty")
+            //    .MaximumLength(300).WithMessage("{PropertyName} field could be maximum 300 characters");
 
             RuleFor(c => c.IsClubActive)
                 .NotNull().WithMessage("{PropertyName} can not be empty...");

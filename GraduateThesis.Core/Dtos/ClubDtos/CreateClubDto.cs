@@ -13,7 +13,7 @@ namespace GraduateThesis.Core.Dtos.ClubDtos
 
         public string ClubSummary { get; set; }
 
-        public string ClubPhoto { get; set; }
+        //public string? ClubPhoto { get; set; }
 
         public bool IsClubActive { get; set; } = true;
 
