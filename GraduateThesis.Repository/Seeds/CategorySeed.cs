@@ -15,12 +15,12 @@ namespace GraduateThesis.Repository.Seeds
         {
             builder.HasData(
 
-                    new Category() { Id = 1, CategoryName = "Teknoloji", CreatedDate = DateTime.Now },
-                    new Category() { Id = 2, CategoryName = "Spor", CreatedDate = DateTime.Now },
-                    new Category() { Id = 3, CategoryName = "Kitap", CreatedDate = DateTime.Now },
-                    new Category() { Id = 4, CategoryName = "Sanat", CreatedDate = DateTime.Now },
-                    new Category() { Id = 5, CategoryName = "Dans", CreatedDate = DateTime.Now },
-                    new Category() { Id = 6, CategoryName = "Girişimcilik", CreatedDate = DateTime.Now }
+                    new Category() { Id = 1, Name = "Teknoloji", CreatedDate = DateTime.Now },
+                    new Category() { Id = 2, Name = "Spor", CreatedDate = DateTime.Now },
+                    new Category() { Id = 3, Name = "Kitap", CreatedDate = DateTime.Now },
+                    new Category() { Id = 4, Name = "Sanat", CreatedDate = DateTime.Now },
+                    new Category() { Id = 5, Name = "Dans", CreatedDate = DateTime.Now },
+                    new Category() { Id = 6, Name = "Girişimcilik", CreatedDate = DateTime.Now }
 
                 );
         }

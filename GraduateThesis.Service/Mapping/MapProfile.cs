@@ -23,8 +23,8 @@ namespace GraduateThesis.Service.Mapping
             CreateMap<Club, ClubWithCategoriesDto>()
                 .ForMember(dest => dest.Categories, opt => opt.MapFrom(src => src.ClubCategories.Select(cc => new CategoryDto()
                 { 
-                    Id = cc.CategoryId, 
-                    CategoryName = cc.Category.CategoryName, 
+                    Id = cc.CategoryId,
+                    Name = cc.Category.Name, 
                     CreatedDate = cc.Category.CreatedDate 
                 })));
 

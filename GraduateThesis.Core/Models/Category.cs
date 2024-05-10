@@ -8,7 +8,7 @@ namespace GraduateThesis.Core.Models
 {
     public class Category : BaseEntity
     {
-        public string CategoryName { get; set; }
+        public string Name { get; set; }
 
         public ICollection<ClubCategory>? ClubCategories { get; set; } = new List<ClubCategory>();
     }

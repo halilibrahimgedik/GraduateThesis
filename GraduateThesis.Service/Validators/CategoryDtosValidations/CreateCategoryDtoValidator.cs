@@ -13,7 +13,7 @@ namespace GraduateThesis.Service.Validators.CategoryDtosValidations
     {
         public CreateCategoryDtoValidator()
         {
-            RuleFor(c => c.CategoryName)
+            RuleFor(c => c.Name)
                 .NotEmpty().WithMessage("{PropertyName} can not be empty")
                 .MaximumLength(50).WithMessage("{PropertyName} field could be maximum 50 characters")
                 .MinimumLength(3).WithMessage("{PropertyName} field must be at least 3 characters");

@@ -16,7 +16,7 @@ namespace GraduateThesis.Service.Validators.CategoryDtosValidations
                 .NotEmpty().WithMessage("{PropertyName} can not be empty")
                 .GreaterThan(0).WithMessage("{PropertyName} must be greater than '0'"); ;
 
-            RuleFor(c => c.CategoryName)
+            RuleFor(c => c.Name)
                 .NotEmpty().WithMessage("{PropertyName} can not be empty")
                 .MaximumLength(50).WithMessage("{PropertyName} field could be maximum 50 characters")
                 .MinimumLength(3).WithMessage("{PropertyName} field must be at least 3 characters");

@@ -10,7 +10,7 @@ namespace GraduateThesis.Core.Dtos.CategoryDtos
 {
     public class CategoryDto : BaseDto
     {
-        public string CategoryName { get; set; }
+        public string Name { get; set; }
     }
 
 
