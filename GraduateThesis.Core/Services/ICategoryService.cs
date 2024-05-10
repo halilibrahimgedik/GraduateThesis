@@ -19,7 +19,7 @@ namespace GraduateThesis.Core.Services
         Task<CustomResponseDto<CategoryDto>> AddAsync(CreateCategoryDto dto);
 
         // Overload
-        Task<CustomResponseDto<IEnumerable<CategoryDto>>> AddRangeAsync(IEnumerable<CreateCategoryDto> dtos);
+        Task<CustomResponseDto<List<CategoryDto>>> AddRangeAsync(List<CreateCategoryDto> dtos);
 
 
         // Overload

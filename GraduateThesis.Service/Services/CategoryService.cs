@@ -43,6 +43,13 @@ namespace GraduateThesis.Service.Services
         // Overload
         public async Task<CustomResponseDto<NoDataDto>> UpdateAsync(UpdateCategoryDto dto)
         {
+            var doesExist = await _categoryRepository.AnyAsync(c=>c.Id == dto.Id);
+
+            if (!doesExist)
+            {
+                throw new ClientSideException($"there is no Category with id: {dto.Id}"); 
+            }
+
             var entity = _mapper.Map<Category>(dto);
             _categoryRepository.Update(entity);
             await _unitOfWork.CommitAsync();
@@ -51,15 +58,16 @@ namespace GraduateThesis.Service.Services
         }
 
         // Overload
-        public async Task<CustomResponseDto<IEnumerable<CategoryDto>>> AddRangeAsync(IEnumerable<CreateCategoryDto> dtos)
+        public async Task<CustomResponseDto<List<CategoryDto>>> AddRangeAsync(List<CreateCategoryDto> dtos)
         {
-            var newEntities = _mapper.Map<IEnumerable<Category>>(dtos);
+            var newEntities = _mapper.Map<List<Category>>(dtos);
+
             await _categoryRepository.AddRangeAsync(newEntities);
             await _unitOfWork.CommitAsync();
 
-            var datas = _mapper.Map<IEnumerable<CategoryDto>>(newEntities);
+            var datas = _mapper.Map<List<CategoryDto>>(newEntities);
 
-            return CustomResponseDto<IEnumerable<CategoryDto>>.Success((int)HttpStatusCode.Created, datas);
+            return CustomResponseDto<List<CategoryDto>>.Success((int)HttpStatusCode.Created, datas);
         }
 
         public async Task<List<Category>> GetCategoriesByIdsAsync(List<int> ids)

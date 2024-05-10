@@ -34,7 +34,7 @@ namespace GraduateThesis.Service.Services
 
         public async Task<CustomResponseDto<List<ClubDto>>> GetAllActiveClubsAsync()
         {
-            var clubs= await _clubRepository.GetAllActiveClubsAsync();
+            var clubs = await _clubRepository.GetAllActiveClubsAsync();
             var activeClubs = _mapper.Map<List<ClubDto>>(clubs);
             return CustomResponseDto<List<ClubDto>>.Success(StatusCodes.Status200OK, activeClubs);
         }
@@ -46,7 +46,7 @@ namespace GraduateThesis.Service.Services
 
             try
             {
-                newEntity.Url = await _formFileHelper.Add(dto.Image);
+                newEntity.Url = await _formFileHelper.AddAsync(dto.Image);
 
                 var categories = await _categoryService.GetCategoriesByIdsAsync(dto.Categories);
 
@@ -60,7 +60,7 @@ namespace GraduateThesis.Service.Services
             }
             catch (Exception ex)
             {
-                return CustomResponseDto<ClubWithCategoriesDto>.Fail(StatusCodes.Status400BadRequest,ex.Message);
+                return CustomResponseDto<ClubWithCategoriesDto>.Fail(StatusCodes.Status400BadRequest, ex.Message);
             }
 
             var createdEntity = _mapper.Map<ClubWithCategoriesDto>(newEntity);
@@ -104,7 +104,7 @@ namespace GraduateThesis.Service.Services
 
         // Overload
         public async Task<CustomResponseDto<NoDataDto>> UpdateAsync(UpdateClubDto dto)
-        { 
+        {
             var entity = await _clubRepository.GetClubByIdWithCategories(dto.Id);
 
             if (entity == null)
@@ -114,7 +114,9 @@ namespace GraduateThesis.Service.Services
 
             _mapper.Map(dto, entity);
 
-            entity.Url = await _formFileHelper.Add(dto.Image);
+
+            entity.Url = await _formFileHelper.AddAsync(dto.Image);
+
 
             foreach (var categoryId in dto.Categories)
             {
@@ -129,7 +131,7 @@ namespace GraduateThesis.Service.Services
             {
                 entity.ClubCategories.Remove(clubCategory);
             }
-            
+
             _clubRepository.Update(entity);
             await _unitOfWork.CommitAsync();
 

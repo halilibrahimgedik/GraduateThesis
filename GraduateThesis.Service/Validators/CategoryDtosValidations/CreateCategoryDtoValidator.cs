@@ -14,9 +14,11 @@ namespace GraduateThesis.Service.Validators.CategoryDtosValidations
         public CreateCategoryDtoValidator()
         {
             RuleFor(c => c.Name)
+                .NotNull().WithMessage("{PropertyName} can not be null")
                 .NotEmpty().WithMessage("{PropertyName} can not be empty")
                 .MaximumLength(50).WithMessage("{PropertyName} field could be maximum 50 characters")
-                .MinimumLength(3).WithMessage("{PropertyName} field must be at least 3 characters");
+                .MinimumLength(3).WithMessage("{PropertyName} field must be at least 3 characters")
+                .Must(name => !string.IsNullOrWhiteSpace(name)).WithMessage("{PropertyName} field cannot be empty or whitespace");
         }
     }
 }

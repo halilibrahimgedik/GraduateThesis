@@ -41,7 +41,7 @@ namespace GraduateThesis.API.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> AddAll(CreateCategoryDto[] dtos)
+        public async Task<IActionResult> AddAll(List<CreateCategoryDto> dtos)
         {
             return CreateAction(await _categoryService.AddRangeAsync(dtos));
         }

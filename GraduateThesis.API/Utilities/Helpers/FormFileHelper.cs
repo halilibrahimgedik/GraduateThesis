@@ -18,7 +18,7 @@ namespace GraduateThesis.API.Utilities.Helpers
             _configuration = configuration;
         }
 
-        public async Task<string> Add(IFormFile file)
+        public async Task<string> AddAsync(IFormFile file)
         {
             //dosyanın uzantısını alıyorum.
             string fileExtension = Path.GetExtension(file.FileName);
@@ -31,8 +31,8 @@ namespace GraduateThesis.API.Utilities.Helpers
             var imagePath = FilePathToSave.FullPath(uniqueFileName);
             using FileStream fileStream = new(imagePath, FileMode.Create); // FileMode.Create İşletim sisteminin yeni bir dosya oluşturması gerektiğini belirtir. Dosya zaten mevcutsa, üzerine yazılacaktır.
 
-            file.CopyTo(fileStream); // yola kopyalıyorum.
-            fileStream.Flush(); // ara belleği temizliyorum.
+            await file.CopyToAsync(fileStream); // yola kopyalıyorum.
+            await fileStream.FlushAsync(); // ara belleği temizliyorum.
 
             var imageUrl = _configuration.GetSection("AppUrl").Value.ToString() + uniqueFileName; // resim url'si
 
@@ -44,9 +44,20 @@ namespace GraduateThesis.API.Utilities.Helpers
             throw new NotImplementedException();
         }
 
-        public void Update(IFormFile file, string imagePath)
+        public async Task UpdateAsync(IFormFile file, string imagePath)
         {
-            throw new NotImplementedException();
+            var fullpath = FilePathToSave.FullPath(imagePath);
+            if (File.Exists(fullpath))
+            {
+                using FileStream fileStream = new(fullpath, FileMode.Create);
+                //FileMode.Create burada üzerine yazma işlemi yapar.
+                await file.CopyToAsync(fileStream);
+                await fileStream.FlushAsync();
+            }
+            else
+            {
+                throw new DirectoryNotFoundException("File Not Found");
+            }
         }
     }
 
@@ -60,8 +71,8 @@ namespace GraduateThesis.API.Utilities.Helpers
 
     public static class FileType
     {
-        public const string images = "image-";
-        public const string root = "images/";
+        public const string images = "image_";
+        public const string root = "wwwroot/images/";
     }
 
     public static class FilePathToSave
