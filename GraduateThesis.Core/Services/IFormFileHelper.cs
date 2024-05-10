@@ -9,7 +9,7 @@ namespace GraduateThesis.Core.Services
 {
     public interface IFormFileHelper
     {
-        string Add(IFormFile file);
+        Task<string> Add(IFormFile file);
         void Delete(string path);
         void Update(IFormFile file, string imagePath);
     }

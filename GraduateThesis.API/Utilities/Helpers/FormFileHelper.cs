@@ -11,7 +11,14 @@ namespace GraduateThesis.API.Utilities.Helpers
 {
     public class FormFileHelper : IFormFileHelper
     {
-        public string Add(IFormFile file)
+        private readonly IConfiguration _configuration;
+
+        public FormFileHelper(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
+        public async Task<string> Add(IFormFile file)
         {
             //dosyanın uzantısını alıyorum.
             string fileExtension = Path.GetExtension(file.FileName);
@@ -27,7 +34,9 @@ namespace GraduateThesis.API.Utilities.Helpers
             file.CopyTo(fileStream); // yola kopyalıyorum.
             fileStream.Flush(); // ara belleği temizliyorum.
 
-            return uniqueFileName;
+            var imageUrl = _configuration.GetSection("AppUrl").Value.ToString() + uniqueFileName; // resim url'si
+
+            return await Task.FromResult(imageUrl);
         }
 
         public void Delete(string path)

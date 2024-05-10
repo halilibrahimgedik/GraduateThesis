@@ -39,23 +39,7 @@ namespace GraduateThesis.WEB.Controllers
                 return View(model);
             }
 
-            var allowedExtensions = new string[] { ".jpg", ".jpeg", ".png" };
-            var extension = Path.GetExtension(file.FileName);
 
-            if (!allowedExtensions.Contains(extension))
-            {
-                ViewBag.Categories = await _categoryApiService.GetAllAsync();
-                ModelState.AddModelError("", "Yüklediğiniz resim dosya uzantısı jpg,jpeg,png biri olmalıdır !");
-                return View(model);
-            }
-
-            var randomFileName = string.Format($"{new Guid()}{extension}");
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", randomFileName);
-
-            using (var stream = new FileStream(path, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
 
             var club = new CreateClubVm()
             {
@@ -63,10 +47,15 @@ namespace GraduateThesis.WEB.Controllers
                 ClubSummary = model.ClubSummary,
                 IsClubActive = model.IsClubActive,
                 Categories = model.Categories,
-                ClubPhoto = randomFileName
             };
 
-            var response =await _clubApiService.SaveAsync(club);
+            var clubWithImage = new CreateClubWithImageVm()
+            {
+                Club = club,
+                Image = file,
+            };
+
+            var response =await _clubApiService.SaveAsync(clubWithImage);
 
             if (response.Errors != null)
             {

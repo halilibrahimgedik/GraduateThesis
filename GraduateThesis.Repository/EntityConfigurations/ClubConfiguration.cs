@@ -16,11 +16,11 @@ namespace GraduateThesis.Repository.EntityConfigurations
             builder.HasKey(x=> x.Id);
             builder.Property(x=>x.Id).UseIdentityColumn();
 
-            builder.Property(x => x.ClubName).HasMaxLength(50).IsRequired();
+            builder.Property(x => x.Name).HasMaxLength(50).IsRequired();
 
-            builder.Property(x => x.ClubSummary).HasMaxLength(450).IsRequired();
-            builder.Property(x => x.ClubPhoto).HasMaxLength(300).IsRequired();
-            builder.Property(x => x.IsClubActive).HasDefaultValue(false);
+            builder.Property(x => x.Summary).HasMaxLength(450).IsRequired();
+            builder.Property(x => x.Url).HasMaxLength(300);
+            builder.Property(x => x.IsActive).HasDefaultValue(false);
 
         }
     }

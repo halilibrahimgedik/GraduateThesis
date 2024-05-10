@@ -1,5 +1,6 @@
 ﻿using GraduateThesis.WEB.Models;
 using GraduateThesis.WEB.Models.ClubViewModels;
+using System.Text.Json;
 
 namespace GraduateThesis.WEB.Services.Concrete
 {
@@ -37,15 +38,47 @@ namespace GraduateThesis.WEB.Services.Concrete
         //}
 
 
-        public async Task<CustomResponseVm<ClubVm>> SaveAsync(CreateClubVm newProduct)
+        public async Task<CustomResponseVm<ClubVm>> SaveAsync(CreateClubWithImageVm newProduct)
         {
-            var response = await _httpClient.PostAsJsonAsync("clubs", newProduct);
+            // Multipart form verisini oluştur
+            var multipartContent = new MultipartFormDataContent();
 
-            //if (!response.IsSuccessStatusCode) return null;
+            // Club verisini JSON formatına dönüştür ve ekleyin
+            //var clubJson = JsonSerializer.Serialize(newProduct.Club);
+            multipartContent.Add(new StringContent(newProduct.Club.ClubName), "Club.ClubName");
+            multipartContent.Add(new StringContent(newProduct.Club.ClubSummary), "Club.ClubSummary");
+            multipartContent.Add(new StringContent(newProduct.Club.IsClubActive.ToString()), "Club.IsClubActive");
+            foreach (var category in newProduct.Club.Categories)
+            {
+                multipartContent.Add(new StringContent(category.ToString()), "Club.Categories");
+            }
 
+            // Dosyayı ekleyin
+            var imageContent = new StreamContent(newProduct.Image.OpenReadStream());
+            multipartContent.Add(imageContent, "Image", newProduct.Image.FileName);
+
+            // API'ye POST isteği gönderin
+            var response = await _httpClient.PostAsync("clubs", multipartContent);
+
+            // Yanıtı kontrol edin
+            if (!response.IsSuccessStatusCode)
+            {
+                // Yanıt başarısız ise null döndürün veya isteği yeniden deneyin veya hata işleyin
+                return null;
+            }
+
+            // Yanıtı okuyun ve JSON formatına dönüştürün
             var responseBody = await response.Content.ReadFromJsonAsync<CustomResponseVm<ClubVm>>();
 
             return responseBody;
+
+            //var response = await _httpClient.PostAsJsonAsync("clubs", newProduct);
+
+            ////if (!response.IsSuccessStatusCode) return null;
+
+            //var responseBody = await response.Content.ReadFromJsonAsync<CustomResponseVm<ClubVm>>();
+
+            //return responseBody;
         }
 
         //public async Task<bool> UpdateAsync(ClubVm newProduct)

@@ -10,5 +10,6 @@ namespace GraduateThesis.Core.Repositories
     public interface ICategoryRepository : IGenericRepository<Category>
     {
         Task<Category> GetCategoryByIdWithClubsAsync(int id);
+        Task<List<Category>> GetCategoriesByIdsAsync(List<int> ids);
     }
 }

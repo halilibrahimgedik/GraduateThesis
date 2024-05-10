@@ -53,6 +53,7 @@ builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsi
 
 // ! NotFoundFilter
 builder.Services.AddScoped(typeof(NotFoundFilter<,>));
+builder.Services.AddScoped(typeof(ValidateCategoryIdsFilter));
 
 // ! AutoFac
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());

@@ -9,14 +9,12 @@ namespace GraduateThesis.Core.Dtos.ClubDtos
 {
     public class CreateClubDto
     {
-        public string ClubName { get; set; }
+        public string Name { get; set; }
 
-        public string ClubSummary { get; set; }
+        public string Summary { get; set; }
 
-        //public string? ClubPhoto { get; set; }
+        public bool IsActive { get; set; } = true;
 
-        public bool IsClubActive { get; set; } = true;
-
-        public IEnumerable<int> Categories { get; set; }
+        public List<int> Categories { get; set; }
     }
 }

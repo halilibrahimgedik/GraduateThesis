@@ -12,11 +12,12 @@ namespace GraduateThesis.Core.Services
 {
     public interface IClubService : IGenericService<Club, ClubDto>
     {
-        Task<CustomResponseDto<IEnumerable<ClubsWithCategoriesDto>>> GetClubsWithCategoriesAsync();
+        Task<CustomResponseDto<List<ClubDto>>> GetAllActiveClubsAsync();
+        Task<CustomResponseDto<List<ClubWithCategoriesDto>>> GetClubsWithCategoriesAsync();
 
-        Task<CustomResponseDto<ClubWitCategoryIdsDto>> AddAsync(CreateClubWithImageDto dto);
+        Task<CustomResponseDto<ClubWithCategoriesDto>> AddAsync(CreateClubWithImageDto dto);
 
-        Task<CustomResponseDto<List<ClubWitCategoryIdsDto>>> AddRangeAsync(IEnumerable<CreateClubDto> dtos);
+        Task<CustomResponseDto<List<ClubWithCategoriesDto>>> AddRangeAsync(IEnumerable<CreateClubDto> dtos);
 
         Task<CustomResponseDto<NoDataDto>> UpdateAsync(UpdateClubDto dto);
     }

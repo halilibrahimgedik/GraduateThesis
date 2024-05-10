@@ -24,5 +24,8 @@ namespace GraduateThesis.Core.Services
 
         // Overload
         Task<CustomResponseDto<NoDataDto>> UpdateAsync(UpdateCategoryDto dto);
+
+
+        Task<List<Category>> GetCategoriesByIdsAsync(List<int> ids);
     }
 }

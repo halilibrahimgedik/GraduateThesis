@@ -5,6 +5,7 @@ using GraduateThesis.Core.Models;
 using GraduateThesis.Core.Repositories;
 using GraduateThesis.Core.Services;
 using GraduateThesis.Core.UnitOfWork;
+using GraduateThesis.Service.Exceptions;
 using System.Net;
 
 namespace GraduateThesis.Service.Services
@@ -59,6 +60,11 @@ namespace GraduateThesis.Service.Services
             var datas = _mapper.Map<IEnumerable<CategoryDto>>(newEntities);
 
             return CustomResponseDto<IEnumerable<CategoryDto>>.Success((int)HttpStatusCode.Created, datas);
+        }
+
+        public async Task<List<Category>> GetCategoriesByIdsAsync(List<int> ids)
+        {
+            return await _categoryRepository.GetCategoriesByIdsAsync(ids);
         }
     }
 }

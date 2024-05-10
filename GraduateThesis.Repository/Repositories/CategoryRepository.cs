@@ -15,6 +15,11 @@ namespace GraduateThesis.Repository.Repositories
         {
         }
 
+        public async Task<List<Category>> GetCategoriesByIdsAsync(List<int> ids)
+        {
+            return await _dbContext.Categories.Where(c=>ids.Contains(c.Id)).ToListAsync();
+        }
+
         public async Task<Category> GetCategoryByIdWithClubsAsync(int id)
         {
             return await _dbContext.Categories.Include(category => category.ClubCategories)

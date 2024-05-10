@@ -11,6 +11,7 @@ namespace GraduateThesis.Core.Repositories
 {
     public interface IClubRepository : IGenericRepository<Club> 
     {
+        Task<IEnumerable<Club>> GetAllActiveClubsAsync();
         Task<Club> GetClubByIdWithCategories(int id);
 
         Task<IEnumerable<Club>> GetClubsWithCategoriesAsync();

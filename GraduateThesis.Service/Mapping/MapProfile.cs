@@ -18,19 +18,20 @@ namespace GraduateThesis.Service.Mapping
             // ! Club Mapping
             CreateMap<Club, ClubDto>();
             CreateMap<CreateClubDto, Club>();
-
-            CreateMap<Club, ClubWitCategoryIdsDto>()
-            .ForMember(dest => dest.Categories, opt => opt.MapFrom(src => src.ClubCategories.Select(cc => cc.CategoryId).ToList()));
-
             CreateMap<UpdateClubDto, Club>();
 
-            CreateMap<Club, ClubsWithCategoriesDto>()
-                .ForMember(dest => dest.Categories, opt => opt.MapFrom(src => src.ClubCategories.Select(cc => new CategoryDto() { 
+            CreateMap<Club, ClubWithCategoriesDto>()
+                .ForMember(dest => dest.Categories, opt => opt.MapFrom(src => src.ClubCategories.Select(cc => new CategoryDto()
+                { 
                     Id = cc.CategoryId, 
                     CategoryName = cc.Category.CategoryName, 
                     CreatedDate = cc.Category.CreatedDate 
                 })));
 
+            CreateMap<CreateClubWithImageDto, Club>()
+               .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+               .ForMember(dest => dest.Summary, opt => opt.MapFrom(src => src.Summary))
+               .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => src.IsActive));
 
             // ! Category Mapping
 
@@ -42,11 +43,11 @@ namespace GraduateThesis.Service.Mapping
                 .ForMember(dest => dest.Clubs, opt => opt.MapFrom(src => src.ClubCategories.Select(cc => new ClubDto()
                 {
                     Id = cc.ClubId,
-                    ClubName = cc.Club.ClubName,
-                    ClubSummary = cc.Club.ClubSummary,
-                    ClubPhoto = cc.Club.ClubPhoto,
+                    Name = cc.Club.Name,
+                    Summary = cc.Club.Summary,
+                    Url = cc.Club.Url,
                     CreatedDate = cc.Club.CreatedDate,
-                    IsClubActive = cc.Club.IsClubActive
+                    IsActive = cc.Club.IsActive
                 })));
 
 

@@ -7,6 +7,7 @@ using GraduateThesis.Core.Repositories;
 using GraduateThesis.Core.Services;
 using GraduateThesis.Core.UnitOfWork;
 using GraduateThesis.Repository.Repositories;
+using GraduateThesis.Service.Exceptions;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -21,45 +22,53 @@ namespace GraduateThesis.Service.Services
     public class ClubService : GenericService<Club, ClubDto>, IClubService
     {
         private readonly IClubRepository _clubRepository;
-        private readonly ICategoryRepository _categoryRepository;
+        private readonly ICategoryService _categoryService;
         private readonly IFormFileHelper _formFileHelper;
-        public ClubService(IGenericRepository<Club> genericRepository, IMapper mapper, IUnitOfWork unitOfWork, IClubRepository clubRepository, ICategoryRepository categoryRepository, IFormFileHelper formFileHelper) : base(genericRepository, mapper, unitOfWork)
+        public ClubService(IGenericRepository<Club> genericRepository, IMapper mapper, IUnitOfWork unitOfWork, IClubRepository clubRepository, ICategoryService categoryService, IFormFileHelper formFileHelper) : base(genericRepository, mapper, unitOfWork)
         {
             _clubRepository = clubRepository;
-            _categoryRepository = categoryRepository;
+            _categoryService = categoryService;
             _formFileHelper = formFileHelper;
         }
 
-        // Overload
-        public async Task<CustomResponseDto<ClubWitCategoryIdsDto>> AddAsync(CreateClubWithImageDto dto)
+
+        public async Task<CustomResponseDto<List<ClubDto>>> GetAllActiveClubsAsync()
         {
-            var newEntity = _mapper.Map<Club>(dto.Club);
-
-            newEntity.ClubPhoto = _formFileHelper.Add(dto.Image);
-
-            foreach (var categoryId in dto.Club.Categories)
-            {
-                var category = await _categoryRepository.GetByIdAsync(categoryId);
-                if (category != null)
-                {
-                    newEntity.ClubCategories.Add(new ClubCategory { CategoryId = category.Id, ClubId = newEntity.Id });
-                }
-                else
-                {
-                    // error döndürülecek
-                }
-            }
-
-            await _clubRepository.AddAsync(newEntity);
-            await _unitOfWork.CommitAsync();
-
-            var createdEntity = _mapper.Map<ClubWitCategoryIdsDto>(newEntity);
-
-            return CustomResponseDto<ClubWitCategoryIdsDto>.Success((int)HttpStatusCode.Created, createdEntity);
+            var clubs= await _clubRepository.GetAllActiveClubsAsync();
+            var activeClubs = _mapper.Map<List<ClubDto>>(clubs);
+            return CustomResponseDto<List<ClubDto>>.Success(StatusCodes.Status200OK, activeClubs);
         }
 
         // Overload
-        public async Task<CustomResponseDto<List<ClubWitCategoryIdsDto>>> AddRangeAsync(IEnumerable<CreateClubDto> dtos)
+        public async Task<CustomResponseDto<ClubWithCategoriesDto>> AddAsync(CreateClubWithImageDto dto)
+        {
+            var newEntity = _mapper.Map<Club>(dto);
+
+            try
+            {
+                newEntity.Url = await _formFileHelper.Add(dto.Image);
+
+                var categories = await _categoryService.GetCategoriesByIdsAsync(dto.Categories);
+
+                foreach (var category in categories)
+                {
+                    newEntity.ClubCategories.Add(new ClubCategory() { Category = category, CategoryId = newEntity.Id });
+                }
+
+                await _clubRepository.AddAsync(newEntity);
+                await _unitOfWork.CommitAsync();
+            }
+            catch (Exception ex)
+            {
+                return CustomResponseDto<ClubWithCategoriesDto>.Fail(StatusCodes.Status400BadRequest,ex.Message);
+            }
+
+            var createdEntity = _mapper.Map<ClubWithCategoriesDto>(newEntity);
+
+            return CustomResponseDto<ClubWithCategoriesDto>.Success((int)HttpStatusCode.Created, createdEntity);
+        }
+
+        public async Task<CustomResponseDto<List<ClubWithCategoriesDto>>> AddRangeAsync(IEnumerable<CreateClubDto> dtos)
         {
             var newEntities = new List<Club>();
 
@@ -67,9 +76,11 @@ namespace GraduateThesis.Service.Services
             {
                 var newClub = _mapper.Map<Club>(dto);
 
-                foreach (var categoryId in dto.Categories)
+                var categories = await _categoryService.GetCategoriesByIdsAsync(dto.Categories);
+
+                foreach (var category in categories)
                 {
-                    newClub.ClubCategories.Add(new ClubCategory { CategoryId = categoryId, ClubId = newClub.Id });
+                    newClub.ClubCategories.Add(new ClubCategory { Category = category, ClubId = newClub.Id });
                 }
 
                 newEntities.Add(newClub);
@@ -77,51 +88,53 @@ namespace GraduateThesis.Service.Services
 
             await _clubRepository.AddRangeAsync(newEntities);
             await _unitOfWork.CommitAsync();
-            var createdEntity = _mapper.Map<List<ClubWitCategoryIdsDto>>(newEntities);
+            var createdEntity = _mapper.Map<List<ClubWithCategoriesDto>>(newEntities);
 
-            return CustomResponseDto<List<ClubWitCategoryIdsDto>>.Success((int)HttpStatusCode.Created, createdEntity);
+            return CustomResponseDto<List<ClubWithCategoriesDto>>.Success((int)HttpStatusCode.Created, createdEntity);
         }
 
-        public async Task<CustomResponseDto<IEnumerable<ClubsWithCategoriesDto>>> GetClubsWithCategoriesAsync()
+        public async Task<CustomResponseDto<List<ClubWithCategoriesDto>>> GetClubsWithCategoriesAsync()
         {
             var datas = await _clubRepository.GetClubsWithCategoriesAsync();
 
-            var dtos = _mapper.Map<IEnumerable<ClubsWithCategoriesDto>>(datas);
+            var dtos = _mapper.Map<List<ClubWithCategoriesDto>>(datas);
 
-            return CustomResponseDto<IEnumerable<ClubsWithCategoriesDto>>.Success((int)HttpStatusCode.OK, dtos);
+            return CustomResponseDto<List<ClubWithCategoriesDto>>.Success((int)HttpStatusCode.OK, dtos);
         }
 
         // Overload
         public async Task<CustomResponseDto<NoDataDto>> UpdateAsync(UpdateClubDto dto)
-        {
+        { 
             var entity = await _clubRepository.GetClubByIdWithCategories(dto.Id);
+
+            if (entity == null)
+            {
+                throw new ClientSideException($"Bad Request, there is no any Club with  id : {dto.Id}");
+            }
 
             _mapper.Map(dto, entity);
 
-            if (dto.CategoryIds.Count > 0)
-            {
-                foreach (var categoryId in dto.CategoryIds)
-                {
-                    if (!entity.ClubCategories.Any(cc => cc.CategoryId == categoryId))
-                    {
-                        entity.ClubCategories.Add(new ClubCategory { CategoryId = categoryId, ClubId = entity.Id });
-                    }
-                }
+            entity.Url = await _formFileHelper.Add(dto.Image);
 
-                var categoriesToRemove = entity.ClubCategories.Where(cc => !dto.CategoryIds.Contains(cc.CategoryId)).ToList();
-                foreach (var clubCategory in categoriesToRemove)
+            foreach (var categoryId in dto.Categories)
+            {
+                if (!entity.ClubCategories.Any(cc => cc.CategoryId == categoryId))
                 {
-                    entity.ClubCategories.Remove(clubCategory);
+                    entity.ClubCategories.Add(new ClubCategory { CategoryId = categoryId, ClubId = entity.Id });
                 }
             }
 
+            var categoriesToRemove = entity.ClubCategories.Where(cc => !dto.Categories.Contains(cc.CategoryId)).ToList();
+            foreach (var clubCategory in categoriesToRemove)
+            {
+                entity.ClubCategories.Remove(clubCategory);
+            }
+            
             _clubRepository.Update(entity);
             await _unitOfWork.CommitAsync();
 
             return CustomResponseDto<NoDataDto>.Success((int)HttpStatusCode.NoContent);
         }
-
-      
     }
 
 }

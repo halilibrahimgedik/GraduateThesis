@@ -25,7 +25,6 @@ namespace GraduateThesis.Repository.UnitOfWork
         public async Task CommitAsync()
         {
             await _dbContext.SaveChangesAsync();
-            await _dbContext.SaveChangesAsync();
         }
     }
 }

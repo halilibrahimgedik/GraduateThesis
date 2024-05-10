@@ -4,6 +4,7 @@ using GraduateThesis.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GraduateThesis.Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240510051701_FixedAllClubColumns")]
+    partial class FixedAllClubColumns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,37 +52,37 @@ namespace GraduateThesis.Repository.Migrations
                         {
                             Id = 1,
                             CategoryName = "Teknoloji",
-                            CreatedDate = new DateTime(2024, 5, 10, 8, 34, 47, 312, DateTimeKind.Local).AddTicks(297)
+                            CreatedDate = new DateTime(2024, 5, 10, 8, 17, 1, 228, DateTimeKind.Local).AddTicks(3646)
                         },
                         new
                         {
                             Id = 2,
                             CategoryName = "Spor",
-                            CreatedDate = new DateTime(2024, 5, 10, 8, 34, 47, 312, DateTimeKind.Local).AddTicks(304)
+                            CreatedDate = new DateTime(2024, 5, 10, 8, 17, 1, 228, DateTimeKind.Local).AddTicks(3654)
                         },
                         new
                         {
                             Id = 3,
                             CategoryName = "Kitap",
-                            CreatedDate = new DateTime(2024, 5, 10, 8, 34, 47, 312, DateTimeKind.Local).AddTicks(305)
+                            CreatedDate = new DateTime(2024, 5, 10, 8, 17, 1, 228, DateTimeKind.Local).AddTicks(3655)
                         },
                         new
                         {
                             Id = 4,
                             CategoryName = "Sanat",
-                            CreatedDate = new DateTime(2024, 5, 10, 8, 34, 47, 312, DateTimeKind.Local).AddTicks(306)
+                            CreatedDate = new DateTime(2024, 5, 10, 8, 17, 1, 228, DateTimeKind.Local).AddTicks(3656)
                         },
                         new
                         {
                             Id = 5,
                             CategoryName = "Dans",
-                            CreatedDate = new DateTime(2024, 5, 10, 8, 34, 47, 312, DateTimeKind.Local).AddTicks(307)
+                            CreatedDate = new DateTime(2024, 5, 10, 8, 17, 1, 228, DateTimeKind.Local).AddTicks(3656)
                         },
                         new
                         {
                             Id = 6,
                             CategoryName = "Girişimcilik",
-                            CreatedDate = new DateTime(2024, 5, 10, 8, 34, 47, 312, DateTimeKind.Local).AddTicks(308)
+                            CreatedDate = new DateTime(2024, 5, 10, 8, 17, 1, 228, DateTimeKind.Local).AddTicks(3657)
                         });
                 });
 
@@ -114,6 +116,7 @@ namespace GraduateThesis.Repository.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Url")
+                        .IsRequired()
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
@@ -125,7 +128,7 @@ namespace GraduateThesis.Repository.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 5, 10, 8, 34, 47, 312, DateTimeKind.Local).AddTicks(527),
+                            CreatedDate = new DateTime(2024, 5, 10, 8, 17, 1, 228, DateTimeKind.Local).AddTicks(3895),
                             IsActive = true,
                             Name = "DU Siber",
                             Summary = "DU Siber Kulübü, öğrencilere teknoloji, yazılım ve siber güvenlik alanlarında deneyim kazanma imkanı sunar. Atölyeler, yarışmalar ve seminerlerle öğrenme ortamı sağlar. Katılın, teknolojiye adım atın ve kendinizi geliştirin!",
@@ -134,7 +137,7 @@ namespace GraduateThesis.Repository.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 5, 10, 8, 34, 47, 312, DateTimeKind.Local).AddTicks(529),
+                            CreatedDate = new DateTime(2024, 5, 10, 8, 17, 1, 228, DateTimeKind.Local).AddTicks(3897),
                             IsActive = true,
                             Name = "Kitap Dostu",
                             Summary = "Kitap Dostu Kulübü, kitap tutkunlarını bir araya getirerek edebiyatın büyülü dünyasında yolculuğa çıkarır. Okuma tutkusunu paylaşan herkesi bekliyoruz!",
@@ -143,7 +146,7 @@ namespace GraduateThesis.Repository.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 5, 10, 8, 34, 47, 312, DateTimeKind.Local).AddTicks(530),
+                            CreatedDate = new DateTime(2024, 5, 10, 8, 17, 1, 228, DateTimeKind.Local).AddTicks(3899),
                             IsActive = true,
                             Name = "DU Archer Club",
                             Summary = "DU Archer Club, okçuluk tutkunlarının buluşma noktasıdır. Okçuluk sporuna ilgi duyan herkesi bekliyoruz! ",
@@ -152,7 +155,7 @@ namespace GraduateThesis.Repository.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2024, 5, 10, 8, 34, 47, 312, DateTimeKind.Local).AddTicks(531),
+                            CreatedDate = new DateTime(2024, 5, 10, 8, 17, 1, 228, DateTimeKind.Local).AddTicks(3899),
                             IsActive = true,
                             Name = "DU Scout Club",
                             Summary = "Kulübümüz, doğayla iç içe olmayı, macera dolu anlar yaşamayı seven herkesi bir araya getiriyor. Keşfetmeye hazır mısın?  ",
@@ -161,7 +164,7 @@ namespace GraduateThesis.Repository.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2024, 5, 10, 8, 34, 47, 312, DateTimeKind.Local).AddTicks(587),
+                            CreatedDate = new DateTime(2024, 5, 10, 8, 17, 1, 228, DateTimeKind.Local).AddTicks(3900),
                             IsActive = true,
                             Name = "Elit Dans Kulübü",
                             Summary = "Elit Dans Kulübü, ritim tutmayı seven herkes için mükemmel bir buluşma noktasıdır. Eğlenceli dans dersleri ve unutulmaz performanslarla dolu bir deneyim için seni de bekliyoruz! ",
@@ -170,7 +173,7 @@ namespace GraduateThesis.Repository.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2024, 5, 10, 8, 34, 47, 312, DateTimeKind.Local).AddTicks(588),
+                            CreatedDate = new DateTime(2024, 5, 10, 8, 17, 1, 228, DateTimeKind.Local).AddTicks(3901),
                             IsActive = true,
                             Name = "The Young Entrepreneurs Club",
                             Summary = "Genç Girişimciler Kulübü, yenilikçi fikirleriyle öne çıkan gençleri bir araya getirir. İş dünyasına adım atmak isteyenlere mentorluk yapar ve eğitimler düzenler. İş hayatına dair her şeyi keşfetmek için seni de aramıza bekliyoruz! ",

@@ -1,5 +1,6 @@
 ﻿using GraduateThesis.API.Filters;
 using GraduateThesis.Core.Dtos.ClubDtos;
+using GraduateThesis.Core.Dtos.CustomResponseDtos;
 using GraduateThesis.Core.Models;
 using GraduateThesis.Core.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,12 @@ namespace GraduateThesis.API.Controllers
         }
 
         [HttpGet("[action]")]
+        public async Task<IActionResult> GetAllActiveClubs()
+        {
+            return CreateAction(await _clubService.GetAllActiveClubsAsync());
+        }
+
+        [HttpGet("GetClubsWithCategories")]
         public async Task<IActionResult> GetClubsWithCategories()
         {
             var datas = await _clubService.GetClubsWithCategoriesAsync();
@@ -41,6 +48,7 @@ namespace GraduateThesis.API.Controllers
             return CreateAction(club);
         }
 
+        [ServiceFilter(typeof(ValidateCategoryIdsFilter))]
         [HttpPost]
         public async Task<IActionResult> Add([FromForm] CreateClubWithImageDto dto)
         {
@@ -55,8 +63,9 @@ namespace GraduateThesis.API.Controllers
             return CreateAction(await _clubService.AddRangeAsync(dtos));
         }
 
+        [ServiceFilter(typeof(ValidateCategoryIdsFilter))]
         [HttpPut]
-        public async Task<IActionResult> Update(UpdateClubDto dto)
+        public async Task<IActionResult> Update([FromForm]UpdateClubDto dto)
         {
             var response = await _clubService.UpdateAsync(dto);
 

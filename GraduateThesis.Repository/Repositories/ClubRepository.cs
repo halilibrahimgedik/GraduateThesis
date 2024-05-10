@@ -16,14 +16,19 @@ namespace GraduateThesis.Repository.Repositories
         {
         }
 
+        public async Task<IEnumerable<Club>> GetAllActiveClubsAsync()
+        {
+            return await _dbContext.Clubs.Where(c => c.IsActive).ToListAsync();
+        }
+
         public async Task<Club> GetClubByIdWithCategories(int id)
         {
-            return await _dbContext.Clubs.Include(c => c.ClubCategories).FirstOrDefaultAsync(c => c.Id == id);
+            return await _dbContext.Clubs.Where(c=>c.IsActive).Include(c => c.ClubCategories).FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<IEnumerable<Club>> GetClubsWithCategoriesAsync()
         {
-            return await _dbContext.Clubs.Include(c => c.ClubCategories).ThenInclude(cc => cc.Category).ToListAsync();
+            return await _dbContext.Clubs.Where(c=>c.IsActive).Include(c => c.ClubCategories).ThenInclude(cc => cc.Category).ToListAsync();
         }
     }
 }
