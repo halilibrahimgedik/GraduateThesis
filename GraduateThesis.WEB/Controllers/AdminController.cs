@@ -39,25 +39,27 @@ namespace GraduateThesis.WEB.Controllers
                 return View(model);
             }
 
-
-
-            var club = new CreateClubVm()
-            {
-                ClubName = model.ClubName,
-                ClubSummary = model.ClubSummary,
-                IsClubActive = model.IsClubActive,
-                Categories = model.Categories,
-            };
-
             var clubWithImage = new CreateClubWithImageVm()
             {
-                Club = club,
+                Name = model.Name,
+                Summary = model.Summary,
+                IsActive = model.IsActive,
+                Categories = model.Categories,
                 Image = file,
             };
 
             var response =await _clubApiService.SaveAsync(clubWithImage);
 
-            if (response.Errors != null)
+            if(response == null)
+            {
+                ViewBag.Categories = await _categoryApiService.GetAllAsync();
+
+                ViewData["Errors"] = new List<string>() {"Bir Hata Meydana Geldi, Lütfen Daha Sonra Tekrar Deneyiniz"};
+
+                return View(model);
+            }
+
+            if (response?.Errors?.Count > 0)
             {
                 ViewBag.Categories = await _categoryApiService.GetAllAsync();
 
@@ -65,7 +67,6 @@ namespace GraduateThesis.WEB.Controllers
 
                 return View(model);
             }
-
 
             return RedirectToAction("ManageClubs");
         }
@@ -81,5 +82,7 @@ namespace GraduateThesis.WEB.Controllers
             }
             return RedirectToAction("ManageClubs");
         }
+
+        public async Task<IActionResult>
     }
 }

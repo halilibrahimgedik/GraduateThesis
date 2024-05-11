@@ -2,11 +2,11 @@
 {
     public class CreateClubVm
     {
-        public string ClubName { get; set; }
+        public string Name { get; set; }
 
-        public string ClubSummary { get; set; }
+        public string Summary { get; set; }
 
-        public bool IsClubActive { get; set; } = true;
+        public bool IsActive { get; set; } = true;
 
         public List<int> Categories { get; set; }
     }

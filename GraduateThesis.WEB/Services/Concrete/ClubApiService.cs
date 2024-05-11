@@ -39,54 +39,32 @@ namespace GraduateThesis.WEB.Services.Concrete
 
 
         public async Task<CustomResponseVm<ClubVm>> SaveAsync(CreateClubWithImageVm newProduct)
-        {
-            // Multipart form verisini oluştur
+        { 
             var multipartContent = new MultipartFormDataContent();
 
-            // Club verisini JSON formatına dönüştür ve ekleyin
-            //var clubJson = JsonSerializer.Serialize(newProduct.Club);
-            multipartContent.Add(new StringContent(newProduct.Club.ClubName), "Club.ClubName");
-            multipartContent.Add(new StringContent(newProduct.Club.ClubSummary), "Club.ClubSummary");
-            multipartContent.Add(new StringContent(newProduct.Club.IsClubActive.ToString()), "Club.IsClubActive");
-            foreach (var category in newProduct.Club.Categories)
+            multipartContent.Add(new StringContent(newProduct.Name), "Name");
+            multipartContent.Add(new StringContent(newProduct.Summary), "Summary");
+            multipartContent.Add(new StringContent(newProduct.IsActive.ToString()), "IsActive");
+
+            foreach (var category in newProduct.Categories)
             {
-                multipartContent.Add(new StringContent(category.ToString()), "Club.Categories");
+                multipartContent.Add(new StringContent(category.ToString()), "Categories");
             }
 
-            // Dosyayı ekleyin
             var imageContent = new StreamContent(newProduct.Image.OpenReadStream());
             multipartContent.Add(imageContent, "Image", newProduct.Image.FileName);
 
-            // API'ye POST isteği gönderin
             var response = await _httpClient.PostAsync("clubs", multipartContent);
 
-            // Yanıtı kontrol edin
             if (!response.IsSuccessStatusCode)
             {
-                // Yanıt başarısız ise null döndürün veya isteği yeniden deneyin veya hata işleyin
-                return null;
+                return (await response.Content.ReadFromJsonAsync<CustomResponseVm<ClubVm>>())!;
             }
 
-            // Yanıtı okuyun ve JSON formatına dönüştürün
             var responseBody = await response.Content.ReadFromJsonAsync<CustomResponseVm<ClubVm>>();
 
-            return responseBody;
-
-            //var response = await _httpClient.PostAsJsonAsync("clubs", newProduct);
-
-            ////if (!response.IsSuccessStatusCode) return null;
-
-            //var responseBody = await response.Content.ReadFromJsonAsync<CustomResponseVm<ClubVm>>();
-
-            //return responseBody;
+            return responseBody!;
         }
-
-        //public async Task<bool> UpdateAsync(ClubVm newProduct)
-        //{
-        //    var response = await _httpClient.PutAsJsonAsync("clubs", newProduct);
-
-        //    return response.IsSuccessStatusCode;
-        //}
 
         public async Task<bool> UpdateAsync(UpdateClubVM newProduct)
         {

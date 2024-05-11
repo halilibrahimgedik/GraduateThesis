@@ -34,7 +34,7 @@ namespace GraduateThesis.API.Utilities.Helpers
             await file.CopyToAsync(fileStream); // yola kopyalıyorum.
             await fileStream.FlushAsync(); // ara belleği temizliyorum.
 
-            var imageUrl = _configuration.GetSection("AppUrl").Value.ToString() + uniqueFileName; // resim url'si
+            var imageUrl = _configuration.GetSection("WebsiteImageUrl").Value.ToString() + uniqueFileName; // resim url'si
 
             return await Task.FromResult(imageUrl);
         }
@@ -71,15 +71,14 @@ namespace GraduateThesis.API.Utilities.Helpers
 
     public static class FileType
     {
-        public const string images = "image_";
-        public const string root = "wwwroot/images/";
+        public const string root = "images/";
     }
 
     public static class FilePathToSave
     {
-        public static string FullPath(string path, string root = FileType.root, string fileType = FileType.images)
+        public static string FullPath(string path, string root = FileType.root)
         {
-            return Path.Combine(Directory.GetCurrentDirectory(), root + fileType + path);
+            return Path.Combine(Directory.GetCurrentDirectory(), root + path);
         }
     }
 }

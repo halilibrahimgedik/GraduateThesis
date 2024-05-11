@@ -2,7 +2,11 @@
 {
     public class CreateClubWithImageVm
     {
-        public CreateClubVm Club { get; set; }
+        public string Name { get; set; }
+        public string Summary { get; set; }
+        public bool IsActive { get; set; } = true;
+        public List<int> Categories { get; set; }
+
         public IFormFile Image { get; set; }
     }
 }

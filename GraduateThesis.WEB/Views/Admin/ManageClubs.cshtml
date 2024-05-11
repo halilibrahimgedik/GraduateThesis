@@ -38,11 +38,11 @@
                     {
                         <tr class="text-center">
                             <td>@club.Id</td>
-                            <td><img src="@club.ClubPhoto" width="90px" style="object-fit:scale-down;height:100px" /></td>
-                            <td class="text-left">@club.ClubName</td>
-                            <td><p>@club.ClubSummary</p></td>
+                            <td><img src="@club.Url" width="90px" style="object-fit:scale-down;height:100px" /></td>
+                            <td class="text-left">@club.Name</td>
+                            <td><p>@club.Summary</p></td>
                             <td>
-                                @if (@club.IsClubActive)
+                                @if (@club.IsActive)
                                 {
                                     <i class="fa-solid fa-circle-check fa-lg text-success"></i>
                                 }
