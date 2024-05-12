@@ -41,7 +41,7 @@ namespace GraduateThesis.API.Utilities.Helpers
         {
             //var fullpath = FilePathToSave.FullPath(imagePath);
 
-            if (string.IsNullOrEmpty(imageUrl) && Directory.Exists(imageUrl))
+            if (string.IsNullOrEmpty(imageUrl) && File.Exists(imageUrl))
             {
                 using FileStream fileStream = new(imageUrl, FileMode.Create);
                 //FileMode.Create burada üzerine yazma işlemi yapar.

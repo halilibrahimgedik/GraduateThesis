@@ -15,8 +15,6 @@
 
         <partial name="PartialViews/_NavbarPartial" />
 
-
-
         @if (IsSectionDefined("Jumbotron"))
         {
             @await RenderSectionAsync("Jumbotron", required: false)
@@ -24,37 +22,41 @@
 
     </header>
 
-    <main role="main" class="pb-3">
+    <main role="main">
 
         <div class="container" style="margin-bottom:6rem;">
             <div class="row mt-4">
-                <div class="col-md-12">
+                <div class="col-md-12 p-0">
+
                     @* Admin Controller dan gelen kategori ve ürün için ekleme, silme, güncelleme mesajları *@
                     @if (TempData["Message"] != null)
                     {
                         var alertMessage = JsonSerializer.Deserialize<AlertMessage>(TempData["Message"].ToString());
 
-                        <div class="row alert_box">
-                            <div class="col-md-12">
-
-                                <div class="alert alert-@alertMessage?.AlertType">
-                                    @foreach (var message in alertMessage?.MessageList)
-                                    {
-                                        <p>@message</p>
-                                    }
-                                </div>
-
+                        <partial name="PartialViews/_ShowMessagePartial" model="alertMessage"/>
+                    }
+                  
+                    @if (IsSectionDefined("Categories"))
+                    {
+                        <div class="d-flex justify-content-between mb-4 mt-5 gap-3">
+                            <div class="col-md-9 d-flex flex-column align-items-center">
+                                @RenderBody()
+                            </div>
+                            <div class="col-md-3">
+                                @await RenderSectionAsync("Categories", required: false)
                             </div>
                         </div>
                     }
-
-                    @RenderBody()
+                    else
+                    {
+                        @RenderBody()
+                    }
 
                 </div>
             </div>
 
         </div>
-        @* @RenderBody() *@
+
     </main>
 
     <footer class="border-top footer text-muted">
