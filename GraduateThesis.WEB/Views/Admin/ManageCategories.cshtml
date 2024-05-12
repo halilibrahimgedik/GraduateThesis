@@ -1,0 +1,66 @@
+﻿@model List<CategoryVm>
+
+@section Css {
+    <link href="~/css/custom.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="text-center mt-2">Admin Categories</h1>
+        <hr />
+        <a asp-action="CreateCategory" asp-controller="Admin" class="btn btn-success mb-3"> Add Category </a>
+
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-danger">
+                <p>@ViewBag.ErrorMessage</p>
+            </div>
+        }
+
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr class="text-center">
+                    <th style="width:30px;">Id</th>
+                    <th>Name</th>
+                    <th>Created Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @if (Model.Count() > 0)
+                {
+
+                    @foreach (var category in Model)
+                    {
+                        <tr class="text-center">
+                            <td>@category.Id</td>
+                            <td class="text-left">@category.Name</td>
+                            <td><p>@category.CreatedDate.ToString("dd.MM.yyyy - hh.mm.ss")</p></td>
+                          
+                            <td>
+                                <a asp-action="UpdateCategory" asp-controller="Admin" asp-route-id="@category.Id" class="btn btn-warning btn-sm mr-3">Edit</a>
+                                @* <a href="/admin/products/@p.Id" class="btn btn-danger btn-sm">Delete</a> *@
+
+                                @* 2. yöntem *@
+                                <form method="post" asp-action="RemoveCategory" style="display:inline;">
+                                    <input type="hidden" name="id" value="@category.Id" />
+                                    <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                                </form>
+                            </td>
+
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <div class="alert alert-warning">
+                        <h3>No Clubs</h3>
+                    </div>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>

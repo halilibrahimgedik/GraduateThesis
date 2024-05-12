@@ -1,0 +1,30 @@
+﻿@model UpdateCategoryVm
+
+<div class="">
+    <form method="post" asp-action="UpdateCategory">
+        <div class="row">
+            <div asp-validation-summary="All" class="text-danger">
+            </div>
+
+            <input type="hidden" asp-for="@Model.Id"/>
+
+            <div class="col-md-12 mt-5">
+                <div class="mb-3 row">
+                    <label asp-for="@Model.Name" class="col-sm-2 col-form-label">Kategori Adı</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" asp-for="@Model.Name" />
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <div class="col-sm-10" style="margin-left:auto">
+                        <button type="submit" class="btn btn-info" style="width:100%">Kaydet</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </form>
+</div>

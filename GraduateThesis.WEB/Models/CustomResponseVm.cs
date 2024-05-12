@@ -6,7 +6,7 @@ namespace GraduateThesis.WEB.Models
     {
         public T Data { get; set; }
 
-        public int StatusCode { get; set; }
+        //public int StatusCode { get; set; }
         public List<string> Errors { get; set; }
 
 
@@ -15,10 +15,10 @@ namespace GraduateThesis.WEB.Models
             return new CustomResponseVm<T> { Data = data };
         }
 
-        public static CustomResponseVm<T> Success(int statusCode)
-        {
-            return new CustomResponseVm<T> { StatusCode = statusCode };
-        }
+        //public static CustomResponseVm<T> Success(int statusCode)
+        //{
+        //    return new CustomResponseVm<T> { StatusCode = statusCode };
+        //}
 
 
         public static CustomResponseVm<T> Fail(List<string> Errors)

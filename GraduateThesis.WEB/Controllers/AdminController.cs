@@ -1,4 +1,5 @@
-﻿using GraduateThesis.WEB.Models.ClubViewModels;
+﻿using GraduateThesis.WEB.Models.CategoryViewModels;
+using GraduateThesis.WEB.Models.ClubViewModels;
 using GraduateThesis.WEB.Services.Concrete;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -131,6 +132,76 @@ namespace GraduateThesis.WEB.Controllers
             }
 
             return RedirectToAction(nameof(ManageClubs));
+        }
+
+
+        public async Task<IActionResult> ManageCategories()
+        {
+            var categories = await _categoryApiService.GetAllAsync();
+
+            return View(categories);
+        }
+
+        [HttpGet]
+        public IActionResult CreateCategory()
+        {
+            var category = new CreateCategoryVm();
+            return View(category);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateCategory(CreateCategoryVm model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var response = await _categoryApiService.AddAsync(model);
+
+            if(response?.Errors?.Count > 0)
+            {
+                ViewData["Errors"] = response.Errors;
+
+                return View(model);
+            }
+
+            return RedirectToAction(nameof(ManageCategories));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> UpdateCategory(int id)
+        {
+            var data = await _categoryApiService.GetByIdAsync(id);
+
+            var category = new UpdateCategoryVm()
+            {
+                Id = data.Id,
+                Name = data.Name,
+            };
+
+            return View(category);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateCategory(UpdateCategoryVm model)
+        {
+            var result = await _categoryApiService.UpdateAsync(model);
+
+            if (result)
+            {
+                return RedirectToAction(nameof(ManageCategories));
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveCategory(int id)
+        {
+            await _categoryApiService.RemoveAsync(id);
+
+            return RedirectToAction(nameof(ManageCategories));
         }
     }
 }

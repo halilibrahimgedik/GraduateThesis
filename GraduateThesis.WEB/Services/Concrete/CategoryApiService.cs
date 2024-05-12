@@ -24,19 +24,22 @@ namespace GraduateThesis.WEB.Services.Concrete
             return response.Data;
         }
 
-        public async Task<CategoryVm> AddAsync(CreateCategoryVm newCategoryVm)
+        public async Task<CustomResponseVm<CategoryVm>> AddAsync(CreateCategoryVm newCategoryVm)
         {
             var response = await _httpClient.PostAsJsonAsync("categories", newCategoryVm);
-            if (!response.IsSuccessStatusCode) return null;
+            if (!response.IsSuccessStatusCode)
+            {
+                return (await response.Content.ReadFromJsonAsync<CustomResponseVm<CategoryVm>>())!;
+            }
 
             var responseBody = await response.Content.ReadFromJsonAsync<CustomResponseVm<CategoryVm>>();
 
-            return responseBody.Data;
+            return responseBody;
         }
 
-        public async Task<bool> Update(UpdateCategoryVm updateVm)
+        public async Task<bool> UpdateAsync(UpdateCategoryVm updateVm)
         {
-            var response = await _httpClient.PutAsJsonAsync("clubs", updateVm);
+            var response = await _httpClient.PutAsJsonAsync("categories", updateVm);
             return response.IsSuccessStatusCode;
         }
 
