@@ -1,8 +1,10 @@
-﻿using GraduateThesis.WEB.Models.CategoryViewModels;
+﻿using GraduateThesis.WEB.Models;
+using GraduateThesis.WEB.Models.CategoryViewModels;
 using GraduateThesis.WEB.Models.ClubViewModels;
 using GraduateThesis.WEB.Services.Concrete;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Text.Json;
 
 namespace GraduateThesis.WEB.Controllers
 {
@@ -51,25 +53,18 @@ namespace GraduateThesis.WEB.Controllers
                 Image = file,
             };
 
-            var response =await _clubApiService.SaveAsync(clubWithImage);
-
-            if(response == null)
-            {
-                ViewBag.Categories = await _categoryApiService.GetAllAsync();
-
-                ViewData["Errors"] = new List<string>() {"Bir Hata Meydana Geldi, Lütfen Daha Sonra Tekrar Deneyiniz"};
-
-                return View(model);
-            }
+            var response = await _clubApiService.SaveAsync(clubWithImage);
 
             if (response?.Errors?.Count > 0)
             {
                 ViewBag.Categories = await _categoryApiService.GetAllAsync();
 
-                ViewData["Errors"] = response.Errors;
+                CreateMessage(AlertType.danger, response.Errors);
 
                 return View(model);
             }
+
+            CreateMessage(AlertType.success, new List<string>() { $"{clubWithImage.Name} Adlı Kulüp Başarıyla Eklendi" });
 
             return RedirectToAction("ManageClubs");
         }
@@ -80,9 +75,12 @@ namespace GraduateThesis.WEB.Controllers
 
             if (!result)
             {
-                TempData["ErrorMessage"] = $"{id}'li Kulüp Silinemedi. Lütfen daha sonra tekrar deneyiniz ..";
+                CreateMessage(AlertType.danger, new List<string>() { $"id'si '{id}' olan Kulüp Silinemedi, lütfen daha sonra tekrar deneyiniz" });
                 return RedirectToAction("ManageClubs");
             }
+
+            CreateMessage(AlertType.warning, new List<string>() { $"id'si '{id}' olan Kulüp Başarıyla Silinmiştir." });
+
             return RedirectToAction("ManageClubs");
         }
 
@@ -107,7 +105,7 @@ namespace GraduateThesis.WEB.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateClub(UpdateClubVM model,IFormFile file)
+        public async Task<IActionResult> UpdateClub(UpdateClubVM model, IFormFile file)
         {
             model.Image = file;
 
@@ -126,13 +124,18 @@ namespace GraduateThesis.WEB.Controllers
             {
                 ViewBag.Categories = await _categoryApiService.GetAllAsync();
 
-                ViewData["Errors"] = response.Errors;
+                CreateMessage(AlertType.danger, response.Errors);
 
                 return View(model);
             }
 
+            CreateMessage(AlertType.warning, new List<string>() { $"{model.Name} Adlı Kulüp Başarıyla Güncellenmiştir." });
+
             return RedirectToAction(nameof(ManageClubs));
         }
+
+
+
 
 
         public async Task<IActionResult> ManageCategories()
@@ -159,12 +162,14 @@ namespace GraduateThesis.WEB.Controllers
 
             var response = await _categoryApiService.AddAsync(model);
 
-            if(response?.Errors?.Count > 0)
+            if (response?.Errors?.Count > 0)
             {
-                ViewData["Errors"] = response.Errors;
+                CreateMessage(AlertType.danger, response.Errors);
 
                 return View(model);
             }
+
+            CreateMessage(AlertType.success, new List<string>() {$"{model.Name} adlı kategori başarıyla eklenmiştir."});
 
             return RedirectToAction(nameof(ManageCategories));
         }
@@ -190,6 +195,7 @@ namespace GraduateThesis.WEB.Controllers
 
             if (result)
             {
+                CreateMessage(AlertType.warning, new List<string>() { $"{model.Name} adlı kategori başarıyla güncellenmiştir." });
                 return RedirectToAction(nameof(ManageCategories));
             }
 
@@ -201,7 +207,20 @@ namespace GraduateThesis.WEB.Controllers
         {
             await _categoryApiService.RemoveAsync(id);
 
+            CreateMessage(AlertType.warning, new List<string>() { $"id'si {id} olan Kategori Başarıyla Silinmiştir"});
+
             return RedirectToAction(nameof(ManageCategories));
+        }
+
+        private void CreateMessage(AlertType alertType, List<string> messageList)
+        {
+            var message = new AlertMessage()
+            {
+                AlertType = alertType,
+                MessageList = messageList
+            };
+
+            TempData["Message"] = JsonSerializer.Serialize(message);
         }
     }
 }

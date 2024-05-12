@@ -3,15 +3,6 @@
 <h1 class="h3">Update Club</h1>
 <hr />
 
-@if (ViewData["Errors"] != null)
-{
-    <div class="alert alert-danger">
-        @foreach(var error in (List<string>) ViewData["Errors"])
-        {
-            <p>@error</p>
-        }
-    </div>
-}
 <form method="post" asp-action="UpdateClub" asp-controller="Admin" enctype="multipart/form-data">
     <div class="row">
 
