@@ -20,5 +20,7 @@ namespace GraduateThesis.Core.Services
         Task<CustomResponseDto<List<ClubWithCategoriesDto>>> AddRangeAsync(IEnumerable<CreateClubDto> dtos);
 
         Task<CustomResponseDto<NoDataDto>> UpdateAsync(UpdateClubDto dto);
+
+        Task<CustomResponseDto<ClubWithCategoriesDto>> GetClubByIdWithCategoriesAsync(int id);
     }
 }

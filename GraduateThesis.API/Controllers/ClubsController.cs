@@ -43,7 +43,7 @@ namespace GraduateThesis.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var club = await _clubService.GetByIdAsync(id);
+            var club = await _clubService.GetClubByIdWithCategoriesAsync(id);
             
             return CreateAction(club);
         }

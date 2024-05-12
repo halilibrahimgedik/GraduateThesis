@@ -112,11 +112,13 @@ namespace GraduateThesis.Service.Services
                 throw new ClientSideException($"Bad Request, there is no any Club with  id : {dto.Id}");
             }
 
+            if (dto.Image != null)
+            {
+                var newUrl = await _formFileHelper.UpdateAsync(dto.Image, entity.Url);
+                entity.Url = newUrl;
+            }
+
             _mapper.Map(dto, entity);
-
-
-            entity.Url = await _formFileHelper.AddAsync(dto.Image);
-
 
             foreach (var categoryId in dto.Categories)
             {
@@ -136,6 +138,16 @@ namespace GraduateThesis.Service.Services
             await _unitOfWork.CommitAsync();
 
             return CustomResponseDto<NoDataDto>.Success((int)HttpStatusCode.NoContent);
+        }
+
+        // OverLoad
+        public async Task<CustomResponseDto<ClubWithCategoriesDto>> GetClubByIdWithCategoriesAsync(int id)
+        {
+            var entity = await _clubRepository.GetClubByIdWithCategories(id);
+
+            var dto = _mapper.Map<ClubWithCategoriesDto>(entity);
+
+            return CustomResponseDto<ClubWithCategoriesDto>.Success((int)HttpStatusCode.OK, dto);
         }
     }
 

@@ -15,6 +15,6 @@ namespace GraduateThesis.Core.Dtos.ClubDtos
         public bool IsActive { get; set; } = true;
         public List<int> Categories { get; set; }
 
-        public IFormFile Image { get; set; }
+        public IFormFile? Image { get; set; }
     }
 }

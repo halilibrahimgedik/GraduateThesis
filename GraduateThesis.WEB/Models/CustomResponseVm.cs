@@ -1,9 +1,12 @@
-﻿namespace GraduateThesis.WEB.Models
+﻿using System.Text.Json.Serialization;
+
+namespace GraduateThesis.WEB.Models
 {
     public class CustomResponseVm<T>
     {
         public T Data { get; set; }
 
+        public int StatusCode { get; set; }
         public List<string> Errors { get; set; }
 
 
@@ -12,10 +15,10 @@
             return new CustomResponseVm<T> { Data = data };
         }
 
-        //public static CustomResponseVm<T> Success(int statusCode)
-        //{
-        //    return new CustomResponseVm<T> { StatusCode = statusCode };
-        //}
+        public static CustomResponseVm<T> Success(int statusCode)
+        {
+            return new CustomResponseVm<T> { StatusCode = statusCode };
+        }
 
 
         public static CustomResponseVm<T> Fail(List<string> Errors)

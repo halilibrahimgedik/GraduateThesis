@@ -11,6 +11,6 @@ namespace GraduateThesis.Core.Services
     {
         Task<string> AddAsync(IFormFile file);
         void Delete(string path);
-        Task UpdateAsync(IFormFile file, string imagePath);
+        Task<string> UpdateAsync(IFormFile file, string imagePath);
     }
 }

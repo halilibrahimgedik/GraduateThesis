@@ -33,6 +33,8 @@ namespace GraduateThesis.WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateClub(CreateClubVm model, IFormFile file)
         {
+            ModelState.Remove("file");
+
             if (!ModelState.IsValid)
             {
                 ViewBag.Categories = await _categoryApiService.GetAllAsync();
@@ -83,6 +85,52 @@ namespace GraduateThesis.WEB.Controllers
             return RedirectToAction("ManageClubs");
         }
 
-        public async Task<IActionResult>
+        [HttpGet]
+        public async Task<IActionResult> UpdateClub(int id)
+        {
+            var club = await _clubApiService.GetByIdAsync(id);
+
+            var updateClubVM = new UpdateClubVM
+            {
+                Id = club.Id,
+                Name = club.Name,
+                IsActive = club.IsActive,
+                Summary = club.Summary,
+                Categories = club.Categories.Select(c => c.Id).ToList(),
+                Url = club.Url,
+            };
+
+            ViewBag.Categories = await _categoryApiService.GetAllAsync();
+
+            return View(updateClubVM);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateClub(UpdateClubVM model,IFormFile file)
+        {
+            model.Image = file;
+
+            ModelState.Remove("file");
+
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Categories = await _categoryApiService.GetAllAsync();
+
+                return View(model);
+            }
+
+            var response = await _clubApiService.UpdateAsync(model);
+
+            if (response?.Errors?.Count > 0)
+            {
+                ViewBag.Categories = await _categoryApiService.GetAllAsync();
+
+                ViewData["Errors"] = response.Errors;
+
+                return View(model);
+            }
+
+            return RedirectToAction(nameof(ManageClubs));
+        }
     }
 }

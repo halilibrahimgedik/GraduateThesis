@@ -1,11 +1,4 @@
 ﻿using GraduateThesis.Core.Services;
-using Microsoft.AspNetCore.Http;
-using Microsoft.VisualBasic.FileIO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GraduateThesis.API.Utilities.Helpers
 {
@@ -44,19 +37,22 @@ namespace GraduateThesis.API.Utilities.Helpers
             throw new NotImplementedException();
         }
 
-        public async Task UpdateAsync(IFormFile file, string imagePath)
+        public async Task<string> UpdateAsync(IFormFile file, string imageUrl)
         {
-            var fullpath = FilePathToSave.FullPath(imagePath);
-            if (File.Exists(fullpath))
+            //var fullpath = FilePathToSave.FullPath(imagePath);
+
+            if (string.IsNullOrEmpty(imageUrl) && Directory.Exists(imageUrl))
             {
-                using FileStream fileStream = new(fullpath, FileMode.Create);
+                using FileStream fileStream = new(imageUrl, FileMode.Create);
                 //FileMode.Create burada üzerine yazma işlemi yapar.
                 await file.CopyToAsync(fileStream);
                 await fileStream.FlushAsync();
+                return imageUrl;
             }
             else
             {
-                throw new DirectoryNotFoundException("File Not Found");
+                var newUrl = await AddAsync(file);
+                return newUrl;
             }
         }
     }

@@ -24,7 +24,7 @@ namespace GraduateThesis.Service.Validators.ClubDtosValidations
                 .MinimumLength(10).WithMessage("{PropertyName} field must be at least 10 characters...");
 
             RuleFor(c => c.IsActive)
-                .NotEmpty().WithMessage("{PropertyName} can not be empty");
+                .NotNull().WithMessage("{PropertyName} can not be empty");
 
             RuleFor(c => c.Categories)
                 .Must(categories => categories != null && categories.All(cat => cat != 0)).WithMessage("Categories can't Contains 0 id ")
