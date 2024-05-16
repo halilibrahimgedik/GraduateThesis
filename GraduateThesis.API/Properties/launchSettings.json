@@ -1,23 +1,19 @@
-﻿{
-  "$schema": "https://json.schemastore.org/launchsettings.json",
-  "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
-    "iisExpress": {
-      "applicationUrl": "http://localhost:6047",
-      "sslPort": 44309
-    }
-  },
+{
   "profiles": {
     "GraduateThesis.API": {
       "commandName": "Project",
-      "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7150;http://localhost:5246",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "Issuer": "https://myprojects.com.tr",
+        "AccessTokenExpirationTime": "10",
+        "RefreshTokenExpirationTime": "360",
+        "SecurityKey": "Gr4du4tTh3sis_Univ3rsity-Club-4pp*.",
+        "Audiences": "MobileFlutterUniversityClubApp,AngularUniversityClubApp,https://myprojects.com.tr"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7150;http://localhost:5246"
     },
     "IIS Express": {
       "commandName": "IISExpress",
@@ -26,6 +22,15 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
+    }
+  },
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:6047",
+      "sslPort": 44309
     }
   }
 }

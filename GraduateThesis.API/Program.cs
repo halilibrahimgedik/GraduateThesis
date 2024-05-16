@@ -5,11 +5,13 @@ using FluentValidation.AspNetCore;
 using GraduateThesis.API.Filters;
 using GraduateThesis.API.Middlewares;
 using GraduateThesis.API.Modules;
+using GraduateThesis.Core.Configuration;
 using GraduateThesis.Repository;
 using GraduateThesis.Service.Mapping;
 using GraduateThesis.Service.Validators.CategoryDtosValidations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +29,42 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+
+// ! options Pattern ile Environment'dan deðer alma
+builder.Services.Configure<CustomTokenOption>(builder.Configuration.GetSection("TokenOptions"));
+
+
+
+// Environment deðiþkenlerinden deðerleri al
+var customTokenOptions = new CustomTokenOption
+{
+    Audiences = Environment.GetEnvironmentVariable("Audiences")?.Split(",").ToList(),
+    Issuer = Environment.GetEnvironmentVariable("Issuer")!,
+    AccessTokenExpirationTime = Convert.ToInt32(Environment.GetEnvironmentVariable("AccessTokenExpirationTime")),
+    RefreshTokenExpirationTime = Convert.ToInt32(Environment.GetEnvironmentVariable("RefreshTokenExpirationTime")),
+    SecurityKey = Environment.GetEnvironmentVariable("SecurityKey")!
+};
+
+
+builder.Services.Configure<CustomTokenOption>(options =>
+{
+    options.Audiences = customTokenOptions.Audiences;
+    options.Issuer = customTokenOptions.Issuer;
+    options.AccessTokenExpirationTime = customTokenOptions.AccessTokenExpirationTime;
+    options.RefreshTokenExpirationTime = customTokenOptions.RefreshTokenExpirationTime;
+    options.SecurityKey = customTokenOptions.SecurityKey!;
+});
+
+
+
+
+
+
+
+
+
 
 
 // ! AppDbContext yapýlandýrmasý
@@ -59,6 +97,8 @@ builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 {
     containerBuilder.RegisterModule(new ServiceModule());
 });
+
+
 
 
 
