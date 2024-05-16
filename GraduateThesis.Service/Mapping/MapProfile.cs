@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GraduateThesis.Core.Dtos;
 using GraduateThesis.Core.Dtos.CategoryDtos;
 using GraduateThesis.Core.Dtos.ClubDtos;
 using GraduateThesis.Core.Dtos.UniversityDtos;
@@ -15,14 +16,18 @@ namespace GraduateThesis.Service.Mapping
     {
         public MapProfile()
         {
-            // ! Club Mapping
+            // AppUser Mapping
+            CreateMap<AppUser, AppUserDto>().ReverseMap();
+
+
+            // Club Mapping
             CreateMap<Club, ClubDto>();
             CreateMap<CreateClubDto, Club>();
             CreateMap<UpdateClubDto, Club>();
 
             CreateMap<Club, ClubWithCategoriesDto>()
                 .ForMember(dest => dest.Categories, opt => opt.MapFrom(src => src.ClubCategories.Select(cc => new CategoryDto()
-                { 
+                {
                     Id = cc.CategoryId,
                     Name = cc.Category.Name,
                     CreatedDate = cc.Category.CreatedDate
@@ -33,8 +38,8 @@ namespace GraduateThesis.Service.Mapping
                .ForMember(dest => dest.Summary, opt => opt.MapFrom(src => src.Summary))
                .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => src.IsActive));
 
-            // ! Category Mapping
 
+            // Category Mapping
             CreateMap<Category, CategoryDto>().ReverseMap();
             CreateMap<CreateCategoryDto, Category>();
             CreateMap<UpdateCategoryDto, Category>();
@@ -51,8 +56,7 @@ namespace GraduateThesis.Service.Mapping
                 })));
 
 
-            // ! University Mapping
-
+            // University Mapping
             CreateMap<CreateUniversityDto, University>();
             CreateMap<University, UniversityDto>();
             CreateMap<UpdateUniversityDto, University>();

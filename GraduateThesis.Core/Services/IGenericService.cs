@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GraduateThesis.Core.Services
 {
-    public interface IGenericService<T,Dto> where T : BaseEntity where Dto : class
+    public interface IGenericService<T,Dto> where T : class where Dto : class
     {
         Task<CustomResponseDto<Dto>> GetByIdAsync(int id);
         Task<CustomResponseDto<IEnumerable<Dto>>> GetAllAsync();

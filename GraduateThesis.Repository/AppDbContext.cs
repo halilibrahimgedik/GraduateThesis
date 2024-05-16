@@ -1,5 +1,7 @@
 ﻿using GraduateThesis.Core.Models;
 using GraduateThesis.Repository.EntityConfigurations;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace GraduateThesis.Repository
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<AppUser,IdentityRole,string>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options):base(options)
         {
@@ -19,13 +21,14 @@ namespace GraduateThesis.Repository
         public DbSet<Club> Clubs { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ClubCategory> ClubCategories { get; set; }
-
+        public DbSet<UserRefreshToken> UserRefreshTokens { get; set; }
         public DbSet<University> Universities { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            base.OnModelCreating(modelBuilder);
         }
 
         public override int SaveChanges()

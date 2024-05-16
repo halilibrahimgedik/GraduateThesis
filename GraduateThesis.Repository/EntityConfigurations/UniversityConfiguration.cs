@@ -14,7 +14,7 @@ namespace GraduateThesis.Repository.EntityConfigurations
         public void Configure(EntityTypeBuilder<University> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.Property(x=>x.Id).UseIdentityColumn();
+            builder.Property(x => x.Id).UseIdentityColumn();
 
             builder.Property(x => x.UniversityName).HasMaxLength(100).IsRequired();
 
@@ -23,6 +23,9 @@ namespace GraduateThesis.Repository.EntityConfigurations
             builder.Property(x => x.Address).IsRequired();
 
             builder.Property(x => x.Phone).HasMaxLength(14);
+
+            builder.HasMany(u => u.Users)
+                .WithOne(user => user.University).HasForeignKey(user => user.UniversityId);
         }
     }
 }
