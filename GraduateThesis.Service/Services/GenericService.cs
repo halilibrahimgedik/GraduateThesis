@@ -20,33 +20,31 @@ namespace GraduateThesis.Service.Services
     {
         private readonly IGenericRepository<T> _genericRepository;
         protected readonly IUnitOfWork _unitOfWork;
-        protected readonly IMapper _mapper;
-        public GenericService(IGenericRepository<T> genericRepository, IMapper mapper, IUnitOfWork unitOfWork)
+        public GenericService(IGenericRepository<T> genericRepository, IUnitOfWork unitOfWork)
         {
             _genericRepository = genericRepository;
-            _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
 
         public async Task<CustomResponseDto<Dto>> AddAsync(Dto dto)
         {
-            var newEntity = _mapper.Map<T>(dto);
+            var newEntity = ObjectMapper.Mapper.Map<T>(dto);
 
             await _genericRepository.AddAsync(newEntity);
             await _unitOfWork.CommitAsync();
 
-            var createdEntity = _mapper.Map<Dto>(newEntity);
+            var createdEntity = ObjectMapper.Mapper.Map<Dto>(newEntity);
 
             return CustomResponseDto<Dto>.Success((int)HttpStatusCode.Created, createdEntity);
         }
 
         public async Task<CustomResponseDto<IEnumerable<Dto>>> AddRangeAsync(IEnumerable<Dto> dtos)
         {
-            var entities = _mapper.Map<IEnumerable<T>>(dtos);
+            var entities = ObjectMapper.Mapper.Map<IEnumerable<T>>(dtos);
             await _genericRepository.AddRangeAsync(entities);
             await _unitOfWork.CommitAsync();
 
-            var createdEntities = _mapper.Map<IEnumerable<Dto>>(entities);
+            var createdEntities = ObjectMapper.Mapper.Map<IEnumerable<Dto>>(entities);
 
             return CustomResponseDto<IEnumerable<Dto>>.Success((int)HttpStatusCode.Created, createdEntities);
         }
@@ -61,7 +59,7 @@ namespace GraduateThesis.Service.Services
         public async Task<CustomResponseDto<IEnumerable<Dto>>> GetAllAsync()
         {
             var entities = await _genericRepository.GetAll().ToListAsync();
-            var dtos = _mapper.Map<IEnumerable<Dto>>(entities);
+            var dtos = ObjectMapper.Mapper.Map<IEnumerable<Dto>>(entities);
 
             return CustomResponseDto<IEnumerable<Dto>>.Success((int)HttpStatusCode.OK, dtos);
         }
@@ -80,7 +78,7 @@ namespace GraduateThesis.Service.Services
                 throw new NotFoundException($"{typeof(T).Name} ({id}) not found ...");
             }
 
-            var dto = _mapper.Map<Dto>(entity);
+            var dto = ObjectMapper.Mapper.Map<Dto>(entity);
 
             return CustomResponseDto<Dto>.Success((int)HttpStatusCode.OK, dto);
         }
@@ -116,7 +114,7 @@ namespace GraduateThesis.Service.Services
 
         public async Task<CustomResponseDto<NoDataDto>> UpdateAsync(Dto dto)
         {
-            var entity = _mapper.Map<T>(dto);
+            var entity = ObjectMapper.Mapper.Map<T>(dto);
             _genericRepository.Update(entity);
             await _unitOfWork.CommitAsync();
 
@@ -127,7 +125,7 @@ namespace GraduateThesis.Service.Services
         {
             var entities = await _genericRepository.Where(expression).ToListAsync();
 
-            var dtos = _mapper.Map<IEnumerable<Dto>>(entities);
+            var dtos = ObjectMapper.Mapper.Map<IEnumerable<Dto>>(entities);
 
             return CustomResponseDto<IEnumerable<Dto>>.Success((int)HttpStatusCode.OK, dtos);
         }

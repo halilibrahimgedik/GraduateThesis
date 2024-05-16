@@ -24,7 +24,7 @@ namespace GraduateThesis.Service.Services
         private readonly IClubRepository _clubRepository;
         private readonly ICategoryService _categoryService;
         private readonly IFormFileHelper _formFileHelper;
-        public ClubService(IGenericRepository<Club> genericRepository, IMapper mapper, IUnitOfWork unitOfWork, IClubRepository clubRepository, ICategoryService categoryService, IFormFileHelper formFileHelper) : base(genericRepository, mapper, unitOfWork)
+        public ClubService(IGenericRepository<Club> genericRepository, IUnitOfWork unitOfWork, IClubRepository clubRepository, ICategoryService categoryService, IFormFileHelper formFileHelper) : base(genericRepository, unitOfWork)
         {
             _clubRepository = clubRepository;
             _categoryService = categoryService;
@@ -35,14 +35,14 @@ namespace GraduateThesis.Service.Services
         public async Task<CustomResponseDto<List<ClubDto>>> GetAllActiveClubsAsync()
         {
             var clubs = await _clubRepository.GetAllActiveClubsAsync();
-            var activeClubs = _mapper.Map<List<ClubDto>>(clubs);
+            var activeClubs = ObjectMapper.Mapper.Map<List<ClubDto>>(clubs);
             return CustomResponseDto<List<ClubDto>>.Success(StatusCodes.Status200OK, activeClubs);
         }
 
         // Overload
         public async Task<CustomResponseDto<ClubWithCategoriesDto>> AddAsync(CreateClubWithImageDto dto)
         {
-            var newEntity = _mapper.Map<Club>(dto);
+            var newEntity = ObjectMapper.Mapper.Map<Club>(dto);
 
             try
             {
@@ -63,7 +63,7 @@ namespace GraduateThesis.Service.Services
                 return CustomResponseDto<ClubWithCategoriesDto>.Fail(StatusCodes.Status400BadRequest, ex.Message);
             }
 
-            var createdEntity = _mapper.Map<ClubWithCategoriesDto>(newEntity);
+            var createdEntity = ObjectMapper.Mapper.Map<ClubWithCategoriesDto>(newEntity);
 
             return CustomResponseDto<ClubWithCategoriesDto>.Success((int)HttpStatusCode.Created, createdEntity);
         }
@@ -74,7 +74,7 @@ namespace GraduateThesis.Service.Services
 
             foreach (var dto in dtos)
             {
-                var newClub = _mapper.Map<Club>(dto);
+                var newClub = ObjectMapper.Mapper.Map<Club>(dto);
 
                 var categories = await _categoryService.GetCategoriesByIdsAsync(dto.Categories);
 
@@ -88,7 +88,7 @@ namespace GraduateThesis.Service.Services
 
             await _clubRepository.AddRangeAsync(newEntities);
             await _unitOfWork.CommitAsync();
-            var createdEntity = _mapper.Map<List<ClubWithCategoriesDto>>(newEntities);
+            var createdEntity = ObjectMapper.Mapper.Map<List<ClubWithCategoriesDto>>(newEntities);
 
             return CustomResponseDto<List<ClubWithCategoriesDto>>.Success((int)HttpStatusCode.Created, createdEntity);
         }
@@ -97,7 +97,7 @@ namespace GraduateThesis.Service.Services
         {
             var datas = await _clubRepository.GetClubsWithCategoriesAsync();
 
-            var dtos = _mapper.Map<List<ClubWithCategoriesDto>>(datas);
+            var dtos = ObjectMapper.Mapper.Map<List<ClubWithCategoriesDto>>(datas);
 
             return CustomResponseDto<List<ClubWithCategoriesDto>>.Success((int)HttpStatusCode.OK, dtos);
         }
@@ -118,7 +118,7 @@ namespace GraduateThesis.Service.Services
                 entity.Url = newUrl;
             }
 
-            _mapper.Map(dto, entity);
+            ObjectMapper.Mapper.Map(dto, entity);
 
             foreach (var categoryId in dto.Categories)
             {
@@ -145,7 +145,7 @@ namespace GraduateThesis.Service.Services
         {
             var entity = await _clubRepository.GetClubByIdWithCategories(id);
 
-            var dto = _mapper.Map<ClubWithCategoriesDto>(entity);
+            var dto = ObjectMapper.Mapper.Map<ClubWithCategoriesDto>(entity);
 
             return CustomResponseDto<ClubWithCategoriesDto>.Success((int)HttpStatusCode.OK, dto);
         }

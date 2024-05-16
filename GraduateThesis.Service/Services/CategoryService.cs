@@ -13,7 +13,7 @@ namespace GraduateThesis.Service.Services
     public class CategoryService : GenericService<Category, CategoryDto>, ICategoryService
     {
         private readonly ICategoryRepository _categoryRepository;
-        public CategoryService(IGenericRepository<Category> genericRepository, IMapper mapper, IUnitOfWork unitOfWork, ICategoryRepository categoryRepository) : base(genericRepository, mapper, unitOfWork)
+        public CategoryService(IGenericRepository<Category> genericRepository, IUnitOfWork unitOfWork, ICategoryRepository categoryRepository) : base(genericRepository, unitOfWork)
         {
             _categoryRepository = categoryRepository;
         }
@@ -23,7 +23,7 @@ namespace GraduateThesis.Service.Services
         {
             var category = await _categoryRepository.GetCategoryByIdWithClubsAsync(id);
 
-            var categoryWithClubsDto = _mapper.Map<CategoryWithClubsDto>(category);
+            var categoryWithClubsDto = ObjectMapper.Mapper.Map<CategoryWithClubsDto>(category);
 
             return CustomResponseDto<CategoryWithClubsDto>.Success((int)HttpStatusCode.OK, categoryWithClubsDto);
         }
@@ -31,11 +31,11 @@ namespace GraduateThesis.Service.Services
         // Overload
         public async Task<CustomResponseDto<CategoryDto>> AddAsync(CreateCategoryDto dto)
         {
-            var newEntity = _mapper.Map<Category>(dto);
+            var newEntity = ObjectMapper.Mapper.Map<Category>(dto);
             await _categoryRepository.AddAsync(newEntity);
             await _unitOfWork.CommitAsync();
 
-            var categoryDto = _mapper.Map<CategoryDto>(newEntity);
+            var categoryDto = ObjectMapper.Mapper.Map<CategoryDto>(newEntity);
 
             return CustomResponseDto<CategoryDto>.Success((int)HttpStatusCode.Created, categoryDto);
         }
@@ -50,7 +50,7 @@ namespace GraduateThesis.Service.Services
                 throw new ClientSideException($"there is no Category with id: {dto.Id}"); 
             }
 
-            var entity = _mapper.Map<Category>(dto);
+            var entity = ObjectMapper.Mapper.Map<Category>(dto);
             _categoryRepository.Update(entity);
             await _unitOfWork.CommitAsync();
 
@@ -60,12 +60,12 @@ namespace GraduateThesis.Service.Services
         // Overload
         public async Task<CustomResponseDto<List<CategoryDto>>> AddRangeAsync(List<CreateCategoryDto> dtos)
         {
-            var newEntities = _mapper.Map<List<Category>>(dtos);
+            var newEntities = ObjectMapper.Mapper.Map<List<Category>>(dtos);
 
             await _categoryRepository.AddRangeAsync(newEntities);
             await _unitOfWork.CommitAsync();
 
-            var datas = _mapper.Map<List<CategoryDto>>(newEntities);
+            var datas = ObjectMapper.Mapper.Map<List<CategoryDto>>(newEntities);
 
             return CustomResponseDto<List<CategoryDto>>.Success((int)HttpStatusCode.Created, datas);
         }

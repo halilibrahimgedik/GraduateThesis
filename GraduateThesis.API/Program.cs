@@ -45,8 +45,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     //});
 });
 
-// ! AutoMapper
-builder.Services.AddAutoMapper(typeof(MapProfile));
 
 // ! FluentValidation
 builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters().AddValidatorsFromAssemblyContaining<CreateCategoryDtoValidator>();
