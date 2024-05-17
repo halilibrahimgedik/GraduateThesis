@@ -10,7 +10,7 @@
         "AccessTokenExpirationTime": "10",
         "RefreshTokenExpirationTime": "360",
         "SecurityKey": "Gr4du4tTh3sis_Univ3rsity-Club-4pp*.",
-        "Audiences": "MobileFlutterUniversityClubApp,AngularUniversityClubApp,https://myprojects.com.tr"
+        "Audiences": "https://myprojects.com.tr,MobileFlutterUniversityClubApp,AngularUniversityClubApp"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:7150;http://localhost:5246"
