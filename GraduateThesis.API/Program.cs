@@ -79,7 +79,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     //!REMOTE SERVER
     if (builder.Environment.IsProduction())
     {
-        options.UseSqlServer(builder.Configuration.GetConnectionString("RemoteSqlServer"), option =>
+        //builder.Configuration.GetConnectionString("RemoteSqlServer")
+        options.UseSqlServer(Environment.GetEnvironmentVariable("RemoteSqlServer")!, option =>
         {
             option.MigrationsAssembly(Assembly.GetAssembly(typeof(AppDbContext)).GetName().Name);
         });
