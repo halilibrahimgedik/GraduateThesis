@@ -42,7 +42,7 @@ namespace GraduateThesis.Service.Services
             return CustomResponseDto<AppUserDto>.Success(StatusCodes.Status201Created, appuserDto);
         }
 
-        public async Task<CustomResponseDto<AppUserDto>> GetUserByEmail(string mail)
+        public async Task<CustomResponseDto<AppUserDto>> GetUserByEmailAsync(string mail)
         {
             if (string.IsNullOrEmpty(mail))
             {
@@ -60,5 +60,24 @@ namespace GraduateThesis.Service.Services
 
             return CustomResponseDto<AppUserDto>.Success(StatusCodes.Status200OK, appUserDto);
         }
+
+        public async Task<CustomResponseDto<AppUserDto>> UpdateUserAsync(UpdateAppUserDto dto)
+        {
+            var user = await _userManager.FindByIdAsync(dto.Id) ?? throw new NotFoundException($"The user specified by user id({dto.Id}) was not found");
+
+            var appUser = ObjectMapper.Mapper.Map<AppUser>(dto);
+
+            var resut = await _userManager.UpdateAsync(appUser);
+
+            if (!resut.Succeeded)
+            {
+                return CustomResponseDto<AppUserDto>.Fail(StatusCodes.Status500InternalServerError, "Something went wrong,pls try again later");
+            }
+
+            var appUserDto = ObjectMapper.Mapper.Map<AppUserDto>(appUser);
+
+            return CustomResponseDto<AppUserDto>.Success(StatusCodes.Status200OK, appUserDto);
+        }
+
     }
 }

@@ -7,11 +7,13 @@ using GraduateThesis.API.Filters;
 using GraduateThesis.API.Middlewares;
 using GraduateThesis.API.Modules;
 using GraduateThesis.Core.Configuration;
+using GraduateThesis.Core.Models;
 using GraduateThesis.Repository;
 using GraduateThesis.Service.Mapping;
 using GraduateThesis.Service.Services;
 using GraduateThesis.Service.Validators.CategoryDtosValidators;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -58,34 +60,51 @@ builder.Services.Configure<CustomTokenOption>(options =>
 });
 
 
-
-// ! Validating Access Token with custom Extension method
-builder.Services.AddCustomTokenAuthentication(customTokenOptions);
-
-
+var localServer = Environment.GetEnvironmentVariable("LocalServer");
+var sqlServer = builder.Configuration.GetConnectionString("SqlServer");
+//var remoteServer = Environment.GetEnvironmentVariable("RemoteServer");
+Console.WriteLine($"-----Connection String: {localServer}");
+Console.WriteLine($"*****Connection String: {sqlServer}");
 
 // ! AppDbContext Configuration
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    //!LOCAL SERVER
-    if (builder.Environment.IsDevelopment())
-    {
-        options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"), option =>
-        {
-            option.MigrationsAssembly(Assembly.GetAssembly(typeof(AppDbContext)).GetName().Name);
-        });
-    }
 
-    //!REMOTE SERVER
-    if (builder.Environment.IsProduction())
+    //options.UseSqlServer(localServer!, option =>
+    //{
+    //    option.MigrationsAssembly(Assembly.GetAssembly(typeof(AppDbContext))!.GetName().Name);
+    //});
+
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"), option =>
     {
-        //builder.Configuration.GetConnectionString("RemoteSqlServer")
-        options.UseSqlServer(Environment.GetEnvironmentVariable("RemoteSqlServer")!, option =>
-        {
-            option.MigrationsAssembly(Assembly.GetAssembly(typeof(AppDbContext)).GetName().Name);
-        });
-    }
+        option.MigrationsAssembly(Assembly.GetAssembly(typeof(AppDbContext)).GetName().Name);
+    });
+
+
+    //if (builder.Environment.IsProduction())
+    //{
+    //    options.UseSqlServer(Environment.GetEnvironmentVariable("RemoteServer"), option =>
+    //    {
+    //        option.MigrationsAssembly(Assembly.GetAssembly(typeof(AppDbContext))!.GetName().Name);
+    //    });
+    //}
 });
+
+builder.Services.AddIdentity<AppUser, IdentityRole>(IdentityOptions =>
+{
+    IdentityOptions.Password.RequireNonAlphanumeric = false;
+    IdentityOptions.Password.RequiredLength = 6;
+    IdentityOptions.Password.RequireUppercase = true;
+    IdentityOptions.Password.RequireLowercase = true;
+    IdentityOptions.Password.RequireDigit = true;
+
+    IdentityOptions.User.RequireUniqueEmail = true;
+}).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+
+
+// ! Validating Access Token with custom Extension method
+builder.Services.AddCustomTokenAuthentication(customTokenOptions);
+
 
 
 // ! FluentValidation

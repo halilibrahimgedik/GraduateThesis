@@ -15,6 +15,8 @@ namespace GraduateThesis.Core.Services
         // User CRUD işlemleri 
         Task<CustomResponseDto<AppUserDto>> CreateUserAsync(CreateAppUserDto dto);
 
-        Task<CustomResponseDto<AppUserDto>> GetUserByEmail(string mail);
+        Task<CustomResponseDto<AppUserDto>> GetUserByEmailAsync(string mail);
+
+        Task<CustomResponseDto<AppUserDto>> UpdateUserAsync(UpdateAppUserDto dto);
     }
 }
