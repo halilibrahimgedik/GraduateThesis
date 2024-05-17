@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using GraduateThesis.Core.Dtos;
+using GraduateThesis.Core.Dtos.AppUserDtos;
 using GraduateThesis.Core.Dtos.CategoryDtos;
 using GraduateThesis.Core.Dtos.ClubDtos;
 using GraduateThesis.Core.Dtos.UniversityDtos;
@@ -18,6 +18,7 @@ namespace GraduateThesis.Service.Mapping
         {
             // AppUser Mapping
             CreateMap<AppUser, AppUserDto>().ReverseMap();
+            CreateMap<CreateAppUserDto, AppUser>();
 
 
             // Club Mapping

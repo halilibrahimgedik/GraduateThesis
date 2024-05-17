@@ -1,4 +1,5 @@
 ﻿using GraduateThesis.Core.Dtos;
+using GraduateThesis.Core.Dtos.AppUserDtos;
 using GraduateThesis.Core.Dtos.CustomResponseDtos;
 using GraduateThesis.Core.Models;
 using System;
@@ -9,9 +10,11 @@ using System.Threading.Tasks;
 
 namespace GraduateThesis.Core.Services
 {
-    public interface IUserService : IGenericService<AppUser, AppUserDto>
+    public interface IUserService
     {
         // User CRUD işlemleri 
+        Task<CustomResponseDto<AppUserDto>> CreateUserAsync(CreateAppUserDto dto);
 
+        Task<CustomResponseDto<AppUserDto>> GetUserByEmail(string mail);
     }
 }

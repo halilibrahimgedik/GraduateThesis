@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GraduateThesis.Service.Validators.CategoryDtosValidations
+namespace GraduateThesis.Service.Validators.CategoryDtosValidators
 {
     public class CreateCategoryDtoValidator : AbstractValidator<CreateCategoryDto>
     {

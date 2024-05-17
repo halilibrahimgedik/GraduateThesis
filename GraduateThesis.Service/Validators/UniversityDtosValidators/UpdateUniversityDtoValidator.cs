@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GraduateThesis.Service.Validators.UniversityDtoValidator
+namespace GraduateThesis.Service.Validators.UniversityDtosValidators
 {
     public class UpdateUniversityDtoValidator : AbstractValidator<UpdateUniversityDto>
     {

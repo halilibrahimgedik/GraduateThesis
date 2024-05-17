@@ -1,18 +1,23 @@
 ﻿using FluentValidation;
 using GraduateThesis.Core.Dtos.ClubDtos;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GraduateThesis.Service.Validators.ClubDtosValidations
+namespace GraduateThesis.Service.Validators.ClubDtosValidators
 {
-    public class CreateClubDtoValidator : AbstractValidator<CreateClubDto>
+    public class UpdateClubDtoValidator : AbstractValidator<UpdateClubDto>
     {
-        public CreateClubDtoValidator()
+        public UpdateClubDtoValidator()
         {
-            RuleFor(c=>c.Name)
+            RuleFor(c => c.Id)
+                .NotEmpty().WithMessage("{PropertyName} can not be empty")
+                .GreaterThan(0).WithMessage("{PropertyName} must be greater than '0'");
+
+            RuleFor(c => c.Name)
                 .NotEmpty().WithMessage("{PropertyName} can not be empty")
                 .MaximumLength(50).WithMessage("{PropertyName} field could be maximum 50 characters")
                 .MinimumLength(3).WithMessage("{PropertyName} field must be at least 3 characters");
@@ -24,9 +29,10 @@ namespace GraduateThesis.Service.Validators.ClubDtosValidations
                 .MinimumLength(10).WithMessage("{PropertyName} field must be at least 10 characters");
 
             RuleFor(c => c.IsActive)
-                .NotNull().WithMessage("{PropertyName} can not be empty...");
+                .NotNull().WithMessage("{PropertyName} can not be null");
 
             RuleFor(c => c.Categories)
+                .Must(categories => categories != null && categories.All(cat => cat != 0)).WithMessage("Categories can't Contains 0 id ")
                 .NotEmpty().WithMessage("{PropertyName} can not be empty");
         }
     }

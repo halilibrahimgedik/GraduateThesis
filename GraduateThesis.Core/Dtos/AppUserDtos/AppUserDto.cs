@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GraduateThesis.Core.Dtos
+namespace GraduateThesis.Core.Dtos.AppUserDtos
 {
     public class AppUserDto
     {
@@ -12,6 +12,6 @@ namespace GraduateThesis.Core.Dtos
         public string UserName { get; set; }
         public string Email { get; set; }
 
-        public string University { get; set; }
+        public int UniversityId { get; set; }
     }
 }

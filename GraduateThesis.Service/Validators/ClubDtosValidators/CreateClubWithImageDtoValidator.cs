@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GraduateThesis.Service.Validators.ClubDtosValidations
+namespace GraduateThesis.Service.Validators.ClubDtosValidators
 {
     public class CreateClubWithImageDtoValidator : AbstractValidator<CreateClubWithImageDto>
     {

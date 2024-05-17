@@ -8,7 +8,7 @@ using GraduateThesis.API.Modules;
 using GraduateThesis.Core.Configuration;
 using GraduateThesis.Repository;
 using GraduateThesis.Service.Mapping;
-using GraduateThesis.Service.Validators.CategoryDtosValidations;
+using GraduateThesis.Service.Validators.CategoryDtosValidators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

@@ -12,7 +12,8 @@ namespace GraduateThesis.Service.Validators
     {
         public LoginDtoValidator() 
         {
-            RuleFor(x=>x.Email).NotEmpty().WithMessage("Email address can not be empty");
+            RuleFor(x=>x.Email).NotEmpty().WithMessage("Email address can not be empty")
+                .EmailAddress().WithMessage("Invalid Email address");
 
             RuleFor(x => x.Password).NotEmpty().WithMessage("Password can not be empty");
         }
