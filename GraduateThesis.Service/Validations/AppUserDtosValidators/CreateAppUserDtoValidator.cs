@@ -25,6 +25,7 @@ namespace GraduateThesis.Service.Validators.AppUserDtosValidators
 
             RuleFor(x => x.UniversityId).NotEmpty().WithMessage("Password can not be empty");
 
+            RuleFor(x => x.UserName).NotEmpty().WithMessage("Username can not be empty");
 
             RuleFor(x => x.FullName).NotEmpty()
                 .WithMessage("Password can not be empty");

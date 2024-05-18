@@ -30,7 +30,7 @@ namespace GraduateThesis.Repository.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
@@ -48,7 +48,7 @@ namespace GraduateThesis.Repository.Migrations
                     Summary = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
                     Url = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
@@ -62,14 +62,14 @@ namespace GraduateThesis.Repository.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UniversityName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Website = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Mail = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: true),
+                    UniversityName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Website = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Mail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Fax = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Rector = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
@@ -258,12 +258,12 @@ namespace GraduateThesis.Repository.Migrations
                 columns: new[] { "Id", "CreatedDate", "Name", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 5, 16, 15, 19, 31, 914, DateTimeKind.Local).AddTicks(9814), "Teknoloji", null },
-                    { 2, new DateTime(2024, 5, 16, 15, 19, 31, 914, DateTimeKind.Local).AddTicks(9826), "Spor", null },
-                    { 3, new DateTime(2024, 5, 16, 15, 19, 31, 914, DateTimeKind.Local).AddTicks(9827), "Kitap", null },
-                    { 4, new DateTime(2024, 5, 16, 15, 19, 31, 914, DateTimeKind.Local).AddTicks(9827), "Sanat", null },
-                    { 5, new DateTime(2024, 5, 16, 15, 19, 31, 914, DateTimeKind.Local).AddTicks(9828), "Dans", null },
-                    { 6, new DateTime(2024, 5, 16, 15, 19, 31, 914, DateTimeKind.Local).AddTicks(9829), "Girişimcilik", null }
+                    { 1, new DateTime(2024, 5, 18, 21, 54, 56, 473, DateTimeKind.Local).AddTicks(7095), "Teknoloji", null },
+                    { 2, new DateTime(2024, 5, 18, 21, 54, 56, 473, DateTimeKind.Local).AddTicks(7107), "Spor", null },
+                    { 3, new DateTime(2024, 5, 18, 21, 54, 56, 473, DateTimeKind.Local).AddTicks(7108), "Kitap", null },
+                    { 4, new DateTime(2024, 5, 18, 21, 54, 56, 473, DateTimeKind.Local).AddTicks(7108), "Sanat", null },
+                    { 5, new DateTime(2024, 5, 18, 21, 54, 56, 473, DateTimeKind.Local).AddTicks(7109), "Dans", null },
+                    { 6, new DateTime(2024, 5, 18, 21, 54, 56, 473, DateTimeKind.Local).AddTicks(7110), "Girişimcilik", null }
                 });
 
             migrationBuilder.InsertData(
@@ -271,12 +271,12 @@ namespace GraduateThesis.Repository.Migrations
                 columns: new[] { "Id", "CreatedDate", "IsActive", "Name", "Summary", "UpdatedDate", "Url" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 5, 16, 15, 19, 31, 915, DateTimeKind.Local).AddTicks(227), true, "DU Siber", "DU Siber Kulübü, öğrencilere teknoloji, yazılım ve siber güvenlik alanlarında deneyim kazanma imkanı sunar. Atölyeler, yarışmalar ve seminerlerle öğrenme ortamı sağlar. Katılın, teknolojiye adım atın ve kendinizi geliştirin!", null, "default.jpg" },
-                    { 2, new DateTime(2024, 5, 16, 15, 19, 31, 915, DateTimeKind.Local).AddTicks(229), true, "Kitap Dostu", "Kitap Dostu Kulübü, kitap tutkunlarını bir araya getirerek edebiyatın büyülü dünyasında yolculuğa çıkarır. Okuma tutkusunu paylaşan herkesi bekliyoruz!", null, "default.jpg" },
-                    { 3, new DateTime(2024, 5, 16, 15, 19, 31, 915, DateTimeKind.Local).AddTicks(230), true, "DU Archer Club", "DU Archer Club, okçuluk tutkunlarının buluşma noktasıdır. Okçuluk sporuna ilgi duyan herkesi bekliyoruz! ", null, "default.jpg" },
-                    { 4, new DateTime(2024, 5, 16, 15, 19, 31, 915, DateTimeKind.Local).AddTicks(231), true, "DU Scout Club", "Kulübümüz, doğayla iç içe olmayı, macera dolu anlar yaşamayı seven herkesi bir araya getiriyor. Keşfetmeye hazır mısın?  ", null, "default.jpg" },
-                    { 5, new DateTime(2024, 5, 16, 15, 19, 31, 915, DateTimeKind.Local).AddTicks(232), true, "Elit Dans Kulübü", "Elit Dans Kulübü, ritim tutmayı seven herkes için mükemmel bir buluşma noktasıdır. Eğlenceli dans dersleri ve unutulmaz performanslarla dolu bir deneyim için seni de bekliyoruz! ", null, "default.jpg" },
-                    { 6, new DateTime(2024, 5, 16, 15, 19, 31, 915, DateTimeKind.Local).AddTicks(233), true, "The Young Entrepreneurs Club", "Genç Girişimciler Kulübü, yenilikçi fikirleriyle öne çıkan gençleri bir araya getirir. İş dünyasına adım atmak isteyenlere mentorluk yapar ve eğitimler düzenler. İş hayatına dair her şeyi keşfetmek için seni de aramıza bekliyoruz! ", null, "default.jpg" }
+                    { 1, new DateTime(2024, 5, 18, 21, 54, 56, 473, DateTimeKind.Local).AddTicks(7517), true, "DU Siber", "DU Siber Kulübü, öğrencilere teknoloji, yazılım ve siber güvenlik alanlarında deneyim kazanma imkanı sunar. Atölyeler, yarışmalar ve seminerlerle öğrenme ortamı sağlar. Katılın, teknolojiye adım atın ve kendinizi geliştirin!", null, "default.jpg" },
+                    { 2, new DateTime(2024, 5, 18, 21, 54, 56, 473, DateTimeKind.Local).AddTicks(7520), true, "Kitap Dostu", "Kitap Dostu Kulübü, kitap tutkunlarını bir araya getirerek edebiyatın büyülü dünyasında yolculuğa çıkarır. Okuma tutkusunu paylaşan herkesi bekliyoruz!", null, "default.jpg" },
+                    { 3, new DateTime(2024, 5, 18, 21, 54, 56, 473, DateTimeKind.Local).AddTicks(7521), true, "DU Archer Club", "DU Archer Club, okçuluk tutkunlarının buluşma noktasıdır. Okçuluk sporuna ilgi duyan herkesi bekliyoruz! ", null, "default.jpg" },
+                    { 4, new DateTime(2024, 5, 18, 21, 54, 56, 473, DateTimeKind.Local).AddTicks(7522), true, "DU Scout Club", "Kulübümüz, doğayla iç içe olmayı, macera dolu anlar yaşamayı seven herkesi bir araya getiriyor. Keşfetmeye hazır mısın?  ", null, "default.jpg" },
+                    { 5, new DateTime(2024, 5, 18, 21, 54, 56, 473, DateTimeKind.Local).AddTicks(7523), true, "Elit Dans Kulübü", "Elit Dans Kulübü, ritim tutmayı seven herkes için mükemmel bir buluşma noktasıdır. Eğlenceli dans dersleri ve unutulmaz performanslarla dolu bir deneyim için seni de bekliyoruz! ", null, "default.jpg" },
+                    { 6, new DateTime(2024, 5, 18, 21, 54, 56, 473, DateTimeKind.Local).AddTicks(7530), true, "The Young Entrepreneurs Club", "Genç Girişimciler Kulübü, yenilikçi fikirleriyle öne çıkan gençleri bir araya getirir. İş dünyasına adım atmak isteyenlere mentorluk yapar ve eğitimler düzenler. İş hayatına dair her şeyi keşfetmek için seni de aramıza bekliyoruz! ", null, "default.jpg" }
                 });
 
             migrationBuilder.InsertData(

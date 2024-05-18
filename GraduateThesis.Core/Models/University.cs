@@ -13,7 +13,7 @@ namespace GraduateThesis.Core.Models
         public string Mail { get; set; }
         public string? Phone { get; set; }
         public string? Fax { get; set; }
-        public string Address { get; set; }
+        public string? Address { get; set; }
         public string? Rector { get; set; }
 
         public List<AppUser> Users  { get; set; }

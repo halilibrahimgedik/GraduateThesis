@@ -60,35 +60,31 @@ builder.Services.Configure<CustomTokenOption>(options =>
 });
 
 
-var localServer = Environment.GetEnvironmentVariable("LocalServer");
-var sqlServer = builder.Configuration.GetConnectionString("SqlServer");
-//var remoteServer = Environment.GetEnvironmentVariable("RemoteServer");
-Console.WriteLine($"-----Connection String: {localServer}");
-Console.WriteLine($"*****Connection String: {sqlServer}");
 
 // ! AppDbContext Configuration
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
 
-    //options.UseSqlServer(localServer!, option =>
-    //{
-    //    option.MigrationsAssembly(Assembly.GetAssembly(typeof(AppDbContext))!.GetName().Name);
-    //});
-
-    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"), option =>
+    if (builder.Environment.IsDevelopment())
     {
-        option.MigrationsAssembly(Assembly.GetAssembly(typeof(AppDbContext)).GetName().Name);
-    });
+
+        options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"), option =>
+        {
+            option.MigrationsAssembly(Assembly.GetAssembly(typeof(AppDbContext))!.GetName().Name);
+        });
+    }
 
 
-    //if (builder.Environment.IsProduction())
-    //{
-    //    options.UseSqlServer(Environment.GetEnvironmentVariable("RemoteServer"), option =>
-    //    {
-    //        option.MigrationsAssembly(Assembly.GetAssembly(typeof(AppDbContext))!.GetName().Name);
-    //    });
-    //}
+    if (builder.Environment.IsProduction())
+    {
+        options.UseSqlServer(Environment.GetEnvironmentVariable("RemoteServer"), option =>
+        {
+            option.MigrationsAssembly(Assembly.GetAssembly(typeof(AppDbContext))!.GetName().Name);
+        });
+    }
 });
+
+
 
 builder.Services.AddIdentity<AppUser, IdentityRole>(IdentityOptions =>
 {

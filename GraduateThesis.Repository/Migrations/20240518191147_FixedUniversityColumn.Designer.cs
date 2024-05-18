@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GraduateThesis.Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240516121932_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240518191147_FixedUniversityColumn")]
+    partial class FixedUniversityColumn
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -125,37 +125,37 @@ namespace GraduateThesis.Repository.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 5, 16, 15, 19, 31, 914, DateTimeKind.Local).AddTicks(9814),
+                            CreatedDate = new DateTime(2024, 5, 18, 22, 11, 47, 361, DateTimeKind.Local).AddTicks(9967),
                             Name = "Teknoloji"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 5, 16, 15, 19, 31, 914, DateTimeKind.Local).AddTicks(9826),
+                            CreatedDate = new DateTime(2024, 5, 18, 22, 11, 47, 361, DateTimeKind.Local).AddTicks(9976),
                             Name = "Spor"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 5, 16, 15, 19, 31, 914, DateTimeKind.Local).AddTicks(9827),
+                            CreatedDate = new DateTime(2024, 5, 18, 22, 11, 47, 361, DateTimeKind.Local).AddTicks(9977),
                             Name = "Kitap"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2024, 5, 16, 15, 19, 31, 914, DateTimeKind.Local).AddTicks(9827),
+                            CreatedDate = new DateTime(2024, 5, 18, 22, 11, 47, 361, DateTimeKind.Local).AddTicks(9978),
                             Name = "Sanat"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2024, 5, 16, 15, 19, 31, 914, DateTimeKind.Local).AddTicks(9828),
+                            CreatedDate = new DateTime(2024, 5, 18, 22, 11, 47, 361, DateTimeKind.Local).AddTicks(9979),
                             Name = "Dans"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2024, 5, 16, 15, 19, 31, 914, DateTimeKind.Local).AddTicks(9829),
+                            CreatedDate = new DateTime(2024, 5, 18, 22, 11, 47, 361, DateTimeKind.Local).AddTicks(9980),
                             Name = "Girişimcilik"
                         });
                 });
@@ -201,7 +201,7 @@ namespace GraduateThesis.Repository.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 5, 16, 15, 19, 31, 915, DateTimeKind.Local).AddTicks(227),
+                            CreatedDate = new DateTime(2024, 5, 18, 22, 11, 47, 362, DateTimeKind.Local).AddTicks(363),
                             IsActive = true,
                             Name = "DU Siber",
                             Summary = "DU Siber Kulübü, öğrencilere teknoloji, yazılım ve siber güvenlik alanlarında deneyim kazanma imkanı sunar. Atölyeler, yarışmalar ve seminerlerle öğrenme ortamı sağlar. Katılın, teknolojiye adım atın ve kendinizi geliştirin!",
@@ -210,7 +210,7 @@ namespace GraduateThesis.Repository.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 5, 16, 15, 19, 31, 915, DateTimeKind.Local).AddTicks(229),
+                            CreatedDate = new DateTime(2024, 5, 18, 22, 11, 47, 362, DateTimeKind.Local).AddTicks(366),
                             IsActive = true,
                             Name = "Kitap Dostu",
                             Summary = "Kitap Dostu Kulübü, kitap tutkunlarını bir araya getirerek edebiyatın büyülü dünyasında yolculuğa çıkarır. Okuma tutkusunu paylaşan herkesi bekliyoruz!",
@@ -219,7 +219,7 @@ namespace GraduateThesis.Repository.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 5, 16, 15, 19, 31, 915, DateTimeKind.Local).AddTicks(230),
+                            CreatedDate = new DateTime(2024, 5, 18, 22, 11, 47, 362, DateTimeKind.Local).AddTicks(367),
                             IsActive = true,
                             Name = "DU Archer Club",
                             Summary = "DU Archer Club, okçuluk tutkunlarının buluşma noktasıdır. Okçuluk sporuna ilgi duyan herkesi bekliyoruz! ",
@@ -228,7 +228,7 @@ namespace GraduateThesis.Repository.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2024, 5, 16, 15, 19, 31, 915, DateTimeKind.Local).AddTicks(231),
+                            CreatedDate = new DateTime(2024, 5, 18, 22, 11, 47, 362, DateTimeKind.Local).AddTicks(368),
                             IsActive = true,
                             Name = "DU Scout Club",
                             Summary = "Kulübümüz, doğayla iç içe olmayı, macera dolu anlar yaşamayı seven herkesi bir araya getiriyor. Keşfetmeye hazır mısın?  ",
@@ -237,7 +237,7 @@ namespace GraduateThesis.Repository.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2024, 5, 16, 15, 19, 31, 915, DateTimeKind.Local).AddTicks(232),
+                            CreatedDate = new DateTime(2024, 5, 18, 22, 11, 47, 362, DateTimeKind.Local).AddTicks(368),
                             IsActive = true,
                             Name = "Elit Dans Kulübü",
                             Summary = "Elit Dans Kulübü, ritim tutmayı seven herkes için mükemmel bir buluşma noktasıdır. Eğlenceli dans dersleri ve unutulmaz performanslarla dolu bir deneyim için seni de bekliyoruz! ",
@@ -246,7 +246,7 @@ namespace GraduateThesis.Repository.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2024, 5, 16, 15, 19, 31, 915, DateTimeKind.Local).AddTicks(233),
+                            CreatedDate = new DateTime(2024, 5, 18, 22, 11, 47, 362, DateTimeKind.Local).AddTicks(369),
                             IsActive = true,
                             Name = "The Young Entrepreneurs Club",
                             Summary = "Genç Girişimciler Kulübü, yenilikçi fikirleriyle öne çıkan gençleri bir araya getirir. İş dünyasına adım atmak isteyenlere mentorluk yapar ve eğitimler düzenler. İş hayatına dair her şeyi keşfetmek için seni de aramıza bekliyoruz! ",
@@ -310,7 +310,6 @@ namespace GraduateThesis.Repository.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
@@ -321,26 +320,28 @@ namespace GraduateThesis.Repository.Migrations
 
                     b.Property<string>("Mail")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
 
                     b.Property<string>("Phone")
-                        .HasMaxLength(14)
-                        .HasColumnType("nvarchar(14)");
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
 
                     b.Property<string>("Rector")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UniversityName")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(125)
+                        .HasColumnType("nvarchar(125)");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Website")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
 
                     b.HasKey("Id");
 

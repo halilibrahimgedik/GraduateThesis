@@ -16,13 +16,12 @@ namespace GraduateThesis.Repository.EntityConfigurations
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).UseIdentityColumn();
 
-            builder.Property(x => x.UniversityName).HasMaxLength(100).IsRequired();
+            builder.Property(x => x.UniversityName).HasMaxLength(125).IsRequired();
 
-            builder.Property(x => x.Website).IsRequired();
-            builder.Property(x => x.Mail).IsRequired();
-            builder.Property(x => x.Address).IsRequired();
+            builder.Property(x => x.Website).HasMaxLength(60).IsRequired();
+            builder.Property(x => x.Mail).HasMaxLength(60).IsRequired();
 
-            builder.Property(x => x.Phone).HasMaxLength(14);
+            builder.Property(x => x.Phone).HasMaxLength(16);
 
             builder.HasMany(u => u.Users)
                 .WithOne(user => user.University).HasForeignKey(user => user.UniversityId);
