@@ -1,5 +1,7 @@
 ﻿using GraduateThesis.Core.Dtos.AppUserDtos;
 using GraduateThesis.Core.Services;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,6 +22,7 @@ namespace GraduateThesis.API.Controllers
             return CreateAction(await _userService.CreateUserAsync(dto));
         }
 
+        [Authorize(AuthenticationSchemes="Bearer",Roles ="admin")]
         [HttpPost("getuserinfo")]
         public async Task<IActionResult> GetUserInfoByEmail(string mail)
         {

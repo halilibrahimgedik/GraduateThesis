@@ -2,10 +2,12 @@
 using GraduateThesis.Core.Dtos.UniversityDtos;
 using GraduateThesis.Core.Models;
 using GraduateThesis.Core.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GraduateThesis.API.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Bearer", Roles = "admin")]
     public class UniversitiesController : CustomBaseController
     {
         private readonly IUniversityService _universityService;

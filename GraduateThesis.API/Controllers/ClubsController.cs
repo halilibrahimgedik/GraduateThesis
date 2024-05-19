@@ -3,10 +3,12 @@ using GraduateThesis.Core.Dtos.ClubDtos;
 using GraduateThesis.Core.Dtos.CustomResponseDtos;
 using GraduateThesis.Core.Models;
 using GraduateThesis.Core.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GraduateThesis.API.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Bearer", Roles = "admin")]
     public class ClubsController : CustomBaseController
     {
         private readonly IClubService _clubService;
@@ -17,6 +19,8 @@ namespace GraduateThesis.API.Controllers
         }
 
 
+
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -25,12 +29,16 @@ namespace GraduateThesis.API.Controllers
             return CreateAction(clubs);
         }
 
+
+        [AllowAnonymous]
         [HttpGet("[action]")]
         public async Task<IActionResult> GetAllActiveClubs()
         {
             return CreateAction(await _clubService.GetAllActiveClubsAsync());
         }
 
+
+        [AllowAnonymous]
         [HttpGet("GetClubsWithCategories")]
         public async Task<IActionResult> GetClubsWithCategories()
         {
@@ -39,6 +47,8 @@ namespace GraduateThesis.API.Controllers
             return CreateAction(datas);
         }
 
+
+        [AllowAnonymous]
         [ServiceFilter(typeof(NotFoundFilter<Club,ClubDto>))]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
@@ -47,6 +57,7 @@ namespace GraduateThesis.API.Controllers
             
             return CreateAction(club);
         }
+
 
         [ServiceFilter(typeof(ValidateCategoryIdsFilter))]
         [HttpPost]
@@ -57,11 +68,13 @@ namespace GraduateThesis.API.Controllers
             return CreateAction(club);
         }
 
+
         [HttpPost("[action]")]
         public async Task<IActionResult> AddAll(List<CreateClubDto> dtos)
         {
             return CreateAction(await _clubService.AddRangeAsync(dtos));
         }
+
 
         [ServiceFilter(typeof(ValidateCategoryIdsFilter))]
         [HttpPut]
@@ -72,6 +85,7 @@ namespace GraduateThesis.API.Controllers
             return CreateAction(response);
         }
 
+
         [ServiceFilter(typeof(NotFoundFilter<Club, ClubDto>))]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Remove(int id)
@@ -81,11 +95,13 @@ namespace GraduateThesis.API.Controllers
             return CreateAction(response);
         }
 
+
         [HttpDelete("[action]")]
         public async Task<IActionResult> RemoveAll(List<int> ids)
         {
             return CreateAction(await _clubService.RemoveRangeAsync(ids));
         }
+
 
         [HttpGet("[action]/{id}")]
         public async Task<IActionResult> Any(int id)
