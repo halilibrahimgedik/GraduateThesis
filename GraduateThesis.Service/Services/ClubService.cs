@@ -140,6 +140,17 @@ namespace GraduateThesis.Service.Services
             return CustomResponseDto<NoDataDto>.Success((int)HttpStatusCode.NoContent);
         }
 
+        public async Task<CustomResponseDto<NoDataDto>> RemoveWithImageAsync(int id)
+        {
+            var entity = await _clubRepository.GetByIdAsync(id) ?? throw new ClientSideException("Club not found !");
+
+            _clubRepository.Remove(entity);
+            _formFileHelper.Delete(entity.Url);
+            await _unitOfWork.CommitAsync();
+
+            return CustomResponseDto<NoDataDto>.Success(StatusCodes.Status204NoContent);
+        }
+
         // OverLoad
         public async Task<CustomResponseDto<ClubWithCategoriesDto>> GetClubByIdWithCategoriesAsync(int id)
         {

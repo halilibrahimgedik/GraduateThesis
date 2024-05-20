@@ -8,7 +8,7 @@ namespace GraduateThesis.Core.Configuration
 {
     public class CustomTokenOption
     {
-        public List<string>? Audiences { get; set; }
+        public List<String> Audiences { get; set; }
 
         public string Issuer { get; set; }
 

@@ -90,9 +90,7 @@ namespace GraduateThesis.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Remove(int id)
         {
-            var response= await _clubService.RemoveAsync(id);
-
-            return CreateAction(response);
+            return CreateAction(await _clubService.RemoveWithImageAsync(id));
         }
 
 

@@ -5,11 +5,11 @@ namespace GraduateThesis.API.Utilities.Helpers
     public class FormFileHelper : IFormFileHelper
     {
         private readonly IConfiguration _configuration;
-
         public FormFileHelper(IConfiguration configuration)
         {
             _configuration = configuration;
         }
+
 
         public async Task<string> AddAsync(IFormFile file)
         {
@@ -34,14 +34,22 @@ namespace GraduateThesis.API.Utilities.Helpers
 
         public void Delete(string path)
         {
-            throw new NotImplementedException();
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+            else
+            {
+                // Dosya zaten silinmiş veya bulunamazsa
+                throw new FileNotFoundException("File not found or already deleted.", path);
+            }
         }
 
         public async Task<string> UpdateAsync(IFormFile file, string imageUrl)
         {
             //var fullpath = FilePathToSave.FullPath(imagePath);
 
-            if (string.IsNullOrEmpty(imageUrl) && File.Exists(imageUrl))
+            if (!string.IsNullOrEmpty(imageUrl) && File.Exists(imageUrl))
             {
                 using FileStream fileStream = new(imageUrl, FileMode.Create);
                 //FileMode.Create burada üzerine yazma işlemi yapar.

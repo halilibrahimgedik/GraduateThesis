@@ -1,9 +1,11 @@
 ﻿using GraduateThesis.Core.Dtos.RoleDtos;
 using GraduateThesis.Core.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GraduateThesis.API.Controllers
 {
+    [Authorize(AuthenticationSchemes ="Bearer",Roles ="admin")]
     public class RolesController : CustomBaseController
     {
         private readonly IRoleService _roleService;
@@ -23,7 +25,7 @@ namespace GraduateThesis.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return CreateAction(await _roleService.GetAllAsync(););
+            return CreateAction(await _roleService.GetAllAsync());
         }
 
         [HttpGet("[action]/{roleId}")]

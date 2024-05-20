@@ -69,14 +69,13 @@ builder.Services.AddSwaggerGen(option =>
 
 
 
-// Getting Environment variables
 var customTokenOptions = new CustomTokenOption
 {
-    Audiences = Environment.GetEnvironmentVariable("Audiences")?.Split(",").ToList(),
-    Issuer = Environment.GetEnvironmentVariable("Issuer")!,
-    AccessTokenExpirationTime = Convert.ToInt32(Environment.GetEnvironmentVariable("AccessTokenExpirationTime")),
-    RefreshTokenExpirationTime = Convert.ToInt32(Environment.GetEnvironmentVariable("RefreshTokenExpirationTime")),
-    SecurityKey = Environment.GetEnvironmentVariable("SecurityKey")!
+    Audiences = builder.Configuration.GetSection("CustomTokenOption:Audiences").Get<List<string>>(),
+    Issuer = builder.Configuration.GetValue<string>("CustomTokenOption:Issuer"),
+    AccessTokenExpirationTime = builder.Configuration.GetValue<int>("CustomTokenOption:AccessTokenExpirationTime"),
+    RefreshTokenExpirationTime = builder.Configuration.GetValue<int>("CustomTokenOption:RefreshTokenExpirationTime"),
+    SecurityKey = builder.Configuration.GetValue<string>("CustomTokenOption:SecurityKey"),
 };
 
 // ! Options Pattern
@@ -104,14 +103,19 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         });
     }
 
-
-    if (builder.Environment.IsProduction())
+    if(builder.Environment.IsProduction())
     {
-        options.UseSqlServer(Environment.GetEnvironmentVariable("RemoteServer"), option =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("RemoteSqlServer"), option =>
         {
             option.MigrationsAssembly(Assembly.GetAssembly(typeof(AppDbContext))!.GetName().Name);
         });
     }
+
+    //options.UseSqlServer(Environment.GetEnvironmentVariable(RemoteSqlServer), option =>
+    //{
+    //    option.MigrationsAssembly(Assembly.GetAssembly(typeof(AppDbContext))!.GetName().Name);
+    //});
+
 });
 
 

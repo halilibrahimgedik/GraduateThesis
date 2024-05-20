@@ -6,12 +6,7 @@
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "Issuer": "https://myprojects.com.tr",
-        "AccessTokenExpirationTime": "10",
-        "RefreshTokenExpirationTime": "360",
-        "SecurityKey": "Gr4du4tTh3sis_Univ3rsity-Club-4pp*.",
-        "Audiences": "https://myprojects.com.tr,MobileFlutterUniversityClubApp,AngularUniversityClubApp",
-        "RemoteServer": "Server=77.245.159.27\\MSSQLSERVER2019;Database=UniversityAppDb;User=GedxAdmin;Password=GedxAdmin.!;"
+        "RemoteSqlServer": "server=77.245.159.27\\\\MSSQLSERVER2019;database=ThesDb;user=gedxadmin;password=n0W9c!99f;"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:7150;http://localhost:5246"

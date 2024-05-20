@@ -21,6 +21,8 @@ namespace GraduateThesis.Core.Services
 
         Task<CustomResponseDto<NoDataDto>> UpdateAsync(UpdateClubDto dto);
 
+        Task<CustomResponseDto<NoDataDto>> RemoveWithImageAsync(int id);
+
         Task<CustomResponseDto<ClubWithCategoriesDto>> GetClubByIdWithCategoriesAsync(int id);
     }
 }
