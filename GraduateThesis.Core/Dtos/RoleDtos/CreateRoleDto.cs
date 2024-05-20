@@ -8,6 +8,6 @@ namespace GraduateThesis.Core.Dtos.RoleDtos
 {
     public class CreateRoleDto
     {
-        public string RoleName { get; set; }
+        public string Name { get; set; }
     }
 }

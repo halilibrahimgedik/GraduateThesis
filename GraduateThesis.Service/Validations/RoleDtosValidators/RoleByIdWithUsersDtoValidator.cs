@@ -12,9 +12,9 @@ namespace GraduateThesis.Service.Validations.RoleDtosValidators
     {
         public RoleByIdWithUsersDtoValidator()
         {
-            RuleFor(x=>x.RoleId).NotEmpty().WithMessage("{PropertyName} can not be empty");
+            RuleFor(x=>x.Id).NotEmpty().WithMessage("{PropertyName} can not be empty");
 
-            RuleFor(x => x.RoleName).NotEmpty().WithMessage("{PropertyName} can not be empty");
+            RuleFor(x => x.Name).NotEmpty().WithMessage("{PropertyName} can not be empty");
         }
     }
 }

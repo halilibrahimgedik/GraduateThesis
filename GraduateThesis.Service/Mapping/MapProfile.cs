@@ -27,7 +27,14 @@ namespace GraduateThesis.Service.Mapping
             // AppUser Mapping
             CreateMap<AppUser, AppUserDto>().ReverseMap();
             CreateMap<CreateAppUserDto, AppUser>();
-            CreateMap<AppUser, RoleByIdWithUsersDto>();
+            CreateMap<AppUser, RoleByIdWithUsersDto>()
+                .ForMember(dest => dest.User, opt => opt.MapFrom(src => new AppUserDto()
+                {
+                    Id = src.Id,
+                    Email = src.Email,
+                    UserName = src.UserName,
+                    UniversityId = src.UniversityId,
+                }));
 
 
             // Club Mapping

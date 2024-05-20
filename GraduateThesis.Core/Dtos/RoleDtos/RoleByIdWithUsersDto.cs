@@ -9,9 +9,9 @@ namespace GraduateThesis.Core.Dtos.RoleDtos
 {
     public class RoleByIdWithUsersDto
     {
-        public string RoleId { get; set; }
-        public string RoleName { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
 
-        public List<AppUserDto> Users { get; set; }
+        public AppUserDto User { get; set; }
     }
 }

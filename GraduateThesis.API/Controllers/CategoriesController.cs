@@ -64,7 +64,7 @@ namespace GraduateThesis.API.Controllers
 
 
         [ServiceFilter(typeof(NotFoundFilter<Category, CategoryDto>))]
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Remove(int id)
         {
             return CreateAction(await _categoryService.RemoveAsync(id));

@@ -12,7 +12,7 @@ namespace GraduateThesis.Service.Validations.RoleDtosValidators
     {
         public CreateRoleDtoValidator()
         {
-            RuleFor(x => x.RoleName).NotEmpty().WithMessage("{PropertyName} can not be empty")
+            RuleFor(x => x.Name).NotEmpty().WithMessage("{PropertyName} can not be empty")
                 .MinimumLength(3).WithMessage("{PropertyName} requires at least 3 characters length");
         }
     }

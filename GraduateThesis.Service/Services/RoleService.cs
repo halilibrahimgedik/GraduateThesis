@@ -44,7 +44,12 @@ namespace GraduateThesis.Service.Services
 
         public async Task<CustomResponseDto<RoleDto>> CreateRoleAsync(CreateRoleDto dto)
         {
-            var doesRoleExist = await _roleManager.RoleExistsAsync(dto.RoleName) ? throw new ClientSideException($" already added this '{dto.RoleName}' !") : false;
+            var doesRoleExist = await _roleManager.RoleExistsAsync(dto.Name);
+
+            if (doesRoleExist)
+            {
+                throw new ClientSideException($" already added this '{dto.Name}' !");
+            }
 
             var role = ObjectMapper.Mapper.Map<IdentityRole>(dto);
 
@@ -55,7 +60,7 @@ namespace GraduateThesis.Service.Services
                 return CustomResponseDto<RoleDto>.Fail(StatusCodes.Status500InternalServerError, "something went wrong, pls contact your system admin");
             }
 
-            var roleDto = ObjectMapper.Mapper.Map<RoleDto>(dto);
+            var roleDto = ObjectMapper.Mapper.Map<RoleDto>(role);
 
             return CustomResponseDto<RoleDto>.Success(StatusCodes.Status201Created, roleDto);
         }
@@ -84,11 +89,18 @@ namespace GraduateThesis.Service.Services
         {
             if (string.IsNullOrEmpty(roleId)) { throw new ClientSideException("roleId can not be empty"); }
 
-            var users = await _userManager.GetUsersInRoleAsync(roleId);
+            var role = await _roleManager.FindByIdAsync(roleId) ?? throw new ClientSideException("role not found !"); ;
+
+            var users = await _userManager.GetUsersInRoleAsync(role.Name);
 
             if (!users.Any()) { CustomResponseDto<RoleByIdWithUsersDto>.Fail(StatusCodes.Status400BadRequest, "there are no users with the specified Id"); }
 
             var roleByIdWithUsersDtoList = ObjectMapper.Mapper.Map<List<RoleByIdWithUsersDto>>(users);
+
+            foreach(var roleByIdWithUsers in roleByIdWithUsersDtoList)
+            {
+                roleByIdWithUsers.Name = role.Name;
+            }
 
             return CustomResponseDto<List<RoleByIdWithUsersDto>>.Success(StatusCodes.Status200OK,roleByIdWithUsersDtoList);
         }
@@ -108,7 +120,7 @@ namespace GraduateThesis.Service.Services
 
         public async Task<CustomResponseDto<NoDataDto>> UpdateRoleAsync(UpdateRoleDto dto)
         {
-            var role = await _roleManager.FindByIdAsync(dto.RoleId) ?? throw new NotFoundException("role not found !");
+            var role = await _roleManager.FindByIdAsync(dto.Id) ?? throw new NotFoundException("role not found !");
 
             var result = await _roleManager.UpdateAsync(role);
 
@@ -117,7 +129,7 @@ namespace GraduateThesis.Service.Services
                 CustomResponseDto<RoleDto>.Fail(StatusCodes.Status500InternalServerError, "something went wrong !");
             }
 
-            return CustomResponseDto<NoDataDto>.Success(StatusCodes.Status200OK);
+            return CustomResponseDto<NoDataDto>.Success(StatusCodes.Status204NoContent);
         }
     }
 }
