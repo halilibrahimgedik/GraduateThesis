@@ -10,14 +10,19 @@ namespace GraduateThesis.Core.Services
 {
     public interface IRoleService
     {
-        Task<CustomResponseDto<RoleDto>> GetAllAsync();
+        Task<CustomResponseDto<List<RoleDto>>> GetAllAsync();
 
-        Task<CustomResponseDto<RoleDto>> GetRoleById(string roleId);
+        Task<CustomResponseDto<RoleDto>> GetRoleByIdAsync(string roleId);
 
-        Task<CustomResponseDto<RoleDto>> CreateRoleAsync(RoleDto dto);
+        Task<CustomResponseDto<List<RoleByIdWithUsersDto>>> GetRoleByIdWithUsersAsync(string roleId);
 
-        Task<CustomResponseDto<RoleDto>> UpdateRoleAsync(UpdateRoleDto dto);
+        Task<CustomResponseDto<RoleDto>> CreateRoleAsync(CreateRoleDto dto);
+
+        Task<CustomResponseDto<NoDataDto>> UpdateRoleAsync(UpdateRoleDto dto);
 
         Task<CustomResponseDto<NoDataDto>> RemoveRoleAsync(string roleId);
+
+
+        Task<CustomResponseDto<NoDataDto>> AssignRoleAsync(AssignRoleDto dto);
     }
 }

@@ -2,8 +2,10 @@
 using GraduateThesis.Core.Dtos.AppUserDtos;
 using GraduateThesis.Core.Dtos.CategoryDtos;
 using GraduateThesis.Core.Dtos.ClubDtos;
+using GraduateThesis.Core.Dtos.RoleDtos;
 using GraduateThesis.Core.Dtos.UniversityDtos;
 using GraduateThesis.Core.Models;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +18,16 @@ namespace GraduateThesis.Service.Mapping
     {
         public MapProfile()
         {
+            // IdentityRole mapping
+            CreateMap<CreateRoleDto, IdentityRole>();
+            CreateMap<CreateRoleDto, RoleDto>();
+            CreateMap<IdentityRole, RoleDto>();
+
+
             // AppUser Mapping
             CreateMap<AppUser, AppUserDto>().ReverseMap();
             CreateMap<CreateAppUserDto, AppUser>();
+            CreateMap<AppUser, RoleByIdWithUsersDto>();
 
 
             // Club Mapping

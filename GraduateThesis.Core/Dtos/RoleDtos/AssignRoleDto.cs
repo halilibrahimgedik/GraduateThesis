@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace GraduateThesis.Core.Dtos.RoleDtos
 {
-    public class UpdateRoleDto
+    public class AssignRoleDto
     {
-        public string RoleId { get; set; }
+        public string UserId { get; set; }
 
-        public string RoleName { get; set; }
+        public string RoleId { get; set; }
     }
 }
