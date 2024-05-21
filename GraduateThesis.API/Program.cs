@@ -145,7 +145,7 @@ builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsi
 builder.Services.AddScoped(typeof(NotFoundFilter<,>));
 builder.Services.AddScoped(typeof(ValidateCategoryIdsFilter));
 builder.Services.AddScoped(typeof(DoesUniversityExistFilter));
-builder.Services.AddScoped(typeof(SubscriberNotFoundFilter));
+builder.Services.AddScoped(typeof(ValidateSubscriberIdFilter));
 
 
 // ! AutoFac

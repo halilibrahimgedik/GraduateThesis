@@ -1,4 +1,5 @@
 ﻿using GraduateThesis.API.Filters;
+using GraduateThesis.Core.Dtos.SubscriberDtos;
 using GraduateThesis.Core.Models;
 using GraduateThesis.Core.Services;
 using Microsoft.AspNetCore.Http;
@@ -16,11 +17,20 @@ namespace GraduateThesis.API.Controllers
             _subscriberService = subscriberService;
         }
 
-        [ServiceFilter(typeof(SubscriberNotFoundFilter))]
-        [HttpGet]
-        public async Task<IActionResult> GetSubscriberClubs(string userId)
+
+
+        [ServiceFilter(typeof(ValidateSubscriberIdFilter))]
+        [HttpPost("GetSubscriberClubs")]
+        public async Task<IActionResult> GetSubscriberClubs(SubscriberIdDto dto)
         {
-            return CreateAction(await _subscriberService.GetSubscriberClubsAsync(userId));
+            return CreateAction(await _subscriberService.GetSubscriberClubsAsync(dto.UserId));
+        }
+
+        [ServiceFilter(typeof(ValidateSubscriberIdFilter))]
+        [HttpPost]
+        public async Task<IActionResult> AddSubscriberToClub(CreateSubscriberDto dto)
+        {
+            return CreateAction(await _subscriberService.AddSubscriberToClubAsync(dto));
         }
     }
 }

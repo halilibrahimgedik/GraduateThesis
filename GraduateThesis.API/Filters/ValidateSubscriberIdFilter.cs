@@ -1,4 +1,5 @@
 ﻿using GraduateThesis.Core.Dtos.CustomResponseDtos;
+using GraduateThesis.Core.Dtos.SubscriberDtos;
 using GraduateThesis.Core.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -6,10 +7,10 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace GraduateThesis.API.Filters
 {
-    public class SubscriberNotFoundFilter : IAsyncActionFilter
+    public class ValidateSubscriberIdFilter : IAsyncActionFilter
     {
         private readonly UserManager<AppUser> _userManager;
-        public SubscriberNotFoundFilter(UserManager<AppUser> userManager)
+        public ValidateSubscriberIdFilter(UserManager<AppUser> userManager)
         {
             _userManager = userManager;
         }
@@ -17,15 +18,24 @@ namespace GraduateThesis.API.Filters
 
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            var idValue = context.ActionArguments["userId"];
+            var idValue = context.ActionArguments["dto"];
 
-            if(idValue == null)
+            if (idValue == null)
             {
                 await next.Invoke();
                 return;
             }
 
-            var userId = (string)idValue;
+            string userId = null;
+
+            if (idValue is SubscriberIdDto dto) // pattern Matching kullanarak ile idValue nesnesini dto'ya cast ettik
+            {
+                userId = dto.UserId;
+            }
+
+            //var idValue = context.ActionArguments["userId"];
+
+            //userId = (string)idValue;
 
             var user = await _userManager.FindByIdAsync(userId);
 

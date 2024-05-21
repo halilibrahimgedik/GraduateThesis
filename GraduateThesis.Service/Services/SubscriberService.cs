@@ -1,9 +1,11 @@
-﻿using GraduateThesis.Core.Dtos.ClubDtos;
+﻿using GraduateThesis.Core.Dtos;
+using GraduateThesis.Core.Dtos.ClubDtos;
 using GraduateThesis.Core.Dtos.CustomResponseDtos;
 using GraduateThesis.Core.Dtos.SubscriberDtos;
 using GraduateThesis.Core.Models;
 using GraduateThesis.Core.Repositories;
 using GraduateThesis.Core.Services;
+using GraduateThesis.Core.UnitOfWork;
 using GraduateThesis.Service.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -19,12 +21,12 @@ namespace GraduateThesis.Service.Services
     public class SubscriberService : ISubscriberService
     {
         private readonly ISubscriberRepository _subscriberRepository;
-        private readonly UserManager<AppUser> _userManager;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public SubscriberService(UserManager<AppUser> userManager, ISubscriberRepository subscriberRepository)
+        public SubscriberService(ISubscriberRepository subscriberRepository, IUnitOfWork unitOfWork)
         {
-            _userManager = userManager;
             _subscriberRepository = subscriberRepository;
+            _unitOfWork = unitOfWork;
         }
 
 
@@ -32,7 +34,7 @@ namespace GraduateThesis.Service.Services
         {
             var clupAppUserList = await _subscriberRepository.GetSubscriberClubs(id).ToListAsync();
 
-            if(!clupAppUserList.Any()) return CustomResponseDto<SubscriberClubsDto>.Success(StatusCodes.Status200OK);
+            if (!clupAppUserList.Any()) return CustomResponseDto<SubscriberClubsDto>.Success(StatusCodes.Status200OK);
 
             var clubsOfSubscriber = new SubscriberClubsDto { UserId = id };
 
@@ -43,5 +45,20 @@ namespace GraduateThesis.Service.Services
 
             return CustomResponseDto<SubscriberClubsDto>.Success(StatusCodes.Status200OK, clubsOfSubscriber);
         }
+
+        public async Task<CustomResponseDto<CreateSubscriberDto>> AddSubscriberToClubAsync(CreateSubscriberDto dto)
+        {
+            var clubAppUser = ObjectMapper.Mapper.Map<ClubAppUser>(dto);
+
+            await _subscriberRepository.AddAsync(clubAppUser);
+            await _unitOfWork.CommitAsync();
+
+            var responseDto = ObjectMapper.Mapper.Map<CreateSubscriberDto>(clubAppUser);
+
+            return CustomResponseDto<CreateSubscriberDto>.Success(StatusCodes.Status201Created, responseDto);
+
+        }
+
+
     }
 }
