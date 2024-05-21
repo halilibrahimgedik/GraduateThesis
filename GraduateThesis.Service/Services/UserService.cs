@@ -17,10 +17,12 @@ namespace GraduateThesis.Service.Services
     public class UserService : IUserService
     {
         private readonly UserManager<AppUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public UserService(UserManager<AppUser> userManager)
+        public UserService(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
 
@@ -42,23 +44,25 @@ namespace GraduateThesis.Service.Services
             return CustomResponseDto<AppUserDto>.Success(StatusCodes.Status201Created, appuserDto);
         }
 
-        public async Task<CustomResponseDto<AppUserDto>> GetUserByEmailAsync(string mail)
+        public async Task<CustomResponseDto<AppUserInfoDto>> GetUserByEmailAsync(string mail)
         {
             if (string.IsNullOrEmpty(mail))
             {
                 throw new ClientSideException("mail can not be empty");
             }
 
-            var user = await _userManager.FindByEmailAsync(mail);
+            var user = await _userManager.FindByEmailAsync(mail) ?? throw new NotFoundException($"There is no any user with email adress : {mail}");
 
-            if (user == null)
+            var userRoleList = await _userManager.GetRolesAsync(user);
+
+            var appUserDto = ObjectMapper.Mapper.Map<AppUserInfoDto>(user);
+
+            if (userRoleList.Any())
             {
-                throw new NotFoundException($"There is no any user with email adress : {mail}");
+                appUserDto.UserRoles = userRoleList.ToList();
             }
 
-            var appUserDto = ObjectMapper.Mapper.Map<AppUserDto>(user);
-
-            return CustomResponseDto<AppUserDto>.Success(StatusCodes.Status200OK, appUserDto);
+            return CustomResponseDto<AppUserInfoDto>.Success(StatusCodes.Status200OK, appUserDto);
         }
 
         public async Task<CustomResponseDto<AppUserDto>> UpdateUserAsync(UpdateAppUserDto dto)

@@ -34,6 +34,7 @@ namespace GraduateThesis.Service.Mapping
             CreateMap<CreateRoleDto, IdentityRole>();
             CreateMap<CreateRoleDto, RoleDto>();
             CreateMap<IdentityRole, RoleDto>();
+            CreateMap<AppUser, AppUserInfoDto>();
 
 
             // AppUser Mapping
