@@ -34,6 +34,8 @@ namespace GraduateThesis.Service.Validators.ClubDtosValidators
             RuleFor(c => c.Categories)
                 .Must(categories => categories != null && categories.All(cat => cat != 0)).WithMessage("Categories can't Contains 0 id ")
                 .NotEmpty().WithMessage("{PropertyName} can not be empty");
+
+            RuleFor(c => c.ClubUniversityId).NotEmpty().WithMessage("{PropertyName} can not be empty...");
         }
     }
 }

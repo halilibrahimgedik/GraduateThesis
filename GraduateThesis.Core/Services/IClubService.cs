@@ -12,8 +12,8 @@ namespace GraduateThesis.Core.Services
 {
     public interface IClubService : IGenericService<Club, ClubDto>
     {
-        Task<CustomResponseDto<List<ClubDto>>> GetAllActiveClubsAsync();
-        Task<CustomResponseDto<List<ClubWithCategoriesDto>>> GetClubsWithCategoriesAsync();
+        Task<CustomResponseDto<List<ClubDto>>> GetActiveClubsByUniversityAsync(int universityId);
+        Task<CustomResponseDto<List<ClubWithCategoriesDto>>> GetClubsByUniversityWithCategoriesAsync(int universityId);
 
         Task<CustomResponseDto<ClubWithCategoriesDto>> AddAsync(CreateClubWithImageDto dto);
 

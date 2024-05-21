@@ -21,7 +21,7 @@ namespace GraduateThesis.API.Filters
 
             if(idValue == null )
             {
-               await next.Invoke();
+                await next.Invoke();
                 return;
             }
 

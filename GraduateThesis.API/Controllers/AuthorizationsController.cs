@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GraduateThesis.API.Controllers
 {
-
+    [Route("api/auth")]
     public class AuthorizationsController : CustomBaseController
     {
         private readonly IAuthorizationService _authorizationService;

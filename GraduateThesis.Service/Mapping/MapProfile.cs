@@ -3,6 +3,7 @@ using GraduateThesis.Core.Dtos.AppUserDtos;
 using GraduateThesis.Core.Dtos.CategoryDtos;
 using GraduateThesis.Core.Dtos.ClubDtos;
 using GraduateThesis.Core.Dtos.RoleDtos;
+using GraduateThesis.Core.Dtos.SubscriberDtos;
 using GraduateThesis.Core.Dtos.UniversityDtos;
 using GraduateThesis.Core.Models;
 using Microsoft.AspNetCore.Identity;
@@ -18,6 +19,17 @@ namespace GraduateThesis.Service.Mapping
     {
         public MapProfile()
         {
+            CreateMap<CreateSubscriberDto, ClubAppUser>().ReverseMap();
+            CreateMap<ClubAppUser, SubsClubsDto>();
+            CreateMap<ClubAppUser, SubscriberClubsDto>()
+                .ForMember(dest => dest.SubscribersClubs, opt => opt.MapFrom(src => new SubsClubsDto()
+                {
+                    ClubId = src.ClubId,
+                    ClubName = src.Club.Name,
+                    ClubSummary = src.Club.Summary,
+                    ClubUrl = src.Club.Url,
+                }));
+
             // IdentityRole mapping
             CreateMap<CreateRoleDto, IdentityRole>();
             CreateMap<CreateRoleDto, RoleDto>();
