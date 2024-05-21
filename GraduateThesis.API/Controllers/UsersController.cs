@@ -22,7 +22,7 @@ namespace GraduateThesis.API.Controllers
             return CreateAction(await _userService.CreateUserAsync(dto));
         }
 
-        //[Authorize(AuthenticationSchemes="Bearer",Roles ="admin")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "admin")]
         [HttpPost("getuserinfo/{mail}")]
         public async Task<IActionResult> GetUserInfoByEmail(string mail)
         {
