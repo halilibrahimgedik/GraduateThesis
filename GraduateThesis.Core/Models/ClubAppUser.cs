@@ -8,7 +8,7 @@ namespace GraduateThesis.Core.Models
 {
     public class ClubAppUser
     {
-        public int AppUserId { get; set; }
+        public string AppUserId { get; set; }
         public AppUser AppUser { get; set; }
 
         public int ClubId { get; set; }

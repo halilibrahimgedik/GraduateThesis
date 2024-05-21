@@ -17,11 +17,13 @@ namespace GraduateThesis.Repository.EntityConfigurations
 
             builder.HasOne(clubAppUser => clubAppUser.AppUser)
                 .WithMany(appUser => appUser.ClubAppUsers)
-                .HasForeignKey(clubAppUser => clubAppUser.AppUserId);
+                .HasForeignKey(clubAppUser => clubAppUser.AppUserId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(clubAppUser => clubAppUser.Club)
                 .WithMany(club => club.ClubAppUsers)
-                .HasForeignKey(clubAppUser => clubAppUser.ClubId);
+                .HasForeignKey(clubAppUser => clubAppUser.ClubId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
