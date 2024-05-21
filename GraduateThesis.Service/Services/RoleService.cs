@@ -28,15 +28,22 @@ namespace GraduateThesis.Service.Services
 
         public async Task<CustomResponseDto<NoDataDto>> AssignRoleAsync(AssignRoleDto dto)
         {
-            var user = await _userManager.FindByIdAsync(dto.UserId) ?? throw new NotFoundException("user not found");
+            var user = await _userManager.FindByIdAsync(dto.UserId) ?? throw new NotFoundException("user not found !");
 
-            var role = await _roleManager.FindByIdAsync(dto.RoleId) ?? throw new NotFoundException("role not found0");
+            var role = await _roleManager.FindByIdAsync(dto.RoleId) ?? throw new NotFoundException("role not found !");
+
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            if(userRoles.Contains(role.Name))
+            {
+                throw new ClientSideException("user already has this role");
+            }
 
             var result = await _userManager.AddToRoleAsync(user, role.Name);
 
             if (!result.Succeeded)
             {
-                return CustomResponseDto<NoDataDto>.Fail(StatusCodes.Status500InternalServerError, "something went wrong. pls contact system admin");
+                return CustomResponseDto<NoDataDto>.Fail(StatusCodes.Status500InternalServerError, "something went wrong. please contact system admin");
             }
 
             return CustomResponseDto<NoDataDto>.Success(StatusCodes.Status204NoContent);
