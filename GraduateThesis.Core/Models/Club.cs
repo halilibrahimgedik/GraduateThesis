@@ -20,6 +20,10 @@ namespace GraduateThesis.Core.Models
         public int ClubUniversityId { get; set; } //
         public University ClubUniversity { get; set; } //
 
+
+        public List<AppUser> ClubAppUsers { get; set; }
+
+
         public ICollection<ClubCategory> ClubCategories { get; set; } = new List<ClubCategory>();
     }
 }
