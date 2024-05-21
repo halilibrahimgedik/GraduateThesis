@@ -15,6 +15,6 @@ namespace GraduateThesis.Core.Models
         public University University { get; set; }
 
 
-        public List<Club> ClubAppUsers { get; set; }
+        public List<ClubAppUser> ClubAppUsers { get; set; }
     }
 }

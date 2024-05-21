@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GraduateThesis.Core.Models
 {
-    public class ClubAppUsers
+    public class ClubAppUser
     {
         public int AppUserId { get; set; }
         public AppUser AppUser { get; set; }
