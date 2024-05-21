@@ -13,8 +13,8 @@ namespace GraduateThesis.Repository.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Club> builder)
         {
-            builder.HasKey(x=> x.Id);
-            builder.Property(x=>x.Id).UseIdentityColumn();
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.Id).UseIdentityColumn();
 
             builder.Property(x => x.Name).HasMaxLength(50).IsRequired();
 
@@ -22,6 +22,10 @@ namespace GraduateThesis.Repository.EntityConfigurations
             builder.Property(x => x.Url).HasMaxLength(300);
             builder.Property(x => x.IsActive).HasDefaultValue(false);
 
+
+            builder.HasOne(club => club.University)
+                .WithMany(university => university.Clubs)
+                .HasForeignKey(club => club.UniversityId);
         }
     }
 }

@@ -17,5 +17,8 @@ namespace GraduateThesis.Core.Models
         public string? Rector { get; set; }
 
         public List<AppUser> Users  { get; set; }
+
+        public List<Club> Clubs { get; set; } //
+
     }
 }

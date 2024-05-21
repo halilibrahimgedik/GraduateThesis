@@ -23,8 +23,13 @@ namespace GraduateThesis.Repository.EntityConfigurations
 
             builder.Property(x => x.Phone).HasMaxLength(16);
 
-            builder.HasMany(u => u.Users)
+            // University - AppUser many to n
+            builder.HasMany(university => university.Users)
                 .WithOne(user => user.University).HasForeignKey(user => user.UniversityId);
+
+            // Club - University many to n
+            builder.HasMany(u => u.Clubs)
+                .WithOne(c => c.University).HasForeignKey(c => c.UniversityId);
         }
     }
 }
