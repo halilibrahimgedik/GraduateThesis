@@ -24,24 +24,30 @@ namespace GraduateThesis.Service.Services
         private readonly IClubRepository _clubRepository;
         private readonly ICategoryService _categoryService;
         private readonly IFormFileHelper _formFileHelper;
-        public ClubService(IGenericRepository<Club> genericRepository, IUnitOfWork unitOfWork, IClubRepository clubRepository, ICategoryService categoryService, IFormFileHelper formFileHelper) : base(genericRepository, unitOfWork)
+        private readonly IUniversityService _universityService;
+        public ClubService(IGenericRepository<Club> genericRepository, IUnitOfWork unitOfWork, IClubRepository clubRepository, ICategoryService categoryService, IFormFileHelper formFileHelper, IUniversityService universityService) : base(genericRepository, unitOfWork)
         {
             _clubRepository = clubRepository;
             _categoryService = categoryService;
             _formFileHelper = formFileHelper;
+            _universityService = universityService;
         }
 
 
-        public async Task<CustomResponseDto<List<ClubDto>>> GetAllActiveClubsAsync()
+        public async Task<CustomResponseDto<List<ClubDto>>> GetActiveClubsByUniversityAsync(int universityId)
         {
-            var clubs = await _clubRepository.GetAllActiveClubsAsync();
-            var activeClubs = ObjectMapper.Mapper.Map<List<ClubDto>>(clubs);
-            return CustomResponseDto<List<ClubDto>>.Success(StatusCodes.Status200OK, activeClubs);
+            var clubs = await _clubRepository.GetActiveClubsByUniversityAsync(universityId);
+            var clubsDto = ObjectMapper.Mapper.Map<List<ClubDto>>(clubs);
+
+            return CustomResponseDto<List<ClubDto>>.Success(StatusCodes.Status200OK, clubsDto);
         }
 
         // Overload
         public async Task<CustomResponseDto<ClubWithCategoriesDto>> AddAsync(CreateClubWithImageDto dto)
         {
+            var uniExist = await _universityService.AnyAsync(uni => uni.Id == dto.ClubUniversityId);
+            if (!uniExist.Data) throw new ClientSideException("University not found !");
+
             var newEntity = ObjectMapper.Mapper.Map<Club>(dto);
 
             try
@@ -93,9 +99,9 @@ namespace GraduateThesis.Service.Services
             return CustomResponseDto<List<ClubWithCategoriesDto>>.Success((int)HttpStatusCode.Created, createdEntity);
         }
 
-        public async Task<CustomResponseDto<List<ClubWithCategoriesDto>>> GetClubsWithCategoriesAsync()
+        public async Task<CustomResponseDto<List<ClubWithCategoriesDto>>> GetClubsByUniversityWithCategoriesAsync(int universityId)
         {
-            var datas = await _clubRepository.GetClubsWithCategoriesAsync();
+            var datas = await _clubRepository.GetClubsByUniversityWithCategoriesAsync(universityId);
 
             var dtos = ObjectMapper.Mapper.Map<List<ClubWithCategoriesDto>>(datas);
 

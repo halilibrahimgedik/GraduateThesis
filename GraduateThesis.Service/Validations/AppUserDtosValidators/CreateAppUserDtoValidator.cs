@@ -12,8 +12,8 @@ namespace GraduateThesis.Service.Validators.AppUserDtosValidators
     {
         public CreateAppUserDtoValidator()
         {
-            RuleFor(x => x.Email).NotEmpty().WithMessage("Email address can not be empty")
-                .EmailAddress().WithMessage("Email address is invalid");
+            RuleFor(x => x.Email).NotEmpty().WithMessage("{PropertyName} address can not be empty")
+                .EmailAddress().WithMessage("{PropertyName} address is invalid");
 
 
             RuleFor(x => x.Password).NotEmpty().WithMessage("Password can not be empty")
@@ -23,12 +23,12 @@ namespace GraduateThesis.Service.Validators.AppUserDtosValidators
                 .Must(password => password.Any(char.IsDigit)).WithMessage("Password must contains at least 1 digit");
 
 
-            RuleFor(x => x.UniversityId).NotEmpty().WithMessage("Password can not be empty");
+            RuleFor(x => x.UniversityId).NotEmpty().WithMessage("{PropertyName} can not be empty");
 
-            RuleFor(x => x.UserName).NotEmpty().WithMessage("Username can not be empty");
+            RuleFor(x => x.UserName).NotEmpty().WithMessage("{PropertyName} can not be empty");
 
             RuleFor(x => x.FullName).NotEmpty()
-                .WithMessage("Password can not be empty");
+                .WithMessage("{PropertyName} can not be empty");
         }
     }
 }

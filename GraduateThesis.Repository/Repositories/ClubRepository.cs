@@ -16,9 +16,12 @@ namespace GraduateThesis.Repository.Repositories
         {
         }
 
-        public async Task<IEnumerable<Club>> GetAllActiveClubsAsync()
+        public async Task<IEnumerable<Club>> GetActiveClubsByUniversityAsync(int universityId)
         {
-            return await _dbContext.Clubs.Where(c => c.IsActive).ToListAsync();
+            return await _dbContext.Clubs
+                .AsNoTracking()
+                .Where(c => c.ClubUniversityId == universityId && c.IsActive)
+                .ToListAsync();
         }
 
         public async Task<Club> GetClubByIdWithCategories(int id)
@@ -26,9 +29,13 @@ namespace GraduateThesis.Repository.Repositories
             return await _dbContext.Clubs.Include(c => c.ClubCategories).ThenInclude(cc=>cc.Category).FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task<IEnumerable<Club>> GetClubsWithCategoriesAsync()
+        public async Task<IEnumerable<Club>> GetClubsByUniversityWithCategoriesAsync(int universityId)
         {
-            return await _dbContext.Clubs.Where(c=>c.IsActive).Include(c => c.ClubCategories).ThenInclude(cc => cc.Category).ToListAsync();
+            return await _dbContext.Clubs.AsNoTracking()
+                                        .Where(c => c.ClubUniversityId == universityId && c.IsActive)
+                                        .Include(c => c.ClubCategories)
+                                        .ThenInclude(cc => cc.Category)
+                                        .ToListAsync();
         }
     }
 }

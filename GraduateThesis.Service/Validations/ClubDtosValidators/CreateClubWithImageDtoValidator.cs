@@ -31,6 +31,8 @@ namespace GraduateThesis.Service.Validators.ClubDtosValidators
                 .NotEmpty().WithMessage("{PropertyName} can not be empty ...");
 
             RuleFor(c => c.Image).NotEmpty().WithMessage("{PropertyName} can not be empty...");
+
+            RuleFor(c => c.ClubUniversityId).NotEmpty().WithMessage("{PropertyName} can not be empty...");
         }
     }
 }

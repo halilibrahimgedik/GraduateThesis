@@ -1,6 +1,7 @@
 ﻿using GraduateThesis.API.Filters;
 using GraduateThesis.Core.Dtos.ClubDtos;
 using GraduateThesis.Core.Dtos.CustomResponseDtos;
+using GraduateThesis.Core.Dtos.UniversityDtos;
 using GraduateThesis.Core.Models;
 using GraduateThesis.Core.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -31,18 +32,20 @@ namespace GraduateThesis.API.Controllers
 
 
         [AllowAnonymous]
-        [HttpGet("[action]")]
-        public async Task<IActionResult> GetAllActiveClubs()
+        [ServiceFilter(typeof(DoesUniversityExistFilter))]
+        [HttpGet("GetClubsByUniversity")]
+        public async Task<IActionResult> GetActiveClubsByUniversity(int universityId)
         {
-            return CreateAction(await _clubService.GetAllActiveClubsAsync());
+            return CreateAction(await _clubService.GetActiveClubsByUniversityAsync(universityId));
         }
 
 
         [AllowAnonymous]
-        [HttpGet("GetClubsWithCategories")]
-        public async Task<IActionResult> GetClubsWithCategories()
+        [ServiceFilter(typeof(DoesUniversityExistFilter))]
+        [HttpGet("GetClubsByUniversityWithCategories")]
+        public async Task<IActionResult> GetClubsByUniversityWithCategories(int universityId)
         {
-            var datas = await _clubService.GetClubsWithCategoriesAsync();
+            var datas = await _clubService.GetClubsByUniversityWithCategoriesAsync(universityId);
 
             return CreateAction(datas);
         }
