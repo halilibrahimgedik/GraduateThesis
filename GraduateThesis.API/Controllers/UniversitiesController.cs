@@ -17,13 +17,14 @@ namespace GraduateThesis.API.Controllers
             _universityService = universityService;
         }
 
-
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             return CreateAction(await _universityService.GetAllAsync());
         }
 
+        [AllowAnonymous]
         [ServiceFilter(typeof(NotFoundFilter<University, UniversityDto>))]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)

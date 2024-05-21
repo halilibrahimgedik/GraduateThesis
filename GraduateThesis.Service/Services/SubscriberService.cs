@@ -21,12 +21,14 @@ namespace GraduateThesis.Service.Services
     public class SubscriberService : ISubscriberService
     {
         private readonly ISubscriberRepository _subscriberRepository;
+        private readonly IClubRepository _clubRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public SubscriberService(ISubscriberRepository subscriberRepository, IUnitOfWork unitOfWork)
+        public SubscriberService(ISubscriberRepository subscriberRepository, IUnitOfWork unitOfWork, IClubRepository clubRepository)
         {
             _subscriberRepository = subscriberRepository;
             _unitOfWork = unitOfWork;
+            _clubRepository = clubRepository;
         }
 
 
@@ -57,6 +59,23 @@ namespace GraduateThesis.Service.Services
 
             return CustomResponseDto<CreateSubscriberDto>.Success(StatusCodes.Status201Created, responseDto);
 
+        }
+
+        public async Task<CustomResponseDto<DeleteSubscriberClubDto>> DeleteSubscriberClubAsync(DeleteSubscriberClubDto dto)
+        {
+            var appUser = await _subscriberRepository.GetClubAppUserById(dto.UserId) ?? throw new NotFoundException(" User not found !");
+
+            var doesClubExist = await _clubRepository.AnyAsync(club => club.Id == dto.ClubId);
+
+            if (!doesClubExist)
+            {
+                throw new NotFoundException($"club not found ! - id: {dto.ClubId}");
+            }
+
+            _subscriberRepository.Remove(appUser.AppUserId,appUser.ClubId);
+            _unitOfWork.Commit();
+
+            return CustomResponseDto<DeleteSubscriberClubDto>.Success(StatusCodes.Status204NoContent);
         }
 
 

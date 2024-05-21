@@ -32,5 +32,12 @@ namespace GraduateThesis.API.Controllers
         {
             return CreateAction(await _subscriberService.AddSubscriberToClubAsync(dto));
         }
+
+        [ServiceFilter(typeof(ValidateSubscriberIdFilter))]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteSubscriberClub(DeleteSubscriberClubDto dto)
+        {
+            return CreateAction(await _subscriberService.DeleteSubscriberClubAsync(dto));
+        }
     }
 }

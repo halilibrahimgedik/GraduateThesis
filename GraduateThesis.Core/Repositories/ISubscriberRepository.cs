@@ -10,5 +10,8 @@ namespace GraduateThesis.Core.Repositories
     public interface ISubscriberRepository : IGenericRepository<ClubAppUser>
     {
         IQueryable<ClubAppUser> GetSubscriberClubs(string id);
+        Task<ClubAppUser> GetClubAppUserById(string id);
+
+        void Remove(string userId, int clubId);
     }
 }

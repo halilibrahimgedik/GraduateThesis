@@ -15,6 +15,11 @@ namespace GraduateThesis.Repository.Repositories
         {
         }
 
+        public async Task<ClubAppUser> GetClubAppUserById(string id)
+        {
+            return await _dbContext.ClubAppUsers.FirstOrDefaultAsync(x => x.AppUserId == id);
+        }
+
         public IQueryable<ClubAppUser> GetSubscriberClubs(string id)
         {
             return _dbContext.ClubAppUsers.AsNoTracking()
@@ -23,5 +28,10 @@ namespace GraduateThesis.Repository.Repositories
                 .AsQueryable();
         }
 
+        public void Remove(string userId, int clubId)
+        {
+            var clubAppUser = _dbContext.ClubAppUsers.FirstOrDefault(c => c.AppUserId == userId && c.ClubId == clubId);
+            _dbContext.Remove(clubAppUser);
+        }
     }
 }

@@ -15,5 +15,7 @@ namespace GraduateThesis.Core.Services
         Task<CustomResponseDto<SubscriberClubsDto>> GetSubscriberClubsAsync(string userId);
 
         Task<CustomResponseDto<CreateSubscriberDto>> AddSubscriberToClubAsync(CreateSubscriberDto dto);
+
+        Task<CustomResponseDto<DeleteSubscriberClubDto>> DeleteSubscriberClubAsync(DeleteSubscriberClubDto dto);
     }
 }
