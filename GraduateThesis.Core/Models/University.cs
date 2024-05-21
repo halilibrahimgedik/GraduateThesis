@@ -18,7 +18,7 @@ namespace GraduateThesis.Core.Models
 
         public List<AppUser> Users  { get; set; }
 
-        public List<Club> Clubs { get; set; } //
+        public List<Club>? Clubs { get; set; } //
 
     }
 }

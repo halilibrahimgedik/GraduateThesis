@@ -23,9 +23,8 @@ namespace GraduateThesis.Repository.EntityConfigurations
             builder.Property(x => x.IsActive).HasDefaultValue(false);
 
 
-            builder.HasOne(club => club.University)
-                .WithMany(university => university.Clubs)
-                .HasForeignKey(club => club.UniversityId);
+            builder.HasOne(club => club.ClubUniversity)
+                .WithMany(university => university.Clubs);
         }
     }
 }

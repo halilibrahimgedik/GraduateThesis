@@ -29,7 +29,7 @@ namespace GraduateThesis.Repository.EntityConfigurations
 
             // Club - University many to n
             builder.HasMany(u => u.Clubs)
-                .WithOne(c => c.University).HasForeignKey(c => c.UniversityId);
+                .WithOne(c => c.ClubUniversity);
         }
     }
 }

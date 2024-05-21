@@ -17,8 +17,8 @@ namespace GraduateThesis.Core.Models
         public bool IsActive { get; set; }
 
 
-        public int UniversityId { get; set; } //
-        public University University { get; set; } //
+        public int ClubUniversityId { get; set; } //
+        public University ClubUniversity { get; set; } //
 
         public ICollection<ClubCategory> ClubCategories { get; set; } = new List<ClubCategory>();
     }
