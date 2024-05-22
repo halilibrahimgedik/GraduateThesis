@@ -17,14 +17,14 @@ namespace GraduateThesis.WEB.Services.Concrete
         {
             var response = await _httpClient.PostAsJsonAsync("users/createuser", createUserVm);
 
+            var result = await response.Content.ReadFromJsonAsync<CustomResponseVm<UserVm>>();
+
             if (!response.IsSuccessStatusCode)
-            {
-                return await response.Content.ReadFromJsonAsync<CustomResponseVm<UserVm>>();
+            {       
+                return CustomResponseVm<UserVm>.Fail(result.Errors);
             }
 
-            var responsebody = await response.Content.ReadFromJsonAsync<CustomResponseVm<UserVm>>();
-
-            return responsebody;
+            return result;
         }
 
     }

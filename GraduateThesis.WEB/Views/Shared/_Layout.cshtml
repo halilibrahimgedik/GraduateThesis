@@ -33,9 +33,9 @@
                     {
                         var alertMessage = JsonSerializer.Deserialize<AlertMessage>(TempData["Message"].ToString());
 
-                        <partial name="PartialViews/_ShowMessagePartial" model="alertMessage"/>
+                        <partial name="PartialViews/_ShowMessagePartial" model="alertMessage" />
                     }
-                  
+
                     @if (IsSectionDefined("Categories"))
                     {
                         <div class="d-flex justify-content-between mb-4 mt-5 gap-3">
@@ -59,7 +59,7 @@
 
     </main>
 
-    <footer class="border-top footer text-muted">
+    <footer class="position-absolute border-top footer text-white bg-primary" style="width: 100%;padding: 2vh;bottom:0;">
         <div class="container">
             &copy; 2024 - GraduateThesis.WEB - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>

@@ -35,6 +35,10 @@ builder.Services.Configure<CustomTokenOption>(options =>
 builder.Services.AddCustomTokenAuthentication(tokenOptions);
 
 
+builder.Services.AddHttpClient<AuthorizationApiService>(opt =>
+{
+    opt.BaseAddress = new Uri(builder.Configuration["EndPoint"]);
+});
 builder.Services.AddHttpClient<UserApiService>(opt =>
 {
     opt.BaseAddress = new Uri(builder.Configuration["EndPoint"]);
