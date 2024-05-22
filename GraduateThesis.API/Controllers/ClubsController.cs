@@ -33,7 +33,7 @@ namespace GraduateThesis.API.Controllers
 
         [AllowAnonymous]
         [ServiceFilter(typeof(DoesUniversityExistFilter))]
-        [HttpGet("GetClubsByUniversity")]
+        [HttpGet("GetClubsByUniversity/{universityId}")]
         public async Task<IActionResult> GetActiveClubsByUniversity(int universityId)
         {
             return CreateAction(await _clubService.GetActiveClubsByUniversityAsync(universityId));
@@ -42,7 +42,7 @@ namespace GraduateThesis.API.Controllers
 
         [AllowAnonymous]
         [ServiceFilter(typeof(DoesUniversityExistFilter))]
-        [HttpGet("GetClubsByUniversityWithCategories")]
+        [HttpGet("GetClubsByUniversityWithCategories/{universityId}")]
         public async Task<IActionResult> GetClubsByUniversityWithCategories(int universityId)
         {
             var datas = await _clubService.GetClubsByUniversityWithCategoriesAsync(universityId);

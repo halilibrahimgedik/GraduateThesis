@@ -66,7 +66,8 @@ namespace GraduateThesis.Service.Mapping
             CreateMap<CreateClubWithImageDto, Club>()
                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                .ForMember(dest => dest.Summary, opt => opt.MapFrom(src => src.Summary))
-               .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => src.IsActive));
+               .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => src.IsActive))
+               .ForMember(dest => dest.ClubUniversityId, opt => opt.MapFrom(src => src.ClubUniversityId));
 
 
             // Category Mapping
