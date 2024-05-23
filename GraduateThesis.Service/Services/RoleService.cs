@@ -129,6 +129,8 @@ namespace GraduateThesis.Service.Services
         {
             var role = await _roleManager.FindByIdAsync(dto.Id) ?? throw new NotFoundException("role not found !");
 
+            role.Name = dto.Name;
+
             var result = await _roleManager.UpdateAsync(role);
 
             if (!result.Succeeded)

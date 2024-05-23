@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraduateThesis.Repository",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraduateThesis.Service", "GraduateThesis.Service\GraduateThesis.Service.csproj", "{7D4545AC-6EB4-45B5-9B3B-AFFA5842E576}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{4056197F-1379-44E4-8B02-40D28FF670EE}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,12 +36,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{BD51CD92-4DA2-4814-8BF0-6F8BE43740BB} = {4056197F-1379-44E4-8B02-40D28FF670EE}
-		{41CF464A-D601-407F-BF75-535226E0DCC6} = {4056197F-1379-44E4-8B02-40D28FF670EE}
-		{456961DD-E072-484A-8C99-8DCBBBDE062B} = {4056197F-1379-44E4-8B02-40D28FF670EE}
-		{7D4545AC-6EB4-45B5-9B3B-AFFA5842E576} = {4056197F-1379-44E4-8B02-40D28FF670EE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2DE79C44-A069-4255-AC11-D02F75ED3391}
