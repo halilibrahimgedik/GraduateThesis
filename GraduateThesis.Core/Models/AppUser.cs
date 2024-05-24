@@ -14,7 +14,11 @@ namespace GraduateThesis.Core.Models
         public int UniversityId { get; set; }
         public University University { get; set; }
 
-
         public List<ClubAppUser>? ClubAppUsers { get; set; }
+
+
+        public List<ClubPresident>? ClubPresidents { get; set; } // ! bir user birden fazla kulub başkanı olabilir
+
+        public List<Application> Applications { get; set; }
     }
 }

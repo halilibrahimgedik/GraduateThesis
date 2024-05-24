@@ -27,6 +27,10 @@ namespace GraduateThesis.Repository
         public DbSet<UserRefreshToken> UserRefreshTokens { get; set; }
         public DbSet<University> Universities { get; set; }
 
+        public DbSet<Application> Applications { get; set; }
+        public DbSet<ClubPresident> clubPresidents { get; set; }
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -25,5 +25,8 @@ namespace GraduateThesis.Core.Models
 
 
         public ICollection<ClubCategory> ClubCategories { get; set; } = new List<ClubCategory>();
+
+
+        public List<ClubPresident> ClubPresidents { get; set; } //!
     }
 }
