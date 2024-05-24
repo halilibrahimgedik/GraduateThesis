@@ -19,7 +19,10 @@ namespace GraduateThesis.Service.Mapping
     {
         public MapProfile()
         {
-            CreateMap<CreateSubscriberDto, ClubAppUser>().ReverseMap();
+            // ! ClubAppUser mapping
+            CreateMap<CreateSubscriberDto, ClubAppUser>()
+                .ForMember(dest => dest.AppUserId, opt => opt.MapFrom(src => src.UserId)).ReverseMap();
+
             CreateMap<ClubAppUser, SubsClubsDto>();
             CreateMap<ClubAppUser, SubscriberClubsDto>()
                 .ForMember(dest => dest.SubscribersClubs, opt => opt.MapFrom(src => new SubsClubsDto()

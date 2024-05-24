@@ -20,6 +20,11 @@ namespace GraduateThesis.Repository.Repositories
             return await _dbContext.ClubAppUsers.FirstOrDefaultAsync(x => x.AppUserId == id);
         }
 
+        public async Task<bool> isUserMemberOfAnyClub(string userId,int clubId)
+        {
+            return await _dbContext.ClubAppUsers.AnyAsync(x => x.ClubId == clubId && x.AppUserId == userId);
+        }
+
         public IQueryable<ClubAppUser> GetSubscriberClubs(string id)
         {
             return _dbContext.ClubAppUsers.AsNoTracking()

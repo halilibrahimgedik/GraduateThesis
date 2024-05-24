@@ -12,6 +12,8 @@ namespace GraduateThesis.Core.Repositories
         IQueryable<ClubAppUser> GetSubscriberClubs(string id);
         Task<ClubAppUser> GetClubAppUserById(string id);
 
+        Task<bool> isUserMemberOfAnyClub(string userId, int clubId);
+
         void Remove(string userId, int clubId);
     }
 }

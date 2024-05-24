@@ -50,20 +50,30 @@ namespace GraduateThesis.Service.Services
 
         public async Task<CustomResponseDto<CreateSubscriberDto>> AddSubscriberToClubAsync(CreateSubscriberDto dto)
         {
-            var clubAppUser = ObjectMapper.Mapper.Map<ClubAppUser>(dto);
+            // Does Club Exist ??
+            var doesClubExist = await _clubRepository.AnyAsync(club => club.Id == dto.ClubId);
+            if (!doesClubExist) throw new NotFoundException($"Club not found. club-id :{dto.ClubId}");
 
-            await _subscriberRepository.AddAsync(clubAppUser);
+            //  Does the user member of specified club ??
+            var doesExistClubAppUser = await _subscriberRepository.isUserMemberOfAnyClub(dto.UserId,dto.ClubId);
+            if (doesExistClubAppUser)
+            {
+                return CustomResponseDto<CreateSubscriberDto>.Fail(StatusCodes.Status400BadRequest, "User already a member of specified club.");
+            }
+
+            var ClubAppUser = ObjectMapper.Mapper.Map<ClubAppUser>(dto);
+
+            await _subscriberRepository.AddAsync(ClubAppUser);
             await _unitOfWork.CommitAsync();
 
-            var responseDto = ObjectMapper.Mapper.Map<CreateSubscriberDto>(clubAppUser);
+            var responseDto = ObjectMapper.Mapper.Map<CreateSubscriberDto>(ClubAppUser);
 
             return CustomResponseDto<CreateSubscriberDto>.Success(StatusCodes.Status201Created, responseDto);
-
         }
 
         public async Task<CustomResponseDto<DeleteSubscriberClubDto>> DeleteSubscriberClubAsync(DeleteSubscriberClubDto dto)
         {
-            var appUser = await _subscriberRepository.GetClubAppUserById(dto.UserId) ?? throw new NotFoundException(" User not found !");
+            var appUser = await _subscriberRepository.GetClubAppUserById(dto.UserId) ?? throw new NotFoundException(" User not a member of any club!");
 
             var doesClubExist = await _clubRepository.AnyAsync(club => club.Id == dto.ClubId);
 
@@ -72,7 +82,14 @@ namespace GraduateThesis.Service.Services
                 throw new NotFoundException($"club not found ! - id: {dto.ClubId}");
             }
 
-            _subscriberRepository.Remove(appUser.AppUserId,appUser.ClubId);
+            var memberOf = await _subscriberRepository.isUserMemberOfAnyClub(dto.UserId, dto.ClubId);
+
+            if (!memberOf)
+            {
+                throw new ClientSideException($"The user is not a member of the club you are trying to delete.");
+            }
+
+            _subscriberRepository.Remove(appUser.AppUserId, appUser.ClubId);
             _unitOfWork.Commit();
 
             return CustomResponseDto<DeleteSubscriberClubDto>.Success(StatusCodes.Status204NoContent);

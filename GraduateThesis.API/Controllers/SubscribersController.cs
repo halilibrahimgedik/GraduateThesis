@@ -29,7 +29,7 @@ namespace GraduateThesis.API.Controllers
         [ServiceFilter(typeof(ValidateSubscriberIdFilter))]
         [HttpPost]
         public async Task<IActionResult> AddSubscriberToClub(CreateSubscriberDto dto)
-        {
+       {
             return CreateAction(await _subscriberService.AddSubscriberToClubAsync(dto));
         }
 
