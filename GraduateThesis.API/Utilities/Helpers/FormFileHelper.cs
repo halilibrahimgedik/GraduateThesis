@@ -1,4 +1,5 @@
 ﻿using GraduateThesis.Core.Services;
+using GraduateThesis.Service.Exceptions;
 
 namespace GraduateThesis.API.Utilities.Helpers
 {
@@ -13,8 +14,13 @@ namespace GraduateThesis.API.Utilities.Helpers
 
         public async Task<string> AddAsync(IFormFile file)
         {
+            // dosya uzantısı 2MB'ı aşmamalı
+            CheckFileSize(file);
+
             //dosyanın uzantısını alıyorum.
             string fileExtension = Path.GetExtension(file.FileName);
+
+            DoesUploadAllowed(fileExtension);
 
             //Guid ile uzantıyı birleştiriyorum.
             //string uniqueFileName = string.Format($"{new Guid()}{fileExtension}");
@@ -47,7 +53,9 @@ namespace GraduateThesis.API.Utilities.Helpers
 
         public async Task<string> UpdateAsync(IFormFile file, string imageUrl)
         {
-            //var fullpath = FilePathToSave.FullPath(imagePath);
+            CheckFileSize(file);
+
+            DoesUploadAllowed(Path.GetExtension(file.FileName));
 
             if (!string.IsNullOrEmpty(imageUrl) && File.Exists(imageUrl))
             {
@@ -61,6 +69,30 @@ namespace GraduateThesis.API.Utilities.Helpers
             {
                 var newUrl = await AddAsync(file);
                 return newUrl;
+            }
+        }
+
+
+
+        private void DoesUploadAllowed(string fileExtension)
+        {
+            var allowedExtensions = new string[] { ".png", ".jpg", ".jpeg" };
+
+            if (!allowedExtensions.Contains(fileExtension))
+            {
+                throw new ClientSideException($"You cannot upload a file with {fileExtension} extension.");
+            }
+        }
+
+        private void CheckFileSize(IFormFile file)
+        {
+            // max dosya boyutu
+            const long maxFileSize = 1 * 1024 * 1024; 
+
+            // Dosya boyutunu kontrol edip, max izin verilen boyutu aşarsa hata fırlatacağız
+            if (file.Length > maxFileSize)
+            {
+                throw new ArgumentException($"The file size exceeds the maximum allowed limit of {maxFileSize/(1024*1024)} MB.");
             }
         }
     }
