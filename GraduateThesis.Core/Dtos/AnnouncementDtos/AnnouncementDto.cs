@@ -11,10 +11,10 @@ namespace GraduateThesis.Core.Dtos.AnnouncementDtos
     {
         public string Header { get; set; }
 
-        public string Description { get; set; }
+        public string Message { get; set; }
 
 
-        public string Publisher { get; set; }
+        public string AppUserId { get; set; }
 
         public int ClubId { get; set; }
     }

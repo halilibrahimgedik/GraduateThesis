@@ -12,5 +12,7 @@ namespace GraduateThesis.Core.Services
     public interface IAnnouncementService : IGenericService<Announcement,AnnouncementDto>
     {
         Task<CustomResponseDto<AnnouncementDto>> AddAsync(CreateAnnouncementDto createAnnouncementDto);
+
+        Task<CustomResponseDto<NoDataDto>> UpdateAsync(UpdateAnnouncementDto updateAnnouncementDto);
     }
 }

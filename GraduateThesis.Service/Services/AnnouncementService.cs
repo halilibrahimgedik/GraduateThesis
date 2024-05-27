@@ -4,7 +4,9 @@ using GraduateThesis.Core.Models;
 using GraduateThesis.Core.Repositories;
 using GraduateThesis.Core.Services;
 using GraduateThesis.Core.UnitOfWork;
+using GraduateThesis.Service.Exceptions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,22 +18,45 @@ namespace GraduateThesis.Service.Services
     public class AnnouncementService : GenericService<Announcement, AnnouncementDto>, IAnnouncementService
     {
         private readonly IAnnouncementRepository _announcementRepository;
-        public AnnouncementService(IGenericRepository<Announcement> genericRepository, IUnitOfWork unitOfWork, IAnnouncementRepository announcementRepository) : base(genericRepository, unitOfWork)
+        private readonly IClubRepository _clubRepository;
+        private readonly UserManager<AppUser> _userManager;
+        public AnnouncementService(IGenericRepository<Announcement> genericRepository, IUnitOfWork unitOfWork, IAnnouncementRepository announcementRepository, IClubRepository clubRepository, UserManager<AppUser> userManager) : base(genericRepository, unitOfWork)
         {
             _announcementRepository = announcementRepository;
+            _clubRepository = clubRepository;
+            _userManager = userManager;
         }
 
 
         public async Task<CustomResponseDto<AnnouncementDto>> AddAsync(CreateAnnouncementDto createAnnouncementDto)
         {
-            var announcment = ObjectMapper.Mapper.Map<Announcement>(createAnnouncementDto);
+            var clubExist = await _clubRepository.AnyAsync(x=>x.Id == createAnnouncementDto.ClubId);
 
-            await _announcementRepository.AddAsync(announcment);
+            if (!clubExist)
+            {
+                throw new NotFoundException("club not found !");
+            }
+
+            var appUserExist = await _userManager.FindByIdAsync(createAnnouncementDto.AppUserId) ?? throw new NotFoundException("user not found !");
+
+            var announcement = ObjectMapper.Mapper.Map<Announcement>(createAnnouncementDto);
+
+            await _announcementRepository.AddAsync(announcement);
             await _unitOfWork.CommitAsync();
 
-            var announcementDto = ObjectMapper.Mapper.Map<AnnouncementDto>(announcment);
+            var announcementDto = ObjectMapper.Mapper.Map<AnnouncementDto>(announcement);
 
             return CustomResponseDto<AnnouncementDto>.Success(StatusCodes.Status201Created, announcementDto);
         }
+
+        public async Task<CustomResponseDto<NoDataDto>> UpdateAsync(UpdateAnnouncementDto updateAnnouncementDto)
+        {
+            var announcement = ObjectMapper.Mapper.Map<Announcement>(updateAnnouncementDto);
+
+            _announcementRepository.Update(announcement);
+            await _unitOfWork.CommitAsync();
+
+            return CustomResponseDto<NoDataDto>.Success(StatusCodes.Status204NoContent);
+        } 
     }
 }

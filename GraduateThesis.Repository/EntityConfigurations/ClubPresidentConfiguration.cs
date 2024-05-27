@@ -18,7 +18,7 @@ namespace GraduateThesis.Repository.EntityConfigurations
             builder.HasOne(x=>x.AppUser)
                 .WithMany(appUser=>appUser.ClubPresidents)
                 .HasForeignKey(x=>x.AppUserId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(x => x.Club)
                 .WithMany(club => club.ClubPresidents)

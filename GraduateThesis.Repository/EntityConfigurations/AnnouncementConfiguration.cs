@@ -16,8 +16,8 @@ namespace GraduateThesis.Repository.EntityConfigurations
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).UseIdentityColumn();
 
-            builder.Property(x => x.Description).IsRequired().HasMaxLength(350);
-            builder.Property(x => x.Publisher).IsRequired();
+            builder.Property(x => x.Message).IsRequired().HasMaxLength(350);
+            builder.Property(x => x.AppUserId).IsRequired();
             builder.Property(x => x.Header).IsRequired().HasMaxLength(40);
             builder.Property(x => x.CreatedDate).IsRequired();
 

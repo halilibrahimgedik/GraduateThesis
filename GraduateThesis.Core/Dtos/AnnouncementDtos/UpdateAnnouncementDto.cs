@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GraduateThesis.Core.Models
+namespace GraduateThesis.Core.Dtos.AnnouncementDtos
 {
-    public class Announcement : BaseEntity
+    public class UpdateAnnouncementDto
     {
+        public int Id { get; set; }
         public string Header { get; set; }
 
         public string Message { get; set; }
@@ -16,6 +17,5 @@ namespace GraduateThesis.Core.Models
         public string AppUserId { get; set; }
 
         public int ClubId { get; set; }
-        public Club Club { get; set; }
     }
 }

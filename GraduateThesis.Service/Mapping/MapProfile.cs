@@ -23,6 +23,8 @@ namespace GraduateThesis.Service.Mapping
         {
             // ! Announcement
             CreateMap<CreateAnnouncementDto, Announcement>();
+            CreateMap<Announcement, AnnouncementDto>().ReverseMap();
+            CreateMap<UpdateAnnouncementDto,Announcement>();
 
 
             // ! Application

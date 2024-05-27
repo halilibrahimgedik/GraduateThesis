@@ -1,18 +1,18 @@
 ﻿using GraduateThesis.Core.Dtos.AnnouncementDtos;
-using GraduateThesis.Service.Services;
+using GraduateThesis.Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GraduateThesis.API.Controllers
 {
-    [Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize(AuthenticationSchemes = "Bearer",Roles = "admin,club-president")]
     [Route("api/[controller]")]
     public class AnnouncementController : CustomBaseController
     {
 
-        private readonly AnnouncementService _announcementService;
-        public AnnouncementController(AnnouncementService announcementService)
+        private readonly IAnnouncementService _announcementService;
+        public AnnouncementController(IAnnouncementService announcementService)
         {
             _announcementService = announcementService;
         }
@@ -43,7 +43,7 @@ namespace GraduateThesis.API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateAnnouncement(AnnouncementDto dto)
+        public async Task<IActionResult> UpdateAnnouncement(UpdateAnnouncementDto dto)
         {
             return CreateAction(await _announcementService.UpdateAsync(dto));
         }
