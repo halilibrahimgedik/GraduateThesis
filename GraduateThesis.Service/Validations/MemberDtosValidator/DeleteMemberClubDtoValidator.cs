@@ -1,16 +1,16 @@
 ﻿using FluentValidation;
-using GraduateThesis.Core.Dtos.SubscriberDtos;
+using GraduateThesis.Core.Dtos.MemberDtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GraduateThesis.Service.Validations.SubscriberDtosValidator
+namespace GraduateThesis.Service.Validations.MemberDtosValidator
 {
-    public class DeleteSubscriberClubDtoValidator : AbstractValidator<DeleteSubscriberClubDto>
+    public class DeleteMemberClubDtoValidator : AbstractValidator<DeleteMemberClubDto>
     {
-        public DeleteSubscriberClubDtoValidator()
+        public DeleteMemberClubDtoValidator()
         {
             RuleFor(x => x.UserId).NotEmpty().WithMessage("{PropertyName} can not be empty.");
 

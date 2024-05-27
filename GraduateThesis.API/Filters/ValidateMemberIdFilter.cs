@@ -1,5 +1,5 @@
 ﻿using GraduateThesis.Core.Dtos.CustomResponseDtos;
-using GraduateThesis.Core.Dtos.SubscriberDtos;
+using GraduateThesis.Core.Dtos.MemberDtos;
 using GraduateThesis.Core.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace GraduateThesis.API.Filters
 {
-    public class ValidateSubscriberIdFilter : IAsyncActionFilter
+    public class ValidateMemberIdFilter : IAsyncActionFilter
     {
         private readonly UserManager<AppUser> _userManager;
-        public ValidateSubscriberIdFilter(UserManager<AppUser> userManager)
+        public ValidateMemberIdFilter(UserManager<AppUser> userManager)
         {
             _userManager = userManager;
         }
@@ -28,7 +28,7 @@ namespace GraduateThesis.API.Filters
 
             string userId = null;
 
-            if (idValue is SubscriberIdDto dto) // pattern Matching kullanarak ile idValue nesnesini dto'ya cast ettik
+            if (idValue is MemberIdDto dto) // pattern Matching kullanarak ile idValue nesnesini dto'ya cast ettik
             {
                 userId = dto.UserId;
             }

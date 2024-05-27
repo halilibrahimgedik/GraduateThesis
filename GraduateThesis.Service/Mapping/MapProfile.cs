@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
+using GraduateThesis.Core.Dtos.ApplicationDtos;
 using GraduateThesis.Core.Dtos.AppUserDtos;
 using GraduateThesis.Core.Dtos.CategoryDtos;
 using GraduateThesis.Core.Dtos.ClubDtos;
 using GraduateThesis.Core.Dtos.RoleDtos;
-using GraduateThesis.Core.Dtos.SubscriberDtos;
+using GraduateThesis.Core.Dtos.MemberDtos;
 using GraduateThesis.Core.Dtos.UniversityDtos;
 using GraduateThesis.Core.Models;
 using Microsoft.AspNetCore.Identity;
@@ -19,13 +20,17 @@ namespace GraduateThesis.Service.Mapping
     {
         public MapProfile()
         {
-            // ! ClubAppUser mapping
-            CreateMap<CreateSubscriberDto, ClubAppUser>()
-                .ForMember(dest => dest.AppUserId, opt => opt.MapFrom(src => src.UserId)).ReverseMap();
+            CreateMap<CreateApplicationDto, Application>();
+            CreateMap<Application, ApplicationDto>();
 
-            CreateMap<ClubAppUser, SubsClubsDto>();
-            CreateMap<ClubAppUser, SubscriberClubsDto>()
-                .ForMember(dest => dest.SubscribersClubs, opt => opt.MapFrom(src => new SubsClubsDto()
+
+            // ! ClubAppUser mapping
+            //CreateMap<CreateSubscriberDto, ClubAppUser>()
+            //    .ForMember(dest => dest.AppUserId, opt => opt.MapFrom(src => src.UserId)).ReverseMap();
+
+            CreateMap<ClubAppUser, MemberClubDto>();
+            CreateMap<ClubAppUser, MemberClubsDto>()
+                .ForMember(dest => dest.MemberClubs, opt => opt.MapFrom(src => new MemberClubDto()
                 {
                     ClubId = src.ClubId,
                     ClubName = src.Club.Name,

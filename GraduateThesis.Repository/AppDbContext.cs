@@ -28,7 +28,7 @@ namespace GraduateThesis.Repository
         public DbSet<University> Universities { get; set; }
 
         public DbSet<Application> Applications { get; set; }
-        public DbSet<ClubPresident> clubPresidents { get; set; }
+        public DbSet<ClubPresident> ClubPresidents { get; set; }
 
 
 

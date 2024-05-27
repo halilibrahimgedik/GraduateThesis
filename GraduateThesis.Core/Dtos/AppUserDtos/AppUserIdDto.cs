@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GraduateThesis.Core.Dtos.SubscriberDtos
+namespace GraduateThesis.Core.Dtos.AppUserDtos
 {
-    public class SubscriberIdDto
+    public class AppUserIdDto
     {
-        public string UserId { get; set; }
+        public string AppUserId { get; set; }
     }
 }
