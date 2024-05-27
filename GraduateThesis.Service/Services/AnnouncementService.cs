@@ -51,6 +51,17 @@ namespace GraduateThesis.Service.Services
 
         public async Task<CustomResponseDto<NoDataDto>> UpdateAsync(UpdateAnnouncementDto updateAnnouncementDto)
         {
+            var entityExist = await _announcementRepository.GetByIdAsync(updateAnnouncementDto.Id) ?? throw new NotFoundException("Announcement not found !");
+
+            var user = await _userManager.FindByIdAsync(updateAnnouncementDto.AppUserId) ?? throw new NotFoundException("app user not found !");
+
+            var clubExist = await _clubRepository.AnyAsync(x=>x.Id == updateAnnouncementDto.Id);
+
+            if (!clubExist)
+            {
+                throw new NotFoundException("club not found !");
+            }
+
             var announcement = ObjectMapper.Mapper.Map<Announcement>(updateAnnouncementDto);
 
             _announcementRepository.Update(announcement);

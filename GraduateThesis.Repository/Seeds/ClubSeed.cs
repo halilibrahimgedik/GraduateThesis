@@ -24,7 +24,9 @@ namespace GraduateThesis.Repository.Seeds
 
                     new Club() { Id = 5, Name = "Elit Dans Kulübü", Summary = "Elit Dans Kulübü, ritim tutmayı seven herkes için mükemmel bir buluşma noktasıdır. Eğlenceli dans dersleri ve unutulmaz performanslarla dolu bir deneyim için seni de bekliyoruz!", ClubUniversityId = 60, Url = "default.jpg", IsActive = true, CreatedDate = DateTime.Now },
 
-                    new Club() { Id = 6, Name = "The Young Entrepreneurs Club", Summary = "Genç Girişimciler Kulübü, yenilikçi fikirleriyle öne çıkan gençleri bir araya getirir. İş dünyasına adım atmak isteyenlere mentorluk yapar ve eğitimler düzenler. İş hayatına dair her şeyi keşfetmek için seni de aramıza bekliyoruz!", ClubUniversityId = 60, Url = "default.jpg", IsActive = true, CreatedDate = DateTime.Now }
+                    new Club() { Id = 6, Name = "The Young Entrepreneurs Club", Summary = "Genç Girişimciler Kulübü, yenilikçi fikirleriyle öne çıkan gençleri bir araya getirir. İş dünyasına adım atmak isteyenlere mentorluk yapar ve eğitimler düzenler. İş hayatına dair her şeyi keşfetmek için seni de aramıza bekliyoruz!", ClubUniversityId = 60, Url = "default.jpg", IsActive = true, CreatedDate = DateTime.Now },
+
+                     new Club() { Id = 7, Name = "Aqua Yüzme Kulübü", Summary = "Aqua Yüzme Kulübü, yüzme sporuna ilgi duyan herkese modern tesisleri ve deneyimli antrenörleriyle hizmet vermektedir. Her yaş ve seviyedeki yüzücülere özel eğitim programları sunan kulübümüz, sağlıklı yaşam ve fitness odaklı etkinliklerle üyelerimizin becerilerini geliştirmelerine yardımcı olur. Yüzme sporunu bir yaşam tarzı haline getirmek isteyenleri, Aqua Yüzme Kulübü'ne katılmaya davet ediyoruz.", ClubUniversityId = 60, Url = "default.jpg", IsActive = true, CreatedDate = DateTime.Now }
 
                 );
         }
