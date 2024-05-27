@@ -15,5 +15,6 @@ namespace GraduateThesis.Core.Repositories
         Task<Club> GetClubByIdWithCategories(int id);
 
         Task<IEnumerable<Club>> GetClubsByUniversityWithCategoriesAsync(int universityId);
+        Task RemoveWithImageAsync(Club entity);
     }
 }

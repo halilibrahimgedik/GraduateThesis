@@ -2,11 +2,13 @@
 using GraduateThesis.Core.Dtos.ApplicationDtos;
 using GraduateThesis.Core.Dtos.MemberDtos;
 using GraduateThesis.Core.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GraduateThesis.API.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Bearer", Roles = "admin,club-president")]
     [Route("api/applications")]
     public class ApplicationsController : CustomBaseController
     {
@@ -16,9 +18,9 @@ namespace GraduateThesis.API.Controllers
             _applicationService = applicationService;
         }
 
-
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPost]
-        public async Task<IActionResult> ApplyForClub([FromForm]CreateApplicationDto dto)
+        public async Task<IActionResult> ApplyForClub([FromForm] CreateApplicationDto dto)
         {
             return CreateAction(await _applicationService.ApplyForClub(dto));
         }

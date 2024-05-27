@@ -150,8 +150,8 @@ namespace GraduateThesis.Service.Services
         {
             var entity = await _clubRepository.GetByIdAsync(id) ?? throw new ClientSideException("Club not found !");
 
-            _clubRepository.Remove(entity);
-            _formFileHelper.Delete(entity.Url);
+            await _clubRepository.RemoveWithImageAsync(entity);
+            //_formFileHelper.Delete(entity.Url);
             await _unitOfWork.CommitAsync();
 
             return CustomResponseDto<NoDataDto>.Success(StatusCodes.Status204NoContent);

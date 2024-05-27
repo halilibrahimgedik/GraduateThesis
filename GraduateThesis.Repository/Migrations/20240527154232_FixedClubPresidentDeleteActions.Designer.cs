@@ -4,6 +4,7 @@ using GraduateThesis.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GraduateThesis.Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240527154232_FixedClubPresidentDeleteActions")]
+    partial class FixedClubPresidentDeleteActions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,7 +59,7 @@ namespace GraduateThesis.Repository.Migrations
 
                     b.HasIndex("ClubId");
 
-                    b.ToTable("Announcements", (string)null);
+                    b.ToTable("Announcements");
                 });
 
             modelBuilder.Entity("GraduateThesis.Core.Models.Application", b =>
@@ -92,7 +94,7 @@ namespace GraduateThesis.Repository.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("Applications", (string)null);
+                    b.ToTable("Applications");
                 });
 
             modelBuilder.Entity("GraduateThesis.Core.Models.AppUser", b =>
@@ -207,7 +209,7 @@ namespace GraduateThesis.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
 
                     b.HasData(
                         new
@@ -288,7 +290,7 @@ namespace GraduateThesis.Repository.Migrations
 
                     b.HasIndex("ClubUniversityId");
 
-                    b.ToTable("Clubs", (string)null);
+                    b.ToTable("Clubs");
 
                     b.HasData(
                         new
@@ -365,7 +367,7 @@ namespace GraduateThesis.Repository.Migrations
 
                     b.HasIndex("ClubId");
 
-                    b.ToTable("ClubAppUsers", (string)null);
+                    b.ToTable("ClubAppUsers");
 
                     b.HasData(
                         new
@@ -392,7 +394,7 @@ namespace GraduateThesis.Repository.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("ClubCategories", (string)null);
+                    b.ToTable("ClubCategories");
 
                     b.HasData(
                         new
@@ -442,7 +444,7 @@ namespace GraduateThesis.Repository.Migrations
 
                     b.HasIndex("ClubId");
 
-                    b.ToTable("ClubPresidents", (string)null);
+                    b.ToTable("ClubPresidents");
                 });
 
             modelBuilder.Entity("GraduateThesis.Core.Models.University", b =>
@@ -489,7 +491,7 @@ namespace GraduateThesis.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Universities", (string)null);
+                    b.ToTable("Universities");
                 });
 
             modelBuilder.Entity("GraduateThesis.Core.Models.UserRefreshToken", b =>
@@ -506,7 +508,7 @@ namespace GraduateThesis.Repository.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("UserRefreshTokens", (string)null);
+                    b.ToTable("UserRefreshTokens");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

@@ -26,7 +26,7 @@ namespace GraduateThesis.Repository.Repositories
 
         public async Task<Club> GetClubByIdWithCategories(int id)
         {
-            return await _dbContext.Clubs.Include(c => c.ClubCategories).ThenInclude(cc=>cc.Category).FirstOrDefaultAsync(c => c.Id == id);
+            return await _dbContext.Clubs.Include(c => c.ClubCategories).ThenInclude(cc => cc.Category).FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<IEnumerable<Club>> GetClubsByUniversityWithCategoriesAsync(int universityId)
@@ -37,5 +37,20 @@ namespace GraduateThesis.Repository.Repositories
                                         .ThenInclude(cc => cc.Category)
                                         .ToListAsync();
         }
+
+        public async Task RemoveWithImageAsync(Club entity)
+        {
+            var club = await _dbContext.Clubs.Include(c => c.ClubPresidents).FirstOrDefaultAsync(c => c.Id == entity.Id);
+
+            if (club == null)
+            {
+                throw new KeyNotFoundException("Club not found.");
+            }
+
+            _dbContext.ClubPresidents.RemoveRange(club.ClubPresidents);
+
+            _dbContext.Clubs.Remove(club);
+        }
     }
 }
+

@@ -4,11 +4,13 @@ using GraduateThesis.Core.Dtos.AppUserDtos;
 using GraduateThesis.Core.Dtos.MemberDtos;
 using GraduateThesis.Core.Models;
 using GraduateThesis.Core.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GraduateThesis.API.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/members")]
     public class MembersController : CustomBaseController
     {

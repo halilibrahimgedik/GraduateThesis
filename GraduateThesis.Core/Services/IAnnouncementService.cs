@@ -1,4 +1,5 @@
 ﻿using GraduateThesis.Core.Dtos.AnnouncementDtos;
+using GraduateThesis.Core.Dtos.CustomResponseDtos;
 using GraduateThesis.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,6 @@ namespace GraduateThesis.Core.Services
 {
     public interface IAnnouncementService : IGenericService<Announcement,AnnouncementDto>
     {
-
+        Task<CustomResponseDto<AnnouncementDto>> AddAsync(CreateAnnouncementDto createAnnouncementDto);
     }
 }

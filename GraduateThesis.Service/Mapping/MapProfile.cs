@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GraduateThesis.Core.Dtos.AnnouncementDtos;
 
 namespace GraduateThesis.Service.Mapping
 {
@@ -20,6 +21,11 @@ namespace GraduateThesis.Service.Mapping
     {
         public MapProfile()
         {
+            // ! Announcement
+            CreateMap<CreateAnnouncementDto, Announcement>();
+
+
+            // ! Application
             CreateMap<CreateApplicationDto, Application>();
             CreateMap<Application, ApplicationDto>();
 
