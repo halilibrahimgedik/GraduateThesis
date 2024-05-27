@@ -12,7 +12,7 @@ namespace GraduateThesis.Core.Dtos.ApplicationDtos
         public string AppUserId { get; set; }
         public int ClubId { get; set; }
 
-        public IFormFile Cv { get; set; }
+        public IFormFile CvFile { get; set; }
 
         public string Description { get; set; }
     }

@@ -51,8 +51,8 @@ namespace GraduateThesis.API.Utilities.Helpers
 
             string uniqueFileName = GuidHelper_.CreateUniqueFileName() + fileExtension;
 
-            var imagePath = FilePathToSave.FullPath(uniqueFileName);
-            using FileStream fileStream = new(imagePath, FileMode.Create);
+            var pdfPath = FilePathToSave.FullPath(uniqueFileName);
+            using FileStream fileStream = new(pdfPath, FileMode.Create);
 
             await file.CopyToAsync(fileStream);
             await fileStream.FlushAsync(); 
@@ -110,7 +110,7 @@ namespace GraduateThesis.API.Utilities.Helpers
 
         private static void ValidatePdfExtension(string fileExtension)
         {
-            string allowedExtension = "pdf";
+            string allowedExtension = ".pdf";
 
             if (!allowedExtension.Equals(fileExtension, StringComparison.OrdinalIgnoreCase))
             {

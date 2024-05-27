@@ -22,24 +22,29 @@ namespace GraduateThesis.Service.Services
         private readonly UserManager<AppUser> _userManager;
         private readonly IClubPresidentRepository _clubPresidentRepository;
         private readonly IMemberService _memberService;
+        private readonly IFormFileHelper _formFileHelper;
         private readonly IUnitOfWork _unitOfWork;
 
 
-        public ApplicationService(IApplicationRepository repository, IUnitOfWork unitOfWork, UserManager<AppUser> userManager, IClubPresidentRepository clubPresidentRepository, IMemberService memberService)
+        public ApplicationService(IApplicationRepository repository, IUnitOfWork unitOfWork, UserManager<AppUser> userManager, IClubPresidentRepository clubPresidentRepository, IMemberService memberService, IFormFileHelper formFileHelper)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
             _userManager = userManager;
             _clubPresidentRepository = clubPresidentRepository;
             _memberService = memberService;
+            _formFileHelper = formFileHelper;
         }
 
 
         public async Task<CustomResponseDto<NoDataDto>> ApplyForClub(CreateApplicationDto dto)
         {
-            
+            var pdfUrl = await _formFileHelper.AddCvAsync(dto.CvFile);
 
             var application = ObjectMapper.Mapper.Map<Application>(dto);
+
+            application.Cv = pdfUrl;
+
 
             await _repository.ApplyForClub(application);
             await _unitOfWork.CommitAsync();

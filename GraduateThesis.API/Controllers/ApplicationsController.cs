@@ -18,7 +18,7 @@ namespace GraduateThesis.API.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> ApplyForClub(CreateApplicationDto dto)
+        public async Task<IActionResult> ApplyForClub([FromForm]CreateApplicationDto dto)
         {
             return CreateAction(await _applicationService.ApplyForClub(dto));
         }

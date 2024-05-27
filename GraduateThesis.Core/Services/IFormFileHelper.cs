@@ -10,6 +10,8 @@ namespace GraduateThesis.Core.Services
     public interface IFormFileHelper
     {
         Task<string> AddAsync(IFormFile file);
+        Task<string> AddCvAsync(IFormFile file);
+
         void Delete(string path);
         Task<string> UpdateAsync(IFormFile file, string imagePath);
     }
