@@ -21,14 +21,13 @@ namespace GraduateThesis.Repository
         public DbSet<Club> Clubs { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ClubCategory> ClubCategories { get; set; }
-
-        public DbSet<ClubAppUser> ClubAppUsers { get; set; }
-
         public DbSet<UserRefreshToken> UserRefreshTokens { get; set; }
         public DbSet<University> Universities { get; set; }
 
+        public DbSet<ClubAppUser> ClubAppUsers { get; set; }
         public DbSet<Application> Applications { get; set; }
         public DbSet<ClubPresident> ClubPresidents { get; set; }
+        public DbSet<Announcement> Announcements { get; set; }
 
 
 
