@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GraduateThesis.Core.Dtos.SubscriberDtos
+namespace GraduateThesis.Core.Dtos.MemberDtos
 {
-    public class SubscriberClubsDto : SubscriberIdDto
+    public class MemberClubsDto : MemberIdDto
     {
-        public List<SubsClubsDto> SubscribersClubs { get; set; } = new List<SubsClubsDto>();
+        public List<MemberClubDto> MemberClubs { get; set; } = new List<MemberClubDto>();
     }
 }

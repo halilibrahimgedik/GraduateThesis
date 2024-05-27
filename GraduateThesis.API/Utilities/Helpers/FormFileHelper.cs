@@ -20,7 +20,7 @@ namespace GraduateThesis.API.Utilities.Helpers
             //dosyanın uzantısını alıyorum.
             string fileExtension = Path.GetExtension(file.FileName);
 
-            DoesUploadAllowed(fileExtension);
+            ValidateImageExtension(fileExtension);
 
             //Guid ile uzantıyı birleştiriyorum.
             //string uniqueFileName = string.Format($"{new Guid()}{fileExtension}");
@@ -36,6 +36,30 @@ namespace GraduateThesis.API.Utilities.Helpers
             var imageUrl = _configuration.GetSection("WebsiteImageUrl").Value.ToString() + uniqueFileName; // resim url'si
 
             return await Task.FromResult(imageUrl);
+        }
+
+        // Cv , pdf formatında
+        public async Task<string> AddCvAsync(IFormFile file)
+        {
+            // dosya uzantısı 1MB'ı aşmamalı
+            CheckFileSize(file);
+
+            //dosyanın uzantısını alıyorum.
+            string fileExtension = Path.GetExtension(file.FileName);
+
+            ValidatePdfExtension(fileExtension);
+
+            string uniqueFileName = GuidHelper_.CreateUniqueFileName() + fileExtension;
+
+            var pdfPath = FilePathToSave.FullPath(uniqueFileName);
+            using FileStream fileStream = new(pdfPath, FileMode.Create);
+
+            await file.CopyToAsync(fileStream);
+            await fileStream.FlushAsync(); 
+
+            var pdfUrl = _configuration.GetSection("WebsitePdfUrl").Value.ToString() + uniqueFileName; // pdf url'si
+
+            return await Task.FromResult(pdfUrl);
         }
 
         public void Delete(string path)
@@ -55,7 +79,7 @@ namespace GraduateThesis.API.Utilities.Helpers
         {
             CheckFileSize(file);
 
-            DoesUploadAllowed(Path.GetExtension(file.FileName));
+            ValidateImageExtension(Path.GetExtension(file.FileName));
 
             if (!string.IsNullOrEmpty(imageUrl) && File.Exists(imageUrl))
             {
@@ -74,7 +98,7 @@ namespace GraduateThesis.API.Utilities.Helpers
 
 
 
-        private void DoesUploadAllowed(string fileExtension)
+        private static void ValidateImageExtension(string fileExtension)
         {
             var allowedExtensions = new string[] { ".png", ".jpg", ".jpeg" };
 
@@ -84,7 +108,17 @@ namespace GraduateThesis.API.Utilities.Helpers
             }
         }
 
-        private void CheckFileSize(IFormFile file)
+        private static void ValidatePdfExtension(string fileExtension)
+        {
+            string allowedExtension = ".pdf";
+
+            if (!allowedExtension.Equals(fileExtension, StringComparison.OrdinalIgnoreCase))
+            {
+                throw new ClientSideException($"You cannot upload a file with {fileExtension} extension.");
+            }
+        }
+
+        private static void CheckFileSize(IFormFile file)
         {
             // max dosya boyutu
             const long maxFileSize = 1 * 1024 * 1024; 

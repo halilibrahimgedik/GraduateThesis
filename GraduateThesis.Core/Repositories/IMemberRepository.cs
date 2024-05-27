@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace GraduateThesis.Core.Repositories
 {
-    public interface ISubscriberRepository : IGenericRepository<ClubAppUser>
+    public interface IMemberRepository : IGenericRepository<ClubAppUser>
     {
-        IQueryable<ClubAppUser> GetSubscriberClubs(string id);
+        IQueryable<ClubAppUser> GetMemberClubs(string id);
         Task<ClubAppUser> GetClubAppUserById(string id);
 
-        Task<bool> isUserMemberOfAnyClub(string userId, int clubId);
+        Task<bool> isUserMemberOfSpecifiedClub(string userId, int clubId);
 
         void Remove(string userId, int clubId);
     }

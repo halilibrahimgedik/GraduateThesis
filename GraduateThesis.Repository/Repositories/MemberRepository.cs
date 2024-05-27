@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace GraduateThesis.Repository.Repositories
 {
-    public class SubscriberRepository : GenericRepository<ClubAppUser>, ISubscriberRepository
+    public class MemberRepository : GenericRepository<ClubAppUser>, IMemberRepository
     {
-        public SubscriberRepository(AppDbContext dbContext) : base(dbContext)
+        public MemberRepository(AppDbContext dbContext) : base(dbContext)
         {
         }
 
@@ -20,12 +20,12 @@ namespace GraduateThesis.Repository.Repositories
             return await _dbContext.ClubAppUsers.FirstOrDefaultAsync(x => x.AppUserId == id);
         }
 
-        public async Task<bool> isUserMemberOfAnyClub(string userId,int clubId)
+        public async Task<bool> isUserMemberOfSpecifiedClub(string userId,int clubId)
         {
             return await _dbContext.ClubAppUsers.AnyAsync(x => x.ClubId == clubId && x.AppUserId == userId);
         }
 
-        public IQueryable<ClubAppUser> GetSubscriberClubs(string id)
+        public IQueryable<ClubAppUser> GetMemberClubs(string id)
         {
             return _dbContext.ClubAppUsers.AsNoTracking()
                 .Where(x => x.AppUserId == id)

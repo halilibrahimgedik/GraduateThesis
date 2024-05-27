@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GraduateThesis.Core.Dtos.SubscriberDtos
+namespace GraduateThesis.Core.Dtos.MemberDtos
 {
-    public class SubsClubsDto
+    public class MemberClubDto
     {
         public int ClubId { get; set; }
         public string ClubName { get; set; }
